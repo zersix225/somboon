@@ -24,6 +24,12 @@
     "node": ">=18"
   },
   "lint-staged": {
+    "packages/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ],
+    "apps/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ],
     "**/*": "prettier --write --ignore-unknown"
   }
 }
