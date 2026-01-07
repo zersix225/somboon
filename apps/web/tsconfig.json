@@ -8,6 +8,7 @@
     ],
     "paths": {
       "~/*": ["./app/*"],
+      "@/*": ["./*"],
       "@repo/shadcn/*": ["../../packages/shadcn/src/*"]
     }
   },
@@ -15,7 +16,7 @@
     "**/*.ts",
     "**/*.tsx",
     "next-env.d.ts",
-    "next.config.js",
+    "next.config",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
