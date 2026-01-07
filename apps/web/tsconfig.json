@@ -5,7 +5,15 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "~/*": [
+        "./app/*",
+      ],
+      "@repo/shadcn/*": [
+        "../../packages/shadcn/src/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
@@ -14,7 +22,5 @@
     "next.config.js",
     ".next/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

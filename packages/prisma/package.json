@@ -1,0 +1,38 @@
+{
+  "name": "@repo/prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rslib build",
+    "dev": "rslib build --watch",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/rslib-config": "workspace:*",
+    "@rslib/core": "^0.19.1",
+    "@total-typescript/tsconfig": "^1.0.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.2.0",
+    "@prisma/client-runtime-utils": "^7.2.0",
+    "prisma": "^7.2.0"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/esm/src/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/cjs/src/index.d.ts",
+        "default": "./dist/cjs/index.cjs"
+      }
+    }
+  }
+}

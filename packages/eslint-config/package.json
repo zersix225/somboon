@@ -6,7 +6,11 @@
   "exports": {
     "./base": "./base.js",
     "./next-js": "./next.js",
-    "./react-internal": "./react-internal.js"
+    "./react-internal": "./react-internal.js",
+    "./prettier.conf": {
+      "default": "./prettier.conf.ts",
+      "types": "./prettier.conf.ts"
+    }
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -18,7 +22,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-turbo": "^2.7.1",
     "globals": "^16.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "typescript": "^5.9.2",
     "typescript-eslint": "^8.50.0"
+  },
+  "scripts": {
+    "prepare": "husky"
   }
 }

@@ -1,5 +1,5 @@
 import Image, { type ImageProps } from "next/image";
-import { Button } from "@repo/ui/button";
+import { Button } from '@repo/shadcn/components/button'
 import styles from "./page.module.css";
 
 type Props = Omit<ImageProps, "src"> & {
@@ -63,7 +63,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-        <Button appName="web" className={styles.secondary}>
+        <Button className="p-4 bg-red-500 rounded-full" >
           Open alert
         </Button>
       </main>
