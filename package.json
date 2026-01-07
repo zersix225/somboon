@@ -7,7 +7,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "prepare": "node .husky/install.mjs"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
@@ -15,7 +15,6 @@
     "eslint-config-prettier": "^10.1.1",
     "husky": "^9.1.7",
     "jiti": "^2.6.1",
-    "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
     "turbo": "^2.7.3",
     "typescript": "5.9.2"
@@ -23,5 +22,8 @@
   "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
