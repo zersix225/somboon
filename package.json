@@ -32,5 +32,8 @@
       "prettier --write"
     ],
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "recharts": "^3.6.0"
   }
 }

@@ -1,5 +1,1 @@
-import { Button } from "@repo/shadcn/components/button";
-
-export default function Dashboard() {
-  return <div></div>;
-}
+export { default } from "@/components/features/dashboard";
