@@ -29,7 +29,7 @@ import {
   useSidebar,
 } from "@repo/shadcn/components/sidebar";
 
-export function NavUser({
+export default function NavUser({
   user,
 }: {
   user: {

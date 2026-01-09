@@ -1,6 +1,6 @@
-import { AnalysisCard } from "@/components/cards/anlysis-card";
+import AnalysisCard from "@/components/cards/anlysis-card";
 import { ChartArea } from "@/components/chart/chart-area";
-import { DataTable } from "@/components/tables/data-table";
+import DataTable from "@/components/tables/data-table";
 import data from "@/constants/data.json";
 
 export default function Dashboard() {

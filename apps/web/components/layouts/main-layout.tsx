@@ -1,6 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import { SidebarInset, SidebarProvider } from "@repo/shadcn/components/sidebar";
-import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import AppSidebar from "@/components/sidebar/app-sidebar";
 import { SiteHeader } from "@/components/headers/site-header";
 
 type MainLayoutProps = {

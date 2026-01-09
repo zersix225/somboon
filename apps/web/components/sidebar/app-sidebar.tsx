@@ -19,10 +19,10 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 
-import { NavDocuments } from "@/components/nav/nav-documents";
-import { NavMain } from "@/components/nav/nav-main";
-import { NavSecondary } from "@/components/nav/nav-secondary";
-import { NavUser } from "@/components/nav/nav-user";
+import NavDocuments from "@/components/nav/nav-documents";
+import NavMain from "@/components/nav/nav-main";
+import NavSecondary from "@/components/nav/nav-secondary";
+import NavUser from "@/components/nav/nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -135,7 +135,9 @@ const data = {
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export default function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>

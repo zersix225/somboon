@@ -13,7 +13,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function NavMain({
+export default function NavMain({
   items,
 }: {
   items: {

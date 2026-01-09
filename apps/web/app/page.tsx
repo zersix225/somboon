@@ -12,7 +12,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center">
-      <div className="text-2xl">Loading ...</div>x
+      <div className="text-meduim">Loading...</div>
     </div>
   );
 }

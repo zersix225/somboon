@@ -25,7 +25,7 @@ import {
   useSidebar,
 } from "@repo/shadcn/components/sidebar";
 
-export function NavDocuments({
+export default function NavDocuments({
   items,
 }: {
   items: {

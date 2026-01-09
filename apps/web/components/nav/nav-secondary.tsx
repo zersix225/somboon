@@ -11,7 +11,7 @@ import {
   SidebarMenuItem,
 } from "@repo/shadcn/components/sidebar";
 
-export function NavSecondary({
+export default function NavSecondary({
   items,
   ...props
 }: {
