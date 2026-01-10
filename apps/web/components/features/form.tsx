@@ -5,8 +5,8 @@ import RepairField from "@/components/fields/repair-feild";
 export default function Form() {
   return (
     <div className="flex flex-1 flex-col">
-      <div className="@container/main flex flex-1 flex-col gap-2 md:gap-6 px-4 lg:px-6 py-4 md:py-6">
-        <div>
+      <div className="@container/main flex flex-1 flex-col px-4 lg:px-6 py-4 md:py-6">
+        <div className="mb-4">
           <h1 className="font-medium">Repair Detail</h1>
           <span className="text-muted-foreground text-sm leading-normal font-normal">
             Enter the required data below this form

@@ -9,6 +9,7 @@ import {
 } from "@repo/shadcn/components/empty";
 import {
   Item,
+  ItemActions,
   ItemContent,
   ItemDescription,
   ItemGroup,
@@ -18,6 +19,7 @@ import {
 import { IconPhoto } from "@tabler/icons-react";
 import { Input } from "@repo/shadcn/components/input";
 import { Button } from "@repo/shadcn/components/button";
+import { IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useRef, useState, DragEvent } from "react";
 
@@ -142,9 +144,14 @@ export default function UploadCard() {
                       </ItemTitle>
                       <ItemDescription>{img.file?.size}</ItemDescription>
                     </ItemContent>
-                    <ItemContent className="flex-none text-center">
-                      {/*<ItemDescription>{song.duration}</ItemDescription>*/}
-                    </ItemContent>
+                    <ItemActions>
+                      <Button size="icon-sm" variant="outline">
+                        <IconTrash
+                          stroke={2}
+                          className="text-destructive-foreground size-5"
+                        />
+                      </Button>
+                    </ItemActions>
                   </a>
                 </Item>
               ))}

@@ -48,16 +48,13 @@ export default function RepairField() {
               </Field>
               <Field>
                 <FieldLabel htmlFor="checkout-7j9-card-number-uw1">
-                  Card Number
+                  Services
                 </FieldLabel>
                 <Input
                   id="checkout-7j9-card-number-uw1"
                   placeholder="1234 5678 9012 3456"
                   required
                 />
-                <FieldDescription>
-                  Enter your 16-digit card number
-                </FieldDescription>
               </Field>
               <div className="grid grid-cols-3 gap-4">
                 <Field>
