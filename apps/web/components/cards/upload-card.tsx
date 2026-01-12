@@ -145,7 +145,7 @@ export default function UploadCard() {
                       <ItemDescription>{img.file?.size}</ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <Button size="icon-sm" variant="outline">
+                      <Button size="icon-sm" variant="destructive">
                         <IconTrash
                           stroke={2}
                           className="text-destructive-foreground size-5"
