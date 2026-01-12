@@ -65,6 +65,11 @@ export default function UploadCard() {
     e.preventDefault();
   };
 
+  const handleDelete = (indexInput: number) => {
+    const remaining = image.filter((_, index) => index !== indexInput);
+    setImage(remaining);
+  };
+
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     dragRef.current = 0;
@@ -127,8 +132,8 @@ export default function UploadCard() {
           <div className="flex w-full flex-col gap-6 mt-4">
             <ItemGroup className="gap-4">
               {image.map((img, index) => (
-                <Item key={index} variant="outline" asChild role="listitem">
-                  <a href={img.url}>
+                <Item key={index} variant="outline" role="listitem">
+                  <div className="flex items-center justify-center gap-2 w-full">
                     <ItemMedia variant="image">
                       <Image
                         src={img.url}
@@ -138,21 +143,29 @@ export default function UploadCard() {
                         className="aspect-square object-cover"
                       />
                     </ItemMedia>
-                    <ItemContent>
+                    <ItemContent className="w-full">
                       <ItemTitle className="line-clamp-1">
                         {img.file?.name}
                       </ItemTitle>
                       <ItemDescription>{img.file?.size}</ItemDescription>
                     </ItemContent>
                     <ItemActions>
-                      <Button size="icon-sm" variant="destructive">
+                      <Button
+                        size="sm"
+                        type="button"
+                        variant="destructive"
+                        className="flex-grow"
+                        onClick={() => {
+                          handleDelete(index);
+                        }}
+                      >
                         <IconTrash
                           stroke={2}
                           className="text-destructive-foreground size-5"
                         />
                       </Button>
                     </ItemActions>
-                  </a>
+                  </div>
                 </Item>
               ))}
             </ItemGroup>

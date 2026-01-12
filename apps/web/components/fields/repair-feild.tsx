@@ -18,7 +18,7 @@ import { Textarea } from "@repo/shadcn/components/textarea";
 import { IconCircleDashedPlus, IconTrash } from "@tabler/icons-react";
 import CustomerDropdown from "@/components/dropdowns/customer-dropdown";
 import UploadCard from "@/components/cards/upload-card";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 type Item = {
   id: number;
@@ -27,6 +27,17 @@ type Item = {
 export default function RepairField() {
   const [item, setItem] = useState<Item[]>([{ id: 0 }]);
   const [nextId, setNextId] = useState(1);
+
+  const yearArray = useMemo(() => {
+    let year = Number(JSON.stringify(new Date()).slice(1, 5));
+    const result: Array<number> = [];
+
+    for (let i = 0; i < 5; i++) {
+      result.push(year);
+      year++;
+    }
+    return result;
+  }, []);
 
   const handleValueDM = (limit: number) => {
     const value: Array<number> = [];
@@ -48,7 +59,7 @@ export default function RepairField() {
 
   useEffect(() => {
     localStorage.setItem("item_key", JSON.stringify(item));
-  }, [item, nextId]);
+  }, [item]);
 
   useEffect(() => {
     const getLocal = localStorage.getItem("item_key");
@@ -60,6 +71,7 @@ export default function RepairField() {
       setNextId(maxId + 1);
     }
   }, []);
+
   console.log(item);
   return (
     <div className="w-full">
@@ -131,12 +143,11 @@ export default function RepairField() {
                       <SelectValue placeholder="YYYY" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="2024">2024</SelectItem>
-                      <SelectItem value="2025">2025</SelectItem>
-                      <SelectItem value="2026">2026</SelectItem>
-                      <SelectItem value="2027">2027</SelectItem>
-                      <SelectItem value="2028">2028</SelectItem>
-                      <SelectItem value="2029">2029</SelectItem>
+                      {yearArray.map((y, index) => (
+                        <SelectItem key={index} value={y.toString()}>
+                          {y}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </Field>
