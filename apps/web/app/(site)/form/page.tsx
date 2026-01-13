@@ -1,1 +1,1 @@
-export { default } from "@/components/features/form";
+export { default } from "@/components/features/repair-form";

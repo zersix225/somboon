@@ -49,6 +49,13 @@ const data = {
       title: "Form",
       url: "/form",
       icon: IconListDetails,
+      items: [
+        {
+          title: "Customer",
+          url: "/form/customer",
+          isActive: true,
+        },
+      ],
     },
   ],
   navClouds: [
@@ -158,11 +165,11 @@ export default function AppSidebar({
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/*<NavSecondary items={data.navSecondary} className="mt-auto" />*/}
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      {/*<SidebarFooter>*/}
+      {/*  <NavUser user={data.user} />*/}
+      {/*</SidebarFooter>*/}
     </Sidebar>
   );
 }

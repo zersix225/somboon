@@ -1,9 +1,16 @@
 "use client";
 
-import { Button } from "@repo/shadcn/components/button";
 import { Separator } from "@repo/shadcn/components/separator";
 import { SidebarTrigger } from "@repo/shadcn/components/sidebar";
 import { usePathname } from "next/dist/client/components/navigation";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@repo/shadcn/components/breadcrumb";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -17,7 +24,17 @@ export function SiteHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-medium">{format}</h1>
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbLink href="#">{format}</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator className="hidden md:block" />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
     </header>
   );

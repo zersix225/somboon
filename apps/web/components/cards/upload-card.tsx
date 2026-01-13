@@ -49,13 +49,13 @@ export default function UploadCard() {
   };
 
   const addFiles = (files: FileList | null) => {
-    if (files) {
-      const multipleFile = Array.from(files).map((file) => ({
-        file,
-        url: URL.createObjectURL(file),
-      }));
-      setImage((prev) => [...prev, ...multipleFile]);
-    }
+    if (!files) return;
+    console.log("added files");
+    const multipleFile = Array.from(files).map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+    }));
+    setImage((prev) => [...prev, ...multipleFile]);
   };
 
   const onButtonClick = () => {
@@ -68,6 +68,8 @@ export default function UploadCard() {
   const handleDelete = (indexInput: number) => {
     const remaining = image.filter((_, index) => index !== indexInput);
     setImage(remaining);
+
+    if (inputFileRef.current) inputFileRef.current.value = "";
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -82,6 +84,7 @@ export default function UploadCard() {
   };
 
   useEffect(() => {
+    console.log("image", image);
     return () => {
       if (image) {
         image.forEach((img) => {

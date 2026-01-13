@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@repo/shadcn/components/button";
 import {
   Field,
@@ -72,7 +74,6 @@ export default function RepairField() {
     }
   }, []);
 
-  console.log(item);
   return (
     <div className="w-full">
       <form>
@@ -99,11 +100,9 @@ export default function RepairField() {
                   required
                 />
               </Field>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-2">
                 <Field>
-                  <FieldLabel htmlFor="checkout-7j9-exp-year-f59">
-                    Day
-                  </FieldLabel>
+                  <FieldLabel htmlFor="day">Day</FieldLabel>
                   <Select defaultValue="">
                     <SelectTrigger id="checkout-7j9-exp-year-f59">
                       <SelectValue placeholder="DD" />
@@ -118,9 +117,7 @@ export default function RepairField() {
                   </Select>
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="checkout-exp-month-ts6">
-                    Month
-                  </FieldLabel>
+                  <FieldLabel htmlFor="month">Month</FieldLabel>
                   <Select defaultValue="">
                     <SelectTrigger id="checkout-exp-month-ts6">
                       <SelectValue placeholder="MM" />
@@ -135,9 +132,7 @@ export default function RepairField() {
                   </Select>
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="checkout-7j9-exp-year-f59">
-                    Year
-                  </FieldLabel>
+                  <FieldLabel htmlFor="year">Year</FieldLabel>
                   <Select defaultValue="">
                     <SelectTrigger id="checkout-7j9-exp-year-f59">
                       <SelectValue placeholder="YYYY" />
@@ -153,7 +148,7 @@ export default function RepairField() {
                 </Field>
               </div>
               <Field>
-                <FieldLabel htmlFor="checkout-7j9-card-number-uw1">
+                <FieldLabel htmlFor="service">
                   <div className="flex justify-between w-full items-center">
                     <span>Services</span>
                     <Button
@@ -194,9 +189,7 @@ export default function RepairField() {
           <FieldSet>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="checkout-7j9-optional-comments">
-                  Comments
-                </FieldLabel>
+                <FieldLabel htmlFor="comment">Comments</FieldLabel>
                 <Textarea
                   id="checkout-7j9-optional-comments"
                   placeholder="Add any additional comments"

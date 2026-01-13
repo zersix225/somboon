@@ -18,6 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@repo/shadcn/components/popover";
+import { useRouter } from "next/navigation";
 
 const frameworks = [
   {
@@ -29,6 +30,8 @@ const frameworks = [
 export default function CustomerDropdown() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  const router = useRouter();
 
   return (
     <div className="flex items-center gap-2">
@@ -78,7 +81,11 @@ export default function CustomerDropdown() {
           </Command>
         </PopoverContent>
       </Popover>
-      <Button type="button" className="flex-none">
+      <Button
+        type="button"
+        className="flex-none"
+        onClick={() => router.push("/form/customer")}
+      >
         Add Customer
       </Button>
     </div>

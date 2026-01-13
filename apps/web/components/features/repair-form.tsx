@@ -2,7 +2,7 @@
 
 import RepairField from "@/components/fields/repair-feild";
 
-export default function Form() {
+export default function RepairForm() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col px-4 lg:px-6 py-4 md:py-6">
@@ -12,14 +12,7 @@ export default function Form() {
             Enter the required data below this form
           </span>
         </div>
-        <div className="flex flex-row gap-6">
-          <div className="flex flex-2 flex-col">
-            <RepairField />
-          </div>
-          {/*<div className="flex flex-1 flex-col gap-2 min-h-[100vh] hidden lg:block">*/}
-          {/*  <h1 className="font-medium">Attachment files</h1>*/}
-          {/*</div>*/}
-        </div>
+        <RepairField />
       </div>
     </div>
   );
