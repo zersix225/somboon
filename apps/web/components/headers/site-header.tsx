@@ -32,12 +32,16 @@ export function SiteHeader() {
         />
         <Breadcrumb>
           <BreadcrumbList>
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="/form">{pathFormat[0]}</BreadcrumbLink>
+            <BreadcrumbItem>
+              {pathname === "/form" ? (
+                <BreadcrumbPage>{pathFormat[0]}</BreadcrumbPage>
+              ) : (
+                <BreadcrumbLink href="/form">{pathFormat[0]}</BreadcrumbLink>
+              )}
             </BreadcrumbItem>
             {pathFormat.length === 2 && (
               <BreadcrumbList>
-                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbSeparator />
                 <BreadcrumbItem>
                   <BreadcrumbPage>{pathFormat[1]}</BreadcrumbPage>
                 </BreadcrumbItem>
