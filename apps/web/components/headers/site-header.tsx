@@ -14,8 +14,14 @@ import {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const format = pathname.slice(1).charAt(0).toUpperCase() + pathname.slice(2);
 
+  const pathFormat = pathname
+    .split("/")
+    .slice(1)
+    .map((p) => {
+      const path = p.slice(1);
+      return p.charAt(0).toUpperCase() + path;
+    });
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
@@ -27,12 +33,16 @@ export function SiteHeader() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="#">{format}</BreadcrumbLink>
+              <BreadcrumbLink href="/form">{pathFormat[0]}</BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="hidden md:block" />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-            </BreadcrumbItem>
+            {pathFormat.length === 2 && (
+              <BreadcrumbList>
+                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{pathFormat[1]}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            )}
           </BreadcrumbList>
         </Breadcrumb>
       </div>
