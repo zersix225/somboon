@@ -38,4 +38,8 @@ yarn-error.log*
 *.pem
 
 .env.prod
-packages/prisma/.env.dev
+packages/prisma/.env.dev.
+.env.dev
+
+pgadmin
+db-data
