@@ -157,6 +157,9 @@ importers:
       "@repo/prisma":
         specifier: workspace:*
         version: link:../prisma
+      effect:
+        specifier: ^3.19.14
+        version: 3.19.14
       hono:
         specifier: ^4.11.3
         version: 4.11.3
@@ -3507,6 +3510,12 @@ packages:
     resolution:
       {
         integrity: sha512-b1LXQJLe9D11wfnOKAk3PKxuqYshQ0Heez+y5pnkd3jLj1yx9QhM72zZ9uUrOQyNvrs2GZZd/3maL0ZV18YuDA==,
+      }
+
+  effect@3.19.14:
+    resolution:
+      {
+        integrity: sha512-3vwdq0zlvQOxXzXNKRIPKTqZNMyGCdaFUBfMPqpsyzZDre67kgC1EEHDV4EoQTovJ4w5fmJW756f86kkuz7WFA==,
       }
 
   embla-carousel-react@8.6.0:
@@ -7950,6 +7959,11 @@ snapshots:
       gopd: 1.2.0
 
   effect@3.18.4:
+    dependencies:
+      "@standard-schema/spec": 1.1.0
+      fast-check: 3.23.2
+
+  effect@3.19.14:
     dependencies:
       "@standard-schema/spec": 1.1.0
       fast-check: 3.23.2

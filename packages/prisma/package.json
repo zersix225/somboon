@@ -7,13 +7,13 @@
     "build": "rslib build",
     "dev": "rslib build --watch",
     "check": "tsc --noEmit",
-    "prisma:generate": "dotenv -e .env.dev -- prisma generate",
-    "prisma:deploy": "dotenv -e .env.prod -- prisma migrate deploy",
+    "prisma:generate": "dotenv -e ../../.env.dev -- prisma generate",
+    "prisma:deploy": "dotenv -e ../../.env.prod -- prisma migrate deploy",
     "prisma:dev": "dotenv -e ../../.env.dev -- prisma migrate dev",
     "prisma:push:dev": "dotenv -e ../../.env.dev -- prisma db push",
-    "prisma:pull:dev": "dotenv -e .env.dev -- prisma db pull",
-    "prisma:studio:dev": "dotenv -e .env.dev -- prisma studio",
-    "prisma:reset:dev": "dotenv -e .env.dev -- prisma migrate reset"
+    "prisma:pull:dev": "dotenv -e ../../.env.dev -- prisma db pull",
+    "prisma:studio:dev": "dotenv -e ../../.env.dev -- prisma studio",
+    "prisma:reset:dev": "dotenv -e ../../.env.dev -- prisma migrate reset"
   },
   "keywords": [],
   "author": "",
