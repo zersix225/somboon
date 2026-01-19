@@ -7,10 +7,16 @@
     "start": "node ./dist/esm/index.js"
   },
   "dependencies": {
+    "@hono/effect-validator": "^1.2.0",
     "@hono/node-server": "^1.19.6",
+    "@hono/standard-validator": "^0.2.2",
     "@repo/prisma": "workspace:*",
+    "@scalar/hono-api-reference": "^0.9.34",
     "effect": "^3.19.14",
-    "hono": "^4.11.3"
+    "hono": "^4.11.3",
+    "hono-openapi": "^1.1.2",
+    "install": "^0.13.0",
+    "npm": "^11.7.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
