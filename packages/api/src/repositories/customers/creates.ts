@@ -1,10 +1,8 @@
-import type { PrismaClientType } from "@repo/prisma";
+import type { PrismaType } from "@repo/prisma";
 import type { CustomerRepository } from "@/types/repositories/customer";
 import { CustomerSchema, Helpers } from "@/schemas";
 
-export function create(
-  prismaClient: PrismaClientType,
-): CustomerRepository["create"] {
+export function create(prismaClient: PrismaType): CustomerRepository["create"] {
   return async (data) => {
     const result = await prismaClient.customer.create({
       data,

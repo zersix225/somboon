@@ -13,6 +13,7 @@
     "@rslib/core": "^0.19.1"
   },
   "exports": {
-    "./config": "./config.ts"
+    "./lib": "./lib.config.ts",
+    "./app": "./app.config.ts"
   }
 }

@@ -1,6 +1,6 @@
 import type { CustomerRepository } from "@/types/repositories/customer";
 import type { CustomerService } from "@/types/services/customer";
-import * as Creates from "@/services/customer/creates";
+import * as Creates from "@/services/customers/creates";
 
 export default function initCustomerService(
   customerRepository: CustomerRepository,

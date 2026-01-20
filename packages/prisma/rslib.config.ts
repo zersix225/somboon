@@ -1,3 +1,3 @@
-import config from "@repo/rslib-config/config";
+import config from "@repo/rslib-config/lib";
 
 export default config;

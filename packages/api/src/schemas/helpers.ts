@@ -1,4 +1,4 @@
-import S from "effect/Schema";
+import * as S from "effect/Schema";
 
 export const fromObjectToSchema = S.decodeUnknownSync;
 export const fromSchemaToObject = S.encodeSync;

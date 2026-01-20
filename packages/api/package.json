@@ -7,9 +7,10 @@
     "start": "node ./dist/esm/index.js"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.51.4",
+    "@effect/schema": "^0.75.5",
     "@hono/effect-validator": "^1.2.0",
     "@hono/node-server": "^1.19.6",
-    "@hono/standard-validator": "^0.2.2",
     "@repo/prisma": "workspace:*",
     "@scalar/hono-api-reference": "^0.9.34",
     "effect": "^3.19.14",

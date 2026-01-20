@@ -3,29 +3,27 @@ import { defineConfig } from "@rslib/core";
 export default defineConfig({
   lib: [
     {
-      bundle: true,
       dts: true,
       format: "esm",
       output: {
         distPath: {
           root: "./dist/esm",
         },
-        minify: true,
+        minify: false,
         sourceMap: true,
-        target: "web",
+        target: "node",
       },
     },
     {
-      bundle: true,
       dts: true,
       format: "cjs",
       output: {
         distPath: {
           root: "./dist/cjs",
         },
-        minify: true,
+        minify: false,
         sourceMap: true,
-        target: "web",
+        target: "node",
       },
     },
   ],
