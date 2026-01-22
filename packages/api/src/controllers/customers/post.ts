@@ -4,9 +4,7 @@ import * as S from "effect/Schema";
 import { CustomerSchema } from "@/schemas";
 import type { CustomerService } from "@/types/services/customer";
 
-const standardCustomerSchema = S.standardSchemaV1(
-  CustomerSchema.Schema.omit("created_at", "updated_at"),
-);
+const standardCustomerSchema = S.standardSchemaV1(CustomerSchema.Schema);
 
 const docs = describeRoute({
   responses: {
@@ -22,7 +20,10 @@ const docs = describeRoute({
   tags: ["Customer"],
 });
 
-const validateRequestBody = validator("json", standardCustomerSchema);
+const validateRequestBody = validator(
+  "json",
+  S.standardSchemaV1(CustomerSchema.CreateSchema),
+);
 
 export function setupCustomerPostRoutes(customerService: CustomerService) {
   const app = new Hono();

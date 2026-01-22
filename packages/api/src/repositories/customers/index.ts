@@ -1,4 +1,4 @@
-import type { PrismaType } from "@repo/prisma";
+import type { PrismaType } from "@/configure/client";
 import * as Types from "@/types/repositories/customer";
 import * as Creates from "@/repositories/customers/creates";
 

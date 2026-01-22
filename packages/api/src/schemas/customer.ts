@@ -4,8 +4,8 @@ import * as GeneralSchema from "@/schemas/general";
 
 export const Schema = S.Struct({
   id: Branded.CustomerId,
-  firstname: S.String,
-  lastname: S.String,
+  first_name: S.String,
+  last_name: S.String,
   phone: S.String,
   email: S.String,
   ...GeneralSchema.TimeStampSchema.fields,
@@ -25,11 +25,11 @@ export const SchemaArray = S.Array(Schema);
 export type CustomerArray = S.Schema.Type<typeof SchemaArray>;
 export type CustomerArrayEncoded = S.Schema.Encoded<typeof SchemaArray>;
 
-export const CreateSchema = Schema.omit(
-  "_tag",
-  "id",
-  "created_at",
-  "updated_at",
+export const CreateSchema = Schema.pick(
+  "first_name",
+  "last_name",
+  "phone",
+  "email",
 );
 export type CreateCustomer = S.Schema.Type<typeof CreateSchema>;
 

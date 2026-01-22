@@ -51,9 +51,6 @@ importers:
       "@repo/eslint-config":
         specifier: workspace:*
         version: link:../../packages/eslint-config
-      "@repo/prisma":
-        specifier: workspace:*
-        version: link:../../packages/prisma
       "@repo/rslib-config":
         specifier: workspace:*
         version: link:../../packages/rslib-config
@@ -163,12 +160,18 @@ importers:
       "@hono/node-server":
         specifier: ^1.19.6
         version: 1.19.6(hono@4.11.3)
-      "@repo/prisma":
-        specifier: workspace:*
-        version: link:../prisma
+      "@prisma/adapter-pg":
+        specifier: ^7.2.0
+        version: 7.2.0
+      "@prisma/client":
+        specifier: ^7.2.0
+        version: 7.2.0(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2))(typescript@5.9.2)
       "@scalar/hono-api-reference":
         specifier: ^0.9.34
         version: 0.9.34(hono@4.11.3)
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       effect:
         specifier: ^3.19.14
         version: 3.19.14
@@ -184,6 +187,9 @@ importers:
       npm:
         specifier: ^11.7.0
         version: 11.7.0
+      pg:
+        specifier: ^8.17.2
+        version: 8.17.2
     devDependencies:
       "@repo/eslint-config":
         specifier: workspace:*
@@ -198,8 +204,14 @@ importers:
         specifier: ^1.0.4
         version: 1.0.4
       "@types/node":
-        specifier: ^20.11.17
+        specifier: ^20.19.27
         version: 20.19.27
+      dotenv-cli:
+        specifier: ^11.0.0
+        version: 11.0.0
+      prisma:
+        specifier: ^7.2.0
+        version: 7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2)
       tsx:
         specifier: ^4.7.1
         version: 4.21.0
@@ -249,46 +261,6 @@ importers:
         specifier: ^8.50.0
         version: 8.50.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.2)
 
-  packages/prisma:
-    dependencies:
-      "@neondatabase/serverless":
-        specifier: ^1.0.2
-        version: 1.0.2
-      "@prisma/adapter-neon":
-        specifier: ^7.2.0
-        version: 7.2.0
-      "@prisma/client":
-        specifier: ^7.2.0
-        version: 7.2.0(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)
-      "@prisma/client-runtime-utils":
-        specifier: ^7.2.0
-        version: 7.2.0
-      prisma:
-        specifier: ^7.2.0
-        version: 7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
-      ws:
-        specifier: ^8.19.0
-        version: 8.19.0
-    devDependencies:
-      "@repo/eslint-config":
-        specifier: workspace:*
-        version: link:../eslint-config
-      "@repo/rslib-config":
-        specifier: workspace:*
-        version: link:../rslib-config
-      "@rslib/core":
-        specifier: ^0.19.1
-        version: 0.19.1(typescript@5.9.3)
-      "@total-typescript/tsconfig":
-        specifier: ^1.0.4
-        version: 1.0.4
-      "@types/ws":
-        specifier: ^8.18.1
-        version: 8.18.1
-      dotenv-cli:
-        specifier: ^11.0.0
-        version: 11.0.0
-
   packages/rslib-config:
     devDependencies:
       "@repo/eslint-config":
@@ -296,7 +268,7 @@ importers:
         version: link:../eslint-config
       "@rslib/core":
         specifier: ^0.19.1
-        version: 0.19.1(typescript@5.9.3)
+        version: 0.19.2(typescript@5.9.3)
 
   packages/shadcn:
     dependencies:
@@ -1407,13 +1379,6 @@ packages:
         integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==,
       }
 
-  "@neondatabase/serverless@1.0.2":
-    resolution:
-      {
-        integrity: sha512-I5sbpSIAHiB+b6UttofhrN/UJXII+4tZPAq1qugzwCwLIL8EZLV7F/JyHUrEIiGgQpEXzpnjlJ+zwcEhheGvCw==,
-      }
-    engines: { node: ">=19.0.0" }
-
   "@next/env@16.1.0":
     resolution:
       {
@@ -1540,10 +1505,10 @@ packages:
       }
     engines: { node: ">= 8" }
 
-  "@prisma/adapter-neon@7.2.0":
+  "@prisma/adapter-pg@7.2.0":
     resolution:
       {
-        integrity: sha512-XLTCQ0mDdaOqzBO99jyMOWBofJ5iqsvgWYB7lW+2ZEXvY6888tkeKfpo2VwdKhu1Cj/q4IqHd15eFQzPwbpjJQ==,
+        integrity: sha512-euIdQ13cRB2wZ3jPsnDnFhINquo1PYFPCg6yVL8b2rp3EdinQHsX9EDdCtRr489D5uhphcRk463OdQAFlsCr0w==,
       }
 
   "@prisma/client-runtime-utils@7.2.0":
@@ -2471,6 +2436,14 @@ packages:
       react-redux:
         optional: true
 
+  "@rsbuild/core@1.7.1":
+    resolution:
+      {
+        integrity: sha512-ULIE/Qh+Ne80Pm/aUPbRHUvwvIzpap07jYNFB47azI8w5Q3sDEC4Gn574jsluT/42iNDsZTFADRBog9FEvtN9Q==,
+      }
+    engines: { node: ">=18.12.0" }
+    hasBin: true
+
   "@rsbuild/core@1.7.2":
     resolution:
       {
@@ -2495,12 +2468,44 @@ packages:
       typescript:
         optional: true
 
+  "@rslib/core@0.19.2":
+    resolution:
+      {
+        integrity: sha512-eoRR1tQqkEiq3ijBT170KpxnBM7nf3/sanAUoJhyCeyLKKkGpQW6nr1cKHfZmkEizqSvLyjvLFA7fdIfK7pCMw==,
+      }
+    engines: { node: ">=18.12.0" }
+    hasBin: true
+    peerDependencies:
+      "@microsoft/api-extractor": ^7
+      typescript: ^5
+    peerDependenciesMeta:
+      "@microsoft/api-extractor":
+        optional: true
+      typescript:
+        optional: true
+
+  "@rspack/binding-darwin-arm64@1.7.0":
+    resolution:
+      {
+        integrity: sha512-HMYrhvVh3sMRBXl6cSI2JqsvlHJKQ42qX+Sw4qbj7LeZBN6Gv4GjfL3cXRLUTdO37FOC0uLEUYgxVXetx/Y4sA==,
+      }
+    cpu: [arm64]
+    os: [darwin]
+
   "@rspack/binding-darwin-arm64@1.7.1":
     resolution:
       {
         integrity: sha512-3C0w0kfCHfgOH+AP/Dx1bm/b3AR/or5CmU22Abevek0m95ndU3iT902eLcm9JNiMQnDQLBQbolfj5P591t0oPg==,
       }
     cpu: [arm64]
+    os: [darwin]
+
+  "@rspack/binding-darwin-x64@1.7.0":
+    resolution:
+      {
+        integrity: sha512-R/SoR04ySmHPqoIBGC+SjP9zRGjL1fS908mdwBvQ1RfFinKu7a/o/5rxH/vxUUsVQrHCyX+o7YXpfWq9xpvyQA==,
+      }
+    cpu: [x64]
     os: [darwin]
 
   "@rspack/binding-darwin-x64@1.7.1":
@@ -2511,10 +2516,26 @@ packages:
     cpu: [x64]
     os: [darwin]
 
+  "@rspack/binding-linux-arm64-gnu@1.7.0":
+    resolution:
+      {
+        integrity: sha512-jDCcso++qshu58+Iuo6oiL0XKuX04lDugL0qwrWHW8SS/EjZ2rc1J3yQx+XDW0PCQsfI2c9ji0IOW56PzW1hXQ==,
+      }
+    cpu: [arm64]
+    os: [linux]
+
   "@rspack/binding-linux-arm64-gnu@1.7.1":
     resolution:
       {
         integrity: sha512-BX9yAPCO0WBFyOzKl9bSXT/cH27nnOJp02smIQMxfv7RNfwGkJg5GgakYcuYG+9U1HEFitBSzmwS2+dxDcAxlg==,
+      }
+    cpu: [arm64]
+    os: [linux]
+
+  "@rspack/binding-linux-arm64-musl@1.7.0":
+    resolution:
+      {
+        integrity: sha512-0W49s0SQQhr3hZ8Zd7Auyf2pv4OTBr6wQhgWUQ6XeeMEjB16KpAVypSK5Jpn1ON0v9jAPLdod+a255rz8/f3kg==,
       }
     cpu: [arm64]
     os: [linux]
@@ -2527,10 +2548,26 @@ packages:
     cpu: [arm64]
     os: [linux]
 
+  "@rspack/binding-linux-x64-gnu@1.7.0":
+    resolution:
+      {
+        integrity: sha512-oFjzjTD1MmG0ucAaP0Wyg9eobrsnFwZjEHa7LwyzWDRBeC3GWAF9T04Bqd6Ba6DgASGzU0BjEJcUpjvtXxO95Q==,
+      }
+    cpu: [x64]
+    os: [linux]
+
   "@rspack/binding-linux-x64-gnu@1.7.1":
     resolution:
       {
         integrity: sha512-8KJAeBLiWcN7zEc9aaS7LRJPZVtZuQU8mCsn+fRhdQDSc+a9FcTN8b6Lw29z8cejwbU6Gxr/8wk5XGexMWFaZA==,
+      }
+    cpu: [x64]
+    os: [linux]
+
+  "@rspack/binding-linux-x64-musl@1.7.0":
+    resolution:
+      {
+        integrity: sha512-MNGslPLOsurdwOcoo6r0u8mLpw1ADar3hkx67WzwwMqYnem/Ky0aANJC2JvQHPC22mu01gCOukHYyEaUFTxcuw==,
       }
     cpu: [x64]
     os: [linux]
@@ -2543,6 +2580,13 @@ packages:
     cpu: [x64]
     os: [linux]
 
+  "@rspack/binding-wasm32-wasi@1.7.0":
+    resolution:
+      {
+        integrity: sha512-eaZzkGpxzVESmaX/UALMiQO+eNppe/i1VWQksGRfdoUu0rILqr/YDjsWFTcpbI9Dt3fg2kshHawBHxfwtxHcZQ==,
+      }
+    cpu: [wasm32]
+
   "@rspack/binding-wasm32-wasi@1.7.1":
     resolution:
       {
@@ -2550,12 +2594,28 @@ packages:
       }
     cpu: [wasm32]
 
+  "@rspack/binding-win32-arm64-msvc@1.7.0":
+    resolution:
+      {
+        integrity: sha512-XFg4l7sOhupnpG0soOfzYLeF2cgpSJMenmjmdzd9y06CotTyVId0hNoS7y+A7hEP8XGf3YPbdiUL5UDp6+DRBA==,
+      }
+    cpu: [arm64]
+    os: [win32]
+
   "@rspack/binding-win32-arm64-msvc@1.7.1":
     resolution:
       {
         integrity: sha512-/WIHp982yqqqAuiz2WLtf1ofo9d1lHDGZJ7flxFllb1iMgnUeSRyX6stxEi11K3Rg6pQa7FdCZGKX/engyj2bw==,
       }
     cpu: [arm64]
+    os: [win32]
+
+  "@rspack/binding-win32-ia32-msvc@1.7.0":
+    resolution:
+      {
+        integrity: sha512-eWt2XV6la/c0IlU/18RlhQsqwHGShSypwA3kt4s/dpfOK0YB1h4f0fYeUZuvj2X0MIoJQGhMofMrgA35/IcAcw==,
+      }
+    cpu: [ia32]
     os: [win32]
 
   "@rspack/binding-win32-ia32-msvc@1.7.1":
@@ -2566,6 +2626,14 @@ packages:
     cpu: [ia32]
     os: [win32]
 
+  "@rspack/binding-win32-x64-msvc@1.7.0":
+    resolution:
+      {
+        integrity: sha512-LOL5G8rfbAwlmusx+t98r9QzuGRz+L9Bg+8s5s6K/Qe64iemcNIuxGr5QLVq1jLa0SGNTeog4N21pAzlkWh4jw==,
+      }
+    cpu: [x64]
+    os: [win32]
+
   "@rspack/binding-win32-x64-msvc@1.7.1":
     resolution:
       {
@@ -2574,11 +2642,29 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  "@rspack/binding@1.7.0":
+    resolution:
+      {
+        integrity: sha512-xO+pZKG2dvU9CuRTTi+DcCc4p+CZhBJlvuYikBja/0a62cTntQV2PWV+/xU1a6Vbo89yNz158LR05nvjtKVwTw==,
+      }
+
   "@rspack/binding@1.7.1":
     resolution:
       {
         integrity: sha512-qVTV1/UWpMSZktvK5A8+HolgR1Qf0nYR3Gg4Vax5x3/BcHDpwGZ0fbdFRUirGVWH/XwxZ81zoI6F2SZq7xbX+w==,
       }
+
+  "@rspack/core@1.7.0":
+    resolution:
+      {
+        integrity: sha512-uDxPQsPh/+2DnOISuKnUiXZ9M0y2G1BOsI0IesxPJGp42ME2QW7axbJfUqD3bwp4bi3RN2zqh56NgxU/XETQvA==,
+      }
+    engines: { node: ">=18.12.0" }
+    peerDependencies:
+      "@swc/helpers": ">=0.5.1"
+    peerDependenciesMeta:
+      "@swc/helpers":
+        optional: true
 
   "@rspack/core@1.7.1":
     resolution:
@@ -2973,22 +3059,10 @@ packages:
         integrity: sha512-lX7HFZeHf4QG/J7tBZqrCAXwz9J5RD56Y6MpP0eJkka8p+K0RY/yBTW7CYFJ4VGCclxqOLKmiGP5juQc6MKgcw==,
       }
 
-  "@types/node@22.19.6":
-    resolution:
-      {
-        integrity: sha512-qm+G8HuG6hOHQigsi7VGuLjUVu6TtBo/F05zvX04Mw2uCg9Dv0Qxy3Qw7j41SidlTcl5D/5yg0SEZqOB+EqZnQ==,
-      }
-
   "@types/node@25.0.3":
     resolution:
       {
         integrity: sha512-W609buLVRVmeW693xKfzHeIV6nJGGz98uCPfeXI1ELMLXVeKYZ9m15fAMSaUPBHYLGFsVRcMmSCksQOrZV9BYA==,
-      }
-
-  "@types/pg@8.16.0":
-    resolution:
-      {
-        integrity: sha512-RmhMd/wD+CF8Dfo+cVIy3RR5cl8CyfXQ0tGgW6XBL8L4LM/UTEbNXYRbLwU6w+CgrKBNbrQWt4FUtTfaU5jSYQ==,
       }
 
   "@types/react-dom@19.2.2":
@@ -3009,12 +3083,6 @@ packages:
     resolution:
       {
         integrity: sha512-zFDAD+tlpf2r4asuHEj0XH6pY6i0g5NeAHPn+15wk3BV6JA69eERFXC1gyGThDkVa1zCyKr5jox1+2LbV/AMLg==,
-      }
-
-  "@types/ws@8.18.1":
-    resolution:
-      {
-        integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==,
       }
 
   "@typescript-eslint/eslint-plugin@8.50.0":
@@ -5260,6 +5328,18 @@ packages:
         integrity: sha512-xCy9V055GLEqoFaHoC1SoLIaLmWctgCUaBaWxDZ7/Zx4CTyX7cJQLJOok/orfjZAh9kEYpjJa4d0KcJmCbctZA==,
       }
 
+  pg-cloudflare@1.3.0:
+    resolution:
+      {
+        integrity: sha512-6lswVVSztmHiRtD6I8hw4qP/nDm1EJbKMRhf3HCYaqud7frGysPv7FYJ5noZQdhQtN2xJnimfMtvQq21pdbzyQ==,
+      }
+
+  pg-connection-string@2.10.1:
+    resolution:
+      {
+        integrity: sha512-iNzslsoeSH2/gmDDKiyMqF64DATUCWj3YJ0wP14kqcsf2TUklwimd+66yYojKwZCA7h2yRNLGug71hCBA2a4sw==,
+      }
+
   pg-int8@1.0.1:
     resolution:
       {
@@ -5267,10 +5347,18 @@ packages:
       }
     engines: { node: ">=4.0.0" }
 
-  pg-protocol@1.10.3:
+  pg-pool@3.11.0:
     resolution:
       {
-        integrity: sha512-6DIBgBQaTKDJyxnXaLiLR8wBpQQcGWuAESkRBX/t6OwA8YsqP+iVSiond2EDy6Y/dsGk8rh/jtax3js5NeV7JQ==,
+        integrity: sha512-MJYfvHwtGp870aeusDh+hg9apvOe2zmpZJpyt+BMtzUWlVqbhFmMK6bOBXLBUPd7iRtIF9fZplDc7KrPN3PN7w==,
+      }
+    peerDependencies:
+      pg: ">=8.0"
+
+  pg-protocol@1.11.0:
+    resolution:
+      {
+        integrity: sha512-pfsxk2M9M3BuGgDOfuy37VNRRX3jmKgMjcvAcWqNDpZSf4cUmv8HSOl5ViRQFsfARFn0KuUQTgLxVMbNq5NW3g==,
       }
 
   pg-types@2.2.0:
@@ -5279,6 +5367,24 @@ packages:
         integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==,
       }
     engines: { node: ">=4" }
+
+  pg@8.17.2:
+    resolution:
+      {
+        integrity: sha512-vjbKdiBJRqzcYw1fNU5KuHyYvdJ1qpcQg1CeBrHFqV1pWgHeVR6j/+kX0E1AAXfyuLUGY1ICrN2ELKA/z2HWzw==,
+      }
+    engines: { node: ">= 16.0.0" }
+    peerDependencies:
+      pg-native: ">=3.0.1"
+    peerDependenciesMeta:
+      pg-native:
+        optional: true
+
+  pgpass@1.0.5:
+    resolution:
+      {
+        integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==,
+      }
 
   picocolors@1.1.1:
     resolution:
@@ -5721,6 +5827,25 @@ packages:
       typescript:
         optional: true
 
+  rsbuild-plugin-dts@0.19.2:
+    resolution:
+      {
+        integrity: sha512-neuTRt+H/isd2FDYMigF5TEoLUoR/hF0RKdVv1U7nDz0CfLRUfL+NnxePv9nS7dU2VvM3CYcLH7tZs43ol7g4Q==,
+      }
+    engines: { node: ">=18.12.0" }
+    peerDependencies:
+      "@microsoft/api-extractor": ^7
+      "@rsbuild/core": 1.x
+      "@typescript/native-preview": 7.x
+      typescript: ^5
+    peerDependenciesMeta:
+      "@microsoft/api-extractor":
+        optional: true
+      "@typescript/native-preview":
+        optional: true
+      typescript:
+        optional: true
+
   run-parallel@1.2.0:
     resolution:
       {
@@ -5884,6 +6009,13 @@ packages:
         integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==,
       }
     engines: { node: ">=0.10.0" }
+
+  split2@4.2.0:
+    resolution:
+      {
+        integrity: sha512-UcjcJOWknrNkF6PLX83qcHM6KHgVKNkV62Y8a5uYDVv9ydGQVwAHMKqHdJje1VTWpljG0WYpCDhrCdAOYH4TWg==,
+      }
+    engines: { node: ">= 10.x" }
 
   sqlstring@2.3.3:
     resolution:
@@ -6377,21 +6509,6 @@ packages:
         integrity: sha512-42AtmgqjV+X1VpdOfyTGOYRi0/zsoLqtXQckTmqTeybT+BDIbM/Guxo7x3pE2vtpr1ok6xRqM9OpBe+Jyoqyww==,
       }
     engines: { node: ">=18" }
-
-  ws@8.19.0:
-    resolution:
-      {
-        integrity: sha512-blAT2mjOEIi0ZzruJfIhb3nps74PRWTCz1IjglWEEpQl5XS/UNama6u2/rjFkDDouqr4L67ry+1aGIALViWjDg==,
-      }
-    engines: { node: ">=10.0.0" }
-    peerDependencies:
-      bufferutil: ^4.0.1
-      utf-8-validate: ">=5.0.2"
-    peerDependenciesMeta:
-      bufferutil:
-        optional: true
-      utf-8-validate:
-        optional: true
 
   xtend@4.0.2:
     resolution:
@@ -6896,11 +7013,6 @@ snapshots:
       "@tybys/wasm-util": 0.10.1
     optional: true
 
-  "@neondatabase/serverless@1.0.2":
-    dependencies:
-      "@types/node": 22.19.6
-      "@types/pg": 8.16.0
-
   "@next/env@16.1.0": {}
 
   "@next/eslint-plugin-next@15.5.0":
@@ -6951,20 +7063,22 @@ snapshots:
       "@nodelib/fs.scandir": 2.1.5
       fastq: 1.19.1
 
-  "@prisma/adapter-neon@7.2.0":
+  "@prisma/adapter-pg@7.2.0":
     dependencies:
-      "@neondatabase/serverless": 1.0.2
       "@prisma/driver-adapter-utils": 7.2.0
+      pg: 8.17.2
       postgres-array: 3.0.4
+    transitivePeerDependencies:
+      - pg-native
 
   "@prisma/client-runtime-utils@7.2.0": {}
 
-  "@prisma/client@7.2.0(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3))(typescript@5.9.3)":
+  "@prisma/client@7.2.0(prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2))(typescript@5.9.2)":
     dependencies:
       "@prisma/client-runtime-utils": 7.2.0
     optionalDependencies:
-      prisma: 7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3)
-      typescript: 5.9.3
+      prisma: 7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2)
+      typescript: 5.9.2
 
   "@prisma/config@7.2.0":
     dependencies:
@@ -6979,7 +7093,7 @@ snapshots:
 
   "@prisma/debug@7.2.0": {}
 
-  "@prisma/dev@0.17.0(typescript@5.9.3)":
+  "@prisma/dev@0.17.0(typescript@5.9.2)":
     dependencies:
       "@electric-sql/pglite": 0.3.2
       "@electric-sql/pglite-socket": 0.0.6(@electric-sql/pglite@0.3.2)
@@ -6996,7 +7110,7 @@ snapshots:
       proper-lockfile: 4.1.2
       remeda: 2.21.3
       std-env: 3.9.0
-      valibot: 1.2.0(typescript@5.9.3)
+      valibot: 1.2.0(typescript@5.9.2)
       zeptomatch: 2.0.2
     transitivePeerDependencies:
       - typescript
@@ -7723,6 +7837,14 @@ snapshots:
       react: 19.2.0
       react-redux: 9.2.0(@types/react@19.2.2)(react@19.2.0)(redux@5.0.1)
 
+  "@rsbuild/core@1.7.1":
+    dependencies:
+      "@rspack/core": 1.7.0(@swc/helpers@0.5.18)
+      "@rspack/lite-tapable": 1.1.0
+      "@swc/helpers": 0.5.18
+      core-js: 3.47.0
+      jiti: 2.6.1
+
   "@rsbuild/core@1.7.2":
     dependencies:
       "@rspack/core": 1.7.1(@swc/helpers@0.5.18)
@@ -7749,22 +7871,54 @@ snapshots:
     transitivePeerDependencies:
       - "@typescript/native-preview"
 
+  "@rslib/core@0.19.2(typescript@5.9.3)":
+    dependencies:
+      "@rsbuild/core": 1.7.1
+      rsbuild-plugin-dts: 0.19.2(@rsbuild/core@1.7.1)(typescript@5.9.3)
+    optionalDependencies:
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - "@typescript/native-preview"
+
+  "@rspack/binding-darwin-arm64@1.7.0":
+    optional: true
+
   "@rspack/binding-darwin-arm64@1.7.1":
+    optional: true
+
+  "@rspack/binding-darwin-x64@1.7.0":
     optional: true
 
   "@rspack/binding-darwin-x64@1.7.1":
     optional: true
 
+  "@rspack/binding-linux-arm64-gnu@1.7.0":
+    optional: true
+
   "@rspack/binding-linux-arm64-gnu@1.7.1":
+    optional: true
+
+  "@rspack/binding-linux-arm64-musl@1.7.0":
     optional: true
 
   "@rspack/binding-linux-arm64-musl@1.7.1":
     optional: true
 
+  "@rspack/binding-linux-x64-gnu@1.7.0":
+    optional: true
+
   "@rspack/binding-linux-x64-gnu@1.7.1":
     optional: true
 
+  "@rspack/binding-linux-x64-musl@1.7.0":
+    optional: true
+
   "@rspack/binding-linux-x64-musl@1.7.1":
+    optional: true
+
+  "@rspack/binding-wasm32-wasi@1.7.0":
+    dependencies:
+      "@napi-rs/wasm-runtime": 1.0.7
     optional: true
 
   "@rspack/binding-wasm32-wasi@1.7.1":
@@ -7772,14 +7926,36 @@ snapshots:
       "@napi-rs/wasm-runtime": 1.0.7
     optional: true
 
+  "@rspack/binding-win32-arm64-msvc@1.7.0":
+    optional: true
+
   "@rspack/binding-win32-arm64-msvc@1.7.1":
+    optional: true
+
+  "@rspack/binding-win32-ia32-msvc@1.7.0":
     optional: true
 
   "@rspack/binding-win32-ia32-msvc@1.7.1":
     optional: true
 
+  "@rspack/binding-win32-x64-msvc@1.7.0":
+    optional: true
+
   "@rspack/binding-win32-x64-msvc@1.7.1":
     optional: true
+
+  "@rspack/binding@1.7.0":
+    optionalDependencies:
+      "@rspack/binding-darwin-arm64": 1.7.0
+      "@rspack/binding-darwin-x64": 1.7.0
+      "@rspack/binding-linux-arm64-gnu": 1.7.0
+      "@rspack/binding-linux-arm64-musl": 1.7.0
+      "@rspack/binding-linux-x64-gnu": 1.7.0
+      "@rspack/binding-linux-x64-musl": 1.7.0
+      "@rspack/binding-wasm32-wasi": 1.7.0
+      "@rspack/binding-win32-arm64-msvc": 1.7.0
+      "@rspack/binding-win32-ia32-msvc": 1.7.0
+      "@rspack/binding-win32-x64-msvc": 1.7.0
 
   "@rspack/binding@1.7.1":
     optionalDependencies:
@@ -7793,6 +7969,14 @@ snapshots:
       "@rspack/binding-win32-arm64-msvc": 1.7.1
       "@rspack/binding-win32-ia32-msvc": 1.7.1
       "@rspack/binding-win32-x64-msvc": 1.7.1
+
+  "@rspack/core@1.7.0(@swc/helpers@0.5.18)":
+    dependencies:
+      "@module-federation/runtime-tools": 0.22.0
+      "@rspack/binding": 1.7.0
+      "@rspack/lite-tapable": 1.1.0
+    optionalDependencies:
+      "@swc/helpers": 0.5.18
 
   "@rspack/core@1.7.1(@swc/helpers@0.5.18)":
     dependencies:
@@ -7981,19 +8165,9 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  "@types/node@22.19.6":
-    dependencies:
-      undici-types: 6.21.0
-
   "@types/node@25.0.3":
     dependencies:
       undici-types: 7.16.0
-
-  "@types/pg@8.16.0":
-    dependencies:
-      "@types/node": 25.0.3
-      pg-protocol: 1.10.3
-      pg-types: 2.2.0
 
   "@types/react-dom@19.2.2(@types/react@19.2.2)":
     dependencies:
@@ -8004,10 +8178,6 @@ snapshots:
       csstype: 3.1.3
 
   "@types/use-sync-external-store@0.0.6": {}
-
-  "@types/ws@8.18.1":
-    dependencies:
-      "@types/node": 25.0.3
 
   "@typescript-eslint/eslint-plugin@8.50.0(@typescript-eslint/parser@8.50.0(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.2))(eslint@9.39.1(jiti@2.6.1))(typescript@5.9.2)":
     dependencies:
@@ -9416,9 +9586,18 @@ snapshots:
 
   perfect-debounce@1.0.0: {}
 
+  pg-cloudflare@1.3.0:
+    optional: true
+
+  pg-connection-string@2.10.1: {}
+
   pg-int8@1.0.1: {}
 
-  pg-protocol@1.10.3: {}
+  pg-pool@3.11.0(pg@8.17.2):
+    dependencies:
+      pg: 8.17.2
+
+  pg-protocol@1.11.0: {}
 
   pg-types@2.2.0:
     dependencies:
@@ -9427,6 +9606,20 @@ snapshots:
       postgres-bytea: 1.0.1
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
+
+  pg@8.17.2:
+    dependencies:
+      pg-connection-string: 2.10.1
+      pg-pool: 3.11.0(pg@8.17.2)
+      pg-protocol: 1.11.0
+      pg-types: 2.2.0
+      pgpass: 1.0.5
+    optionalDependencies:
+      pg-cloudflare: 1.3.0
+
+  pgpass@1.0.5:
+    dependencies:
+      split2: 4.2.0
 
   picocolors@1.1.1: {}
 
@@ -9474,16 +9667,16 @@ snapshots:
 
   prettier@3.7.4: {}
 
-  prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.3):
+  prisma@7.2.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(typescript@5.9.2):
     dependencies:
       "@prisma/config": 7.2.0
-      "@prisma/dev": 0.17.0(typescript@5.9.3)
+      "@prisma/dev": 0.17.0(typescript@5.9.2)
       "@prisma/engines": 7.2.0
       "@prisma/studio-core": 0.9.0(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       mysql2: 3.15.3
       postgres: 3.4.7
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 5.9.2
     transitivePeerDependencies:
       - "@types/react"
       - magicast
@@ -9703,6 +9896,13 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
+  rsbuild-plugin-dts@0.19.2(@rsbuild/core@1.7.1)(typescript@5.9.3):
+    dependencies:
+      "@ast-grep/napi": 0.37.0
+      "@rsbuild/core": 1.7.1
+    optionalDependencies:
+      typescript: 5.9.3
+
   run-parallel@1.2.0:
     dependencies:
       queue-microtask: 1.2.3
@@ -9839,6 +10039,8 @@ snapshots:
       react-dom: 19.2.0(react@19.2.0)
 
   source-map-js@1.2.1: {}
+
+  split2@4.2.0: {}
 
   sqlstring@2.3.3: {}
 
@@ -10087,11 +10289,6 @@ snapshots:
   valibot@1.2.0(typescript@5.9.2):
     optionalDependencies:
       typescript: 5.9.2
-    optional: true
-
-  valibot@1.2.0(typescript@5.9.3):
-    optionalDependencies:
-      typescript: 5.9.3
 
   vaul@1.1.2(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
     dependencies:
@@ -10192,8 +10389,6 @@ snapshots:
       ansi-styles: 6.2.3
       string-width: 7.2.0
       strip-ansi: 7.1.2
-
-  ws@8.19.0: {}
 
   xtend@4.0.2: {}
 

@@ -37,9 +37,9 @@ yarn-error.log*
 .DS_Store
 *.pem
 
-.env.prod
+.env.production
 packages/prisma/.env.dev.
-.env.dev
+.env.development
 
 pgadmin
 db-data

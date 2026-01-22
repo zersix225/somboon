@@ -1,6 +1,6 @@
+import "@/configure/env";
 import { Hono } from "hono";
-import { config } from "@dotenvx/dotenvx";
-import { prisma } from "@repo/prisma";
+import { prisma } from "@/configure/prisma";
 import { setupOpenApi } from "@/configure/setup-openapi";
 import { setupScalarDocs } from "@/configure/setup-scalar";
 import healthzApp from "@/controllers/healthz";
@@ -8,8 +8,6 @@ import healthzApp from "@/controllers/healthz";
 import initCustomerRepository from "@/repositories/customers";
 import initCustomerService from "@/services/customers";
 import * as CustomerControllers from "@/controllers/customers";
-
-config();
 
 export const app = new Hono();
 setupOpenApi(app);
