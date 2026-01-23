@@ -1,37 +1,41 @@
 import { AppError } from "./appError";
+import config from "@/config/env";
 
 export class ValidationError extends AppError {
-  readonly nameError = "ValidationError";
+  readonly name = "ValidationError";
   readonly statusCode = 400;
-  readonly errors: Record<string, string[]>;
+  readonly isOperational = true;
 
-  constructor(
-    message: string = "Validation failed",
-    errors: Record<string, string[]> = {},
-  ) {
+  constructor(message: string = "Validation failed") {
     super(message);
-    this.errors = errors;
+  }
+}
+
+export class NotFoundError extends AppError {
+  readonly name = "NotFoundError";
+  readonly statusCode = 404;
+  readonly isOperational = true;
+
+  constructor(message: string = "Resource not found") {
+    super(message);
   }
 }
 
 export class InternalServerError extends AppError {
-  readonly nameError = "InternalServerError";
+  readonly name = "InternalServerError";
   readonly statusCode = 500;
-  readonly errors: Record<string, string[]>;
+  readonly isOperational = false;
 
-  constructor(
-    message: string = "Internal server error",
-    errors: Record<string, string[]> = {},
-  ) {
+  constructor(message: string = "Internal server error") {
     super(message);
-    this.errors = errors;
   }
 
-  toJSON() {
+  override toJSON() {
     return {
-      nameError: this.nameError,
-      codeError: this.statusCode,
-      errors: this.errors,
+      name: this.name,
+      message: this.message,
+      statusCode: this.statusCode,
+      ...(config.nodeEnv === "development" && { stack: this.stack }),
     };
   }
 }

@@ -1,4 +1,4 @@
-import type { PrismaType } from "@/configure/client";
+import type { PrismaType } from "@/config/prisma";
 import * as Types from "@/types/repositories/customer";
 import * as Creates from "@/repositories/customers/creates";
 
@@ -7,5 +7,6 @@ export default function initCustomerRepository(
 ): Types.CustomerRepository {
   return {
     create: Creates.create(prismaClient),
+    existData: Creates.existData(prismaClient),
   };
 }

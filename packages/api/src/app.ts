@@ -1,9 +1,10 @@
-import "@/configure/env";
+import "@/config/env";
 import { Hono } from "hono";
-import { prisma } from "@/configure/prisma";
-import { setupOpenApi } from "@/configure/setup-openapi";
-import { setupScalarDocs } from "@/configure/setup-scalar";
+import { prisma } from "@/config/prisma";
+import { setupOpenApi } from "@/config/setup-openapi";
+import { setupScalarDocs } from "@/config/setup-scalar";
 import healthzApp from "@/controllers/healthz";
+import { Error } from "@/middlewares";
 
 import initCustomerRepository from "@/repositories/customers";
 import initCustomerService from "@/services/customers";
@@ -11,6 +12,10 @@ import * as CustomerControllers from "@/controllers/customers";
 
 export const app = new Hono();
 setupOpenApi(app);
+
+app.onError((err, c) => {
+  return Error.errorHandler(err, c);
+});
 
 app.route("/docs", setupScalarDocs());
 app.route("/healthz", healthzApp);

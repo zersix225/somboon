@@ -16,4 +16,5 @@ export type UpdateCustomerDto = CreateCustomerDto & { id?: Customer["id"] };
 
 export type CustomerRepository = {
   create: (data: CreateCustomerDto) => Promise<Customer>;
+  existData: (data: CreateCustomerDto) => Promise<Customer | null>;
 };
