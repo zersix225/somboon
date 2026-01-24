@@ -1,11 +1,17 @@
 import type { Context } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 import { AppError, InternalServerError } from "@/errors";
+import { errorResponse } from "@/utils/response";
 import config from "@/config/env";
 
 export function errorHandler(err: Error, c: Context) {
   if (err instanceof AppError) {
-    return c.json(err.toJSON(), err.statusCode as ContentfulStatusCode);
+    return errorResponse(
+      c,
+      err.toJSON().message,
+      err.toJSON().statusCode as ContentfulStatusCode,
+      err.toJSON().name,
+    );
   }
 
   const internalError = new InternalServerError(

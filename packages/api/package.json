@@ -5,8 +5,9 @@
     "dev": "rslib build --watch",
     "build": "rslib build",
     "start": "node ./dist/esm/index.js",
-    "prisma:pull": "dotenv -e ../../.env.dev -- prisma db pull",
-    "prisma:generate": "dotenv -e ../../.env.dev -- prisma generate"
+    "prisma:pull": "dotenv -e ../../.env.development -- prisma db pull",
+    "prisma:push": "dotenv -e ../../.env.development -- prisma db push",
+    "prisma:generate": "dotenv -e ../../.env.development -- prisma generate"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.51.4",

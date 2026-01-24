@@ -14,7 +14,7 @@ model customer {
   phone      String   @unique @db.VarChar(20)
   email      String?  @unique @db.VarChar(50)
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
   repair     repair[]
 }
 
@@ -26,7 +26,7 @@ model repair {
   comment     String?   @db.VarChar(255)
   date_repair DateTime? @db.Date
   created_at  DateTime  @default(now()) @db.Timestamptz(6)
-  updated_at  DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at  DateTime  @updatedAt @db.Timestamptz(6)
   customer    customer  @relation(fields: [customer_id], references: [id])
   service     service   @relation(fields: [service_id], references: [id])
 }
@@ -36,6 +36,6 @@ model service {
   detail     String?  @db.VarChar(255)
   price      Int?
   created_at DateTime @default(now()) @db.Timestamptz(6)
-  updated_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @updatedAt @db.Timestamptz(6)
   repair     repair[]
 }

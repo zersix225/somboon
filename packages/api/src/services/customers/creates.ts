@@ -15,7 +15,7 @@ export function create(
     const existData = await customerRepository.existData(data);
 
     if (existData) {
-      throw new ValidationError("customer is already exist");
+      throw new ValidationError("Customer is already exist");
     }
     return await customerRepository.create(data);
   };

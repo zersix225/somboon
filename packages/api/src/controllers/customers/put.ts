@@ -7,15 +7,15 @@ import { successResponse } from "@/utils/response";
 
 const standardCustomerSchema = S.standardSchemaV1(CustomerSchema.Schema);
 
-const docs = describeRoute({
+const updateDocs = describeRoute({
   responses: {
-    201: {
+    200: {
       content: {
         "application/json": {
           schema: resolver(standardCustomerSchema),
         },
       },
-      description: "Created customer",
+      description: "Updated customer",
     },
   },
   tags: ["Customer"],
@@ -23,16 +23,22 @@ const docs = describeRoute({
 
 const validateRequestBody = validator(
   "json",
-  S.standardSchemaV1(CustomerSchema.CreateSchema),
+  S.standardSchemaV1(CustomerSchema.UpdateSchema),
 );
 
-export function setupCustomerPostRoutes(customerService: CustomerService) {
+export function setupCustomerPutRoutes(customerService: CustomerService) {
   const app = new Hono();
 
-  app.post("/", docs, validateRequestBody, async (c) => {
+  app.put("/", updateDocs, validateRequestBody, async (c) => {
     const body = c.req.valid("json");
-    const result = await customerService.create(body);
-    return successResponse(c, result, 200, "Created customer successfully");
+    const result = await customerService.update(body.id, body);
+
+    return successResponse(
+      c,
+      result,
+      200,
+      "Updated customer by Id successfully",
+    );
   });
 
   return app;
