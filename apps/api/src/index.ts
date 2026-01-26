@@ -1,10 +1,10 @@
 import { serve } from "@hono/node-server";
-import { app } from "@repo/api";
+import { routes } from "@repo/api";
 
 const port = 3000;
 console.log(`Server is running on http://localhost:${port}`);
 
 serve({
-  fetch: app.fetch,
+  fetch: routes.fetch,
   port,
 });

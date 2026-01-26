@@ -38,14 +38,13 @@
   },
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/esm/src/index.d.ts",
-        "default": "./dist/esm/index.js"
-      },
-      "require": {
-        "types": "./dist/cjs/src/index.d.ts",
-        "default": "./dist/cjs/index.cjs"
-      }
+      "types": "./dist/esm/src/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./client": {
+      "types": "./dist/esm/src/client.d.ts",
+      "import": "./dist/esm/client.js"
     }
   }
 }

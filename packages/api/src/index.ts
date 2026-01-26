@@ -1,1 +1,2 @@
-export { app } from "./app";
+export { routes } from "./app";
+export { honoClient } from "./client";

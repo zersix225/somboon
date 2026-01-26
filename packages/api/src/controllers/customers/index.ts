@@ -7,15 +7,13 @@ import * as CustomerDeleteRoutes from "@/controllers/customers/delete";
 import * as CustomerPatchRoutes from "@/controllers/customers/patch";
 
 export function setupCustomerRoutes(customerService: CustomerService) {
-  const app = new Hono();
-
-  app.route("/", CustomerPostRoutes.setupCustomerPostRoutes(customerService));
-  app.route("/", CustomerGetRoutes.setupCustomerGetRoutes(customerService));
-  app.route("/", CustomerPutRoutes.setupCustomerPutRoutes(customerService));
-  app.route("/", CustomerPatchRoutes.setupCustomerPatchRoutes(customerService));
-  app.route(
-    "/",
-    CustomerDeleteRoutes.setupCustomerDeleteRoutes(customerService),
-  );
-  return app;
+  return new Hono()
+    .route("/", CustomerPostRoutes.setupCustomerPostRoutes(customerService))
+    .route("/", CustomerGetRoutes.setupCustomerGetRoutes(customerService))
+    .route("/", CustomerPutRoutes.setupCustomerPutRoutes(customerService))
+    .route("/", CustomerPatchRoutes.setupCustomerPatchRoutes(customerService))
+    .route(
+      "/",
+      CustomerDeleteRoutes.setupCustomerDeleteRoutes(customerService),
+    );
 }
