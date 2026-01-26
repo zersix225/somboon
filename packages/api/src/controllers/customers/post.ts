@@ -27,9 +27,7 @@ const validateRequestBody = validator(
 );
 
 export function setupCustomerPostRoutes(customerService: CustomerService) {
-  const app = new Hono();
-
-  app.post("/", docs, validateRequestBody, async (c) => {
+  const app = new Hono().post("/", docs, validateRequestBody, async (c) => {
     const body = c.req.valid("json");
     const result = await customerService.create(body);
     return successResponse(c, result, 200, "Created customer successfully");

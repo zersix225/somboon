@@ -60,18 +60,17 @@ const validateRequestByParam = validator(
 );
 
 export function setupCustomerGetRoutes(customerService: CustomerService) {
-  const app = new Hono();
+  const app = new Hono()
+    .get("/", getAllDocs, async (c) => {
+      const result = await customerService.findAll();
+      return successResponse(c, result, 200, "Get customer all successfully");
+    })
+    .get("/:customerId", getByIdDocs, validateRequestByParam, async (c) => {
+      const { customerId } = c.req.valid("param");
+      const result = await customerService.findById(customerId);
 
-  app.get("/", getAllDocs, async (c) => {
-    const result = await customerService.findAll();
-    return successResponse(c, result, 200, "Get customer all successfully");
-  });
+      return successResponse(c, result, 200, "Get customer by Id successfully");
+    });
 
-  app.get("/:customerId", getByIdDocs, validateRequestByParam, async (c) => {
-    const { customerId } = c.req.valid("param");
-    const result = await customerService.findById(customerId);
-
-    return successResponse(c, result, 200, "Get customer by Id successfully");
-  });
   return app;
 }

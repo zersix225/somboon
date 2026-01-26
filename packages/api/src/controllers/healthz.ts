@@ -20,9 +20,7 @@ const doc = describeRoute({
   },
 });
 
-const healthzApp = new Hono();
-
-healthzApp.get("/", doc, (c) => {
+const healthzApp = new Hono().get("/", doc, (c) => {
   return c.json(
     {
       message: "Ok",

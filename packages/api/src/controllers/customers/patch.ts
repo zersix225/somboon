@@ -27,19 +27,22 @@ const validateRequestBody = validator(
 );
 
 export function setupCustomerPatchRoutes(customerService: CustomerService) {
-  const app = new Hono();
+  const app = new Hono().patch(
+    "/",
+    updateDocs,
+    validateRequestBody,
+    async (c) => {
+      const body = c.req.valid("json");
+      const result = await customerService.updatePartial(body.id, body);
 
-  app.patch("/", updateDocs, validateRequestBody, async (c) => {
-    const body = c.req.valid("json");
-    const result = await customerService.updatePartial(body.id, body);
-
-    return successResponse(
-      c,
-      result,
-      200,
-      "Updated customer by Id successfully",
-    );
-  });
+      return successResponse(
+        c,
+        result,
+        200,
+        "Updated customer by Id successfully",
+      );
+    },
+  );
 
   return app;
 }
