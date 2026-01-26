@@ -1,8 +1,8 @@
 import type { AppType } from "@/app";
 import { hc } from "hono/client";
 
-export type ApiClient = ReturnType<typeof hc<AppType>>;
+const client = hc<AppType>("");
+export type Client = typeof client;
 
-export const honoClient = (apiUrl: string): ApiClient => {
-  return hc<AppType>(apiUrl);
-};
+export const honoClient = (...args: Parameters<typeof hc>): Client =>
+  hc<AppType>(...args);

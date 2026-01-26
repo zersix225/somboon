@@ -1,3 +1,9 @@
 {
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist"
+  },
   "extends": "@total-typescript/tsconfig/bundler/dom/app"
 }

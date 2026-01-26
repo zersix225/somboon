@@ -20,7 +20,8 @@ import { honoClient } from "@repo/api/client";
 
 export default function CustomerField() {
   const client = honoClient("http://localhost:3000");
-  const res = client.cusntomers.$get();
+  const res = client.customers.$get();
+
   return (
     <div className="w-full">
       <form>

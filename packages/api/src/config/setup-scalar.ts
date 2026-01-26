@@ -2,9 +2,7 @@ import { Scalar } from "@scalar/hono-api-reference";
 import { Hono } from "hono";
 
 export function setupScalarDocs() {
-  const app = new Hono();
-
-  app.get(
+  const app = new Hono().get(
     "/",
     Scalar({
       darkMode: true,

@@ -31,14 +31,17 @@ const validateRequestByParam = validator(
 );
 
 export function setupCustomerDeleteRoutes(customerService: CustomerService) {
-  const app = new Hono();
+  const app = new Hono().delete(
+    "/:customerId",
+    deleteDocs,
+    validateRequestByParam,
+    async (c) => {
+      const { customerId } = c.req.valid("param");
+      const result = await customerService.remove(customerId);
 
-  app.delete("/:customerId", deleteDocs, validateRequestByParam, async (c) => {
-    const { customerId } = c.req.valid("param");
-    const result = await customerService.remove(customerId);
-
-    return successResponse(c, result, 200, "Deleted customer successfully");
-  });
+      return successResponse(c, result, 200, "Deleted customer successfully");
+    },
+  );
 
   return app;
 }
