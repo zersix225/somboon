@@ -32,8 +32,7 @@ export default function NavMain({ items }: { items: NavItem[] }) {
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => {
-            const isActive =
-              pathname === item.url || pathname.startsWith(item.url + "/");
+            const isActive = pathname === item.url;
 
             return (
               <SidebarMenuItem key={item.title}>
@@ -44,26 +43,26 @@ export default function NavMain({ items }: { items: NavItem[] }) {
                   </Link>
                 </SidebarMenuButton>
 
-                {item.items?.length ? (
-                  <SidebarMenuSub>
-                    {item.items.map((sub) => {
-                      const isSubActive =
-                        pathname === sub.url ||
-                        pathname.startsWith(sub.url + "/");
+                {/*{item.items?.length ? (*/}
+                {/*  <SidebarMenuSub>*/}
+                {/*    {item.items.map((sub) => {*/}
+                {/*      const isSubActive =*/}
+                {/*        pathname === sub.url ||*/}
+                {/*        pathname.startsWith(sub.url + "/");*/}
 
-                      return (
-                        <SidebarMenuSubItem key={sub.title}>
-                          <SidebarMenuSubButton
-                            asChild
-                            data-active={isSubActive}
-                          >
-                            <Link href={sub.url}>{sub.title}</Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      );
-                    })}
-                  </SidebarMenuSub>
-                ) : null}
+                {/*      return (*/}
+                {/*        <SidebarMenuSubItem key={sub.title}>*/}
+                {/*          <SidebarMenuSubButton*/}
+                {/*            asChild*/}
+                {/*            data-active={isSubActive}*/}
+                {/*          >*/}
+                {/*            <Link href={sub.url}>{sub.title}</Link>*/}
+                {/*          </SidebarMenuSubButton>*/}
+                {/*        </SidebarMenuSubItem>*/}
+                {/*      );*/}
+                {/*    })}*/}
+                {/*  </SidebarMenuSub>*/}
+                {/*) : null}*/}
               </SidebarMenuItem>
             );
           })}

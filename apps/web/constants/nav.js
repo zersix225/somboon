@@ -25,64 +25,14 @@ export const nav = {
       icon: IconDashboard,
     },
     {
-      title: "Form",
-      url: "/form",
+      title: "Repair Form",
+      url: "/form/repair",
       icon: IconListDetails,
-      items: [
-        {
-          title: "Customer",
-          url: "/form/customer",
-          isActive: true,
-        },
-      ],
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      title: "Customer Form",
+      url: "/form/customer",
+      icon: IconListDetails,
     },
   ],
   navSecondary: [
@@ -104,7 +54,7 @@ export const nav = {
   ],
   documents: [
     {
-      name: "Data Library",
+      name: "Customer Table",
       url: "#",
       icon: IconDatabase,
     },
