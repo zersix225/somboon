@@ -1,11 +1,14 @@
+"use client";
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@repo/shadcn/components/button";
 import {
   Field,
   FieldDescription,
+  FieldError,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
-  FieldSeparator,
   FieldSet,
 } from "@repo/shadcn/components/field";
 import { Input } from "@repo/shadcn/components/input";
@@ -16,15 +19,45 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@repo/shadcn/components/avatar";
-import { honoClient } from "@repo/api/client";
+import { toast } from "sonner";
+import { Spinner } from "@repo/shadcn/components/spinner";
+import { CustomerType } from "@/types";
+import useCustomer from "@/hooks/api/useCustomer";
+import { useShallow } from "zustand/react/shallow";
 
 export default function CustomerField() {
-  const client = honoClient("http://localhost:3000");
-  const res = client.customers.$get();
-
+  const { postCustomer, loading, success, error } = useCustomer(
+    useShallow((state) => {
+      return {
+        postCustomer: state.post,
+        loading: state.loading,
+        success: state.success,
+        error: state.error,
+      };
+    }),
+  );
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<CustomerType.CreateCustomer>({
+    resolver: zodResolver(CustomerType.CreateCustomerSchema),
+  });
+  const [firstName, lastName] = watch(["first_name", "last_name"]);
+  const onSubmit: SubmitHandler<CustomerType.CreateCustomer> = async (data) => {
+    await postCustomer(data);
+    if (!success) {
+      reset();
+      toast.success("Customer created successfully.");
+    } else {
+      toast.error(`${error}`);
+    }
+  };
   return (
     <div className="w-full">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <FieldSet>
             <Field>
@@ -38,7 +71,11 @@ export default function CustomerField() {
                       />
                       <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
-                    <FieldDescription>John Doe</FieldDescription>
+                    <FieldDescription>
+                      {firstName || lastName
+                        ? `${firstName ?? ""} ${lastName ?? ""}`
+                        : "John Doe"}
+                    </FieldDescription>
                   </div>
                 </CardContent>
               </Card>
@@ -48,11 +85,17 @@ export default function CustomerField() {
             <FieldGroup>
               <Field>
                 <FieldLabel htmlFor="firstname">Firstname</FieldLabel>
-                <Input id="firstname" type="text" />
+                <Input id="firstname" type="text" {...register("first_name")} />
+                {errors?.first_name && (
+                  <FieldError>{errors.first_name.message}</FieldError>
+                )}
               </Field>
               <Field>
                 <FieldLabel htmlFor="lastname">Lastname</FieldLabel>
-                <Input id="lastname" type="text" />
+                <Input id="lastname" type="text" {...register("last_name")} />
+                {errors?.last_name && (
+                  <FieldError>{errors.last_name.message}</FieldError>
+                )}
               </Field>
             </FieldGroup>
           </FieldSet>
@@ -65,7 +108,11 @@ export default function CustomerField() {
                   type="text"
                   className="text-sm"
                   placeholder="@gmail.com"
+                  {...register("email")}
                 />
+                {errors?.email && (
+                  <FieldError>{errors.email.message}</FieldError>
+                )}
               </Field>
               <Field>
                 <FieldLabel htmlFor="phone">Phone Number</FieldLabel>
@@ -74,13 +121,19 @@ export default function CustomerField() {
                   type="text"
                   className="text-sm"
                   placeholder="66+"
+                  {...register("phone")}
                 />
+                {errors?.phone && (
+                  <FieldError>{errors.phone.message}</FieldError>
+                )}
               </Field>
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit">Submit</Button>
-            <Button variant="outline" type="button">
+            <Button type="submit" disabled={loading}>
+              {loading ? <Spinner /> : "Submit"}
+            </Button>
+            <Button variant="outline" type="button" onClick={() => reset()}>
               Clear
             </Button>
           </Field>

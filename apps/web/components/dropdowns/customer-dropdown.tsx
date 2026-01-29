@@ -1,7 +1,6 @@
 "use client";
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
 import { cn } from "@repo/shadcn/lib/utils";
 import { Button } from "@repo/shadcn/components/button";
 import {
@@ -18,19 +17,25 @@ import {
   PopoverTrigger,
 } from "@repo/shadcn/components/popover";
 import { useRouter } from "next/navigation";
-
-const frameworks = [
-  {
-    value: "john doe",
-    label: "Joh Doe",
-  },
-];
+import useCustomer from "@/hooks/api/useCustomer";
+import { useShallow } from "zustand/react/shallow";
+import { useEffect } from "react";
 
 export default function CustomerDropdown() {
+  const { customers, getAll } = useCustomer(
+    useShallow((state) => {
+      return { customers: state.customers, getAll: state.getAll };
+    }),
+  );
+  console.log(customers);
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
 
   const router = useRouter();
+
+  useEffect(() => {
+    getAll();
+  }, [getAll]);
 
   return (
     <div className="flex items-center gap-2">
@@ -43,7 +48,8 @@ export default function CustomerDropdown() {
             className="grow justify-between"
           >
             {value
-              ? frameworks.find((framework) => framework.value === value)?.label
+              ? customers.find((customer) => customer.first_name === value)
+                  ?.first_name
               : "Select Customer"}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -57,20 +63,22 @@ export default function CustomerDropdown() {
             <CommandList>
               <CommandEmpty>No customer found.</CommandEmpty>
               <CommandGroup>
-                {frameworks.map((framework) => (
+                {customers.map((customer) => (
                   <CommandItem
-                    key={framework.value}
-                    value={framework.value}
+                    key={customer.id}
+                    value={customer.first_name}
                     onSelect={(currentValue) => {
                       setValue(currentValue === value ? "" : currentValue);
                       setOpen(false);
                     }}
                   >
-                    {framework.label}
+                    {customer.first_name}
                     <Check
                       className={cn(
                         "ml-auto",
-                        value === framework.value ? "opacity-100" : "opacity-0",
+                        value === customer.first_name
+                          ? "opacity-100"
+                          : "opacity-0",
                       )}
                     />
                   </CommandItem>

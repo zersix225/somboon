@@ -10,14 +10,12 @@
     "prisma:generate": "dotenv -e ../../.env.development -- prisma generate"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.51.4",
     "@effect/schema": "^0.75.5",
     "@hono/effect-validator": "^1.2.0",
     "@hono/node-server": "^1.19.6",
     "@prisma/adapter-pg": "^7.2.0",
     "@prisma/client": "^7.2.0",
     "@scalar/hono-api-reference": "^0.9.34",
-    "dotenv": "^17.2.3",
     "effect": "^3.19.14",
     "hono": "^4.11.3",
     "hono-openapi": "^1.1.2",
