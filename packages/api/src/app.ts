@@ -8,13 +8,19 @@ import { Error } from "@/middlewares";
 import initCustomerRepository from "@/repositories/customers";
 import initCustomerService from "@/services/customers";
 import * as CustomerControllers from "@/controllers/customers";
+import * as RepairControllers from "@/controllers/repair";
 import { cors } from "hono/cors";
+import initRepairRepository from "@/repositories/repair";
+import initRepairService from "@/services/repair";
 
 const app = new Hono();
 setupOpenApi(app);
 
 const customerRepository = initCustomerRepository(prisma);
+const repairRepository = initRepairRepository(prisma);
+
 const customerService = initCustomerService(customerRepository);
+const repairService = initRepairService(repairRepository, customerRepository);
 
 export const routes = app
 
@@ -33,9 +39,7 @@ export const routes = app
 
   .route("/docs", setupScalarDocs())
   .route("/healthz", healthzApp)
-  .route(
-    "/customers",
-    CustomerControllers.setupCustomerRoutes(customerService),
-  );
+  .route("/customers", CustomerControllers.setupCustomerRoutes(customerService))
+  .route("/repairs", RepairControllers.setupRepairRoutes(repairService));
 
 export type AppType = typeof routes;

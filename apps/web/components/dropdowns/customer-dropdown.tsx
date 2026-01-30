@@ -29,7 +29,7 @@ export default function CustomerDropdown() {
   );
   console.log(customers);
   const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState<number | null>(null);
 
   const router = useRouter();
 
@@ -48,8 +48,7 @@ export default function CustomerDropdown() {
             className="grow justify-between"
           >
             {value
-              ? customers.find((customer) => customer.first_name === value)
-                  ?.first_name
+              ? customers.find((customer) => customer.id === value)?.first_name
               : "Select Customer"}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -66,9 +65,9 @@ export default function CustomerDropdown() {
                 {customers.map((customer) => (
                   <CommandItem
                     key={customer.id}
-                    value={customer.first_name}
-                    onSelect={(currentValue) => {
-                      setValue(currentValue === value ? "" : currentValue);
+                    value={`${customer.first_name} ${customer.last_name}`}
+                    onSelect={() => {
+                      setValue(customer.id);
                       setOpen(false);
                     }}
                   >
@@ -76,9 +75,7 @@ export default function CustomerDropdown() {
                     <Check
                       className={cn(
                         "ml-auto",
-                        value === customer.first_name
-                          ? "opacity-100"
-                          : "opacity-0",
+                        value === customer.id ? "opacity-100" : "opacity-0",
                       )}
                     />
                   </CommandItem>

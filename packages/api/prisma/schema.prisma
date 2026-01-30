@@ -21,21 +21,21 @@ model customer {
 model repair {
   id          Int       @id @default(autoincrement())
   customer_id Int
-  service_id  Int
   model_car   String?   @db.VarChar(25)
   comment     String?   @db.VarChar(255)
   date_repair DateTime? @db.Date
   created_at  DateTime  @default(now()) @db.Timestamptz(6)
   updated_at  DateTime  @updatedAt @db.Timestamptz(6)
   customer    customer  @relation(fields: [customer_id], references: [id])
-  service     service   @relation(fields: [service_id], references: [id])
+  service     service[]
 }
 
 model service {
   id         Int      @id @default(autoincrement())
+  repair_id  Int
   detail     String?  @db.VarChar(255)
   price      Int?
   created_at DateTime @default(now()) @db.Timestamptz(6)
   updated_at DateTime @updatedAt @db.Timestamptz(6)
-  repair     repair[]
+  repair     repair   @relation(fields: [repair_id], references: [id])
 }

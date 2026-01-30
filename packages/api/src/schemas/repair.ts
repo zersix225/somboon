@@ -5,8 +5,7 @@ import * as GeneralSchema from "@/schemas/general";
 export const Schema = S.Struct({
   id: Branded.RepairId,
   customer_id: Branded.CustomerId,
-  service_id: Branded.ServiceId,
-  moder_car: S.String.annotations({
+  model_car: S.String.annotations({
     jsonSchema: {
       example: "civic",
       title: "moder_car",

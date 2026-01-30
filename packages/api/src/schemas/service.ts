@@ -5,6 +5,7 @@ import * as GeneralSchema from "@/schemas/general";
 export const Schema = S.Struct({
   id: Branded.ServiceId,
   detail: S.String,
+  repair_id: Branded.RepairId,
   price: S.Number,
   ...GeneralSchema.TimeStampSchema.fields,
   _tag: S.Literal("Service").pipe(

@@ -25,11 +25,11 @@ export const SchemaArray = S.Array(Schema);
 export type CustomerArray = S.Schema.Type<typeof SchemaArray>;
 export type CustomerArrayEncoded = S.Schema.Encoded<typeof SchemaArray>;
 
-export const CreateSchema = Schema.pick(
-  "first_name",
-  "last_name",
-  "phone",
-  "email",
+export const CreateSchema = Schema.omit(
+  "_tag",
+  "id",
+  "created_at",
+  "updated_at",
 );
 export type CreateCustomer = S.Schema.Type<typeof CreateSchema>;
 
