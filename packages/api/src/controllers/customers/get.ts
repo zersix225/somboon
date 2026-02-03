@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 import { describeRoute, resolver, validator } from "hono-openapi";
 import * as S from "effect/Schema";
-import { CustomerSchema, Branded, Helpers } from "@/schemas";
+import { CustomerSchema, Branded } from "@/schemas";
 import type { CustomerService } from "@/types/services/customer";
-import { successResponse } from "@/utils/response";
+import { type ApiResponse, successResponse } from "@/utils/response";
 
 const getAllCustomerSchema = S.standardSchemaV1(CustomerSchema.SchemaArray);
 
@@ -63,13 +63,23 @@ export function setupCustomerGetRoutes(customerService: CustomerService) {
   const app = new Hono()
     .get("/", getAllDocs, async (c) => {
       const result = await customerService.findAll();
-      return successResponse(c, result, 200, "Get customer all successfully");
+      return successResponse(
+        c,
+        result,
+        200,
+        "Get customer all successfully",
+      ) as ApiResponse<typeof result>;
     })
     .get("/:customerId", getByIdDocs, validateRequestByParam, async (c) => {
       const { customerId } = c.req.valid("param");
       const result = await customerService.findById(customerId);
 
-      return successResponse(c, result, 200, "Get customer by Id successfully");
+      return successResponse(
+        c,
+        result,
+        200,
+        "Get customer by Id successfully",
+      ) as ApiResponse<typeof result>;
     });
 
   return app;

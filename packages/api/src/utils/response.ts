@@ -1,16 +1,20 @@
 import type { Context } from "hono";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
-export interface ApiResponse<T = unknown> {
-  success: boolean;
-  data?: T;
-  message?: string;
-  error?: {
-    name: string;
-    message: string;
-    statusCode: number;
-  };
-}
+export type ApiResponseTemplate<T = unknown> =
+  | {
+      success: true;
+      data: T;
+      message?: string;
+    }
+  | {
+      success: false;
+      error: {
+        name: string;
+        message: string;
+        statusCode: number;
+      };
+    };
 
 export function successResponse<T, S extends ContentfulStatusCode = 200>(
   c: Context,
@@ -18,7 +22,7 @@ export function successResponse<T, S extends ContentfulStatusCode = 200>(
   statusCode?: S,
   message?: string,
 ) {
-  const response = {
+  const response: ApiResponseTemplate<T> = {
     success: true,
     data,
     ...(message && { message }),
@@ -31,9 +35,9 @@ export function errorResponse(
   c: Context,
   message: string,
   statusCode: ContentfulStatusCode = 500,
-  errorName?: string,
+  errorName: string,
 ) {
-  const response: ApiResponse = {
+  const response: ApiResponseTemplate = {
     success: false,
     error: {
       name: errorName || "API_ERROR",
@@ -43,3 +47,7 @@ export function errorResponse(
   };
   return c.json(response, statusCode);
 }
+
+export type ApiResponse<T> =
+  | ReturnType<typeof successResponse<T>>
+  | ReturnType<typeof errorResponse>;

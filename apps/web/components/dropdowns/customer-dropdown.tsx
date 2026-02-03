@@ -17,25 +17,15 @@ import {
   PopoverTrigger,
 } from "@repo/shadcn/components/popover";
 import { useRouter } from "next/navigation";
-import useCustomer from "@/hooks/api/useCustomer";
-import { useShallow } from "zustand/react/shallow";
-import { useEffect } from "react";
+import { useGetCustomer } from "@/hooks/api/useCustomer";
 
 export default function CustomerDropdown() {
-  const { customers, getAll } = useCustomer(
-    useShallow((state) => {
-      return { customers: state.customers, getAll: state.getAll };
-    }),
-  );
-  console.log(customers);
+  const { data, isLoading, error } = useGetCustomer();
+
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<number | null>(null);
 
   const router = useRouter();
-
-  useEffect(() => {
-    getAll();
-  }, [getAll]);
 
   return (
     <div className="flex items-center gap-2">
@@ -48,7 +38,7 @@ export default function CustomerDropdown() {
             className="grow justify-between"
           >
             {value
-              ? customers.find((customer) => customer.id === value)?.first_name
+              ? data?.find((customer) => customer.id === value)?.first_name
               : "Select Customer"}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -62,7 +52,7 @@ export default function CustomerDropdown() {
             <CommandList>
               <CommandEmpty>No customer found.</CommandEmpty>
               <CommandGroup>
-                {customers.map((customer) => (
+                {data?.map((customer) => (
                   <CommandItem
                     key={customer.id}
                     value={`${customer.first_name} ${customer.last_name}`}

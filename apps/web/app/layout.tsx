@@ -3,6 +3,7 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@repo/shadcn/lib/utils";
 import "./globals.css";
 import { Toaster } from "@repo/shadcn/components/sonner";
+import Provider from "@/provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +29,7 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        {children}
+        <Provider>{children}</Provider>
         <Toaster />
       </body>
     </html>

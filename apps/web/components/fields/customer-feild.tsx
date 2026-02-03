@@ -22,20 +22,10 @@ import {
 import { toast } from "sonner";
 import { Spinner } from "@repo/shadcn/components/spinner";
 import { CustomerType } from "@/types";
-import useCustomer from "@/hooks/api/useCustomer";
-import { useShallow } from "zustand/react/shallow";
+import { usePostCustomer } from "@/hooks/api/useCustomer";
 
 export default function CustomerField() {
-  const { postCustomer, loading, success, error } = useCustomer(
-    useShallow((state) => {
-      return {
-        postCustomer: state.post,
-        loading: state.loading,
-        success: state.success,
-        error: state.error,
-      };
-    }),
-  );
+  const postCustomer = usePostCustomer();
   const {
     register,
     handleSubmit,
@@ -47,14 +37,16 @@ export default function CustomerField() {
   });
   const [firstName, lastName] = watch(["first_name", "last_name"]);
   const onSubmit: SubmitHandler<CustomerType.CreateCustomer> = async (data) => {
-    await postCustomer(data);
-    if (!success) {
+    postCustomer.mutate(data);
+    console.log(postCustomer.isSuccess);
+    if (postCustomer.isSuccess) {
       reset();
-      toast.success("Customer created successfully.");
+      toast.success("Customer created customer");
     } else {
-      toast.error(`${error}`);
+      toast.error(`${postCustomer.error}`);
     }
   };
+
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,8 +122,15 @@ export default function CustomerField() {
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit" disabled={loading}>
-              {loading ? <Spinner /> : "Submit"}
+            <Button type="submit" disabled={postCustomer.isPending}>
+              {postCustomer.isSuccess ? (
+                <div className="flex gap-2 items-center">
+                  <Spinner />
+                  Submit
+                </div>
+              ) : (
+                "Submit"
+              )}
             </Button>
             <Button variant="outline" type="button" onClick={() => reset()}>
               Clear

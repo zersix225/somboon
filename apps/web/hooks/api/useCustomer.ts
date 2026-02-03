@@ -1,48 +1,41 @@
-import { create } from "zustand";
 import apiClient from "@/utils/base-api";
 import { CustomerType } from "@/types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-type CustomerState = {
-  success: boolean;
-  customers: CustomerType.CustomerArray;
-  loading: boolean;
-  error: string | null;
-  post: (data: CustomerType.CreateCustomer) => Promise<void>;
-  getAll: () => Promise<void>;
-};
+export function useGetCustomer() {
+  return useQuery({
+    queryKey: ["customer"],
+    queryFn: async () => {
+      const res = await apiClient.customers.$get();
+      const body = await res.json();
 
-const useCustomer = create<CustomerState>((set) => ({
-  success: false,
-  customers: [],
-  loading: false,
-  error: null,
-  post: async (data) => {
-    set({ loading: true });
-    try {
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
+    },
+  });
+}
+
+export function usePostCustomer() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: CustomerType.CreateCustomer) => {
       const res = await apiClient.customers.$post({
         json: data,
       });
       const body = await res.json();
       if (!body.success) {
-        throw new Error(body.message);
+        throw new Error(body.error.message);
       }
-      set({ loading: false, success: true });
-    } catch (err) {
-      set({ loading: false, error: (err as Error).message });
-    }
-  },
-  getAll: async () => {
-    set({ loading: true });
-    try {
-      const res = await apiClient.customers.$get();
-      const body = await res.json();
-      if (!body.success) {
-        throw new Error(body.message);
-      }
-      set({ customers: [...body.data], loading: false, success: true });
-    } catch (err) {
-      set({ loading: false, error: (err as Error).message });
-    }
-  },
-}));
-export default useCustomer;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["customer"],
+      });
+    },
+    onError: (error) => {
+      console.error(error.message);
+    },
+  });
+}
