@@ -37,13 +37,16 @@ export default function CustomerField() {
   });
   const [firstName, lastName] = watch(["first_name", "last_name"]);
   const onSubmit: SubmitHandler<CustomerType.CreateCustomer> = async (data) => {
-    postCustomer.mutate(data);
-    console.log(postCustomer.isSuccess);
-    if (postCustomer.isSuccess) {
-      reset();
-      toast.success("Customer created customer");
-    } else {
-      toast.error(`${postCustomer.error}`);
+    if (data) {
+      postCustomer.mutate(data, {
+        onSuccess: () => {
+          reset();
+          toast.success("Customer created");
+        },
+        onError: (error) => {
+          toast.error(error.message);
+        },
+      });
     }
   };
 

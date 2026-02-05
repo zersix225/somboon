@@ -21,14 +21,23 @@ import { IconCircleDashedPlus, IconTrash } from "@tabler/icons-react";
 import CustomerDropdown from "@/components/dropdowns/customer-dropdown";
 import UploadCard from "@/components/cards/upload-card";
 import { useEffect, useMemo, useState } from "react";
+import { usePostRepair } from "@/hooks/api/useRepair";
+import { RepairType } from "@/types";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type Item = {
   id: number;
 };
 
 export default function RepairField() {
+  const postRepair = usePostRepair();
   const [item, setItem] = useState<Item[]>([{ id: 0 }]);
   const [nextId, setNextId] = useState(1);
+
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
 
   const yearArray = useMemo(() => {
     let year = Number(JSON.stringify(new Date()).slice(1, 5));
@@ -74,9 +83,39 @@ export default function RepairField() {
     }
   }, []);
 
+  const { register, handleSubmit, reset, setValue, control } =
+    useForm<RepairType.CreateRepair>();
+
+  useEffect(() => {
+    if (day && month && year) {
+      setValue(
+        "date_repair",
+        `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`,
+      );
+    }
+  }, [day, month, year, setValue]);
+
+  const onSubmit: SubmitHandler<RepairType.CreateRepair> = async (data) => {
+    postRepair.mutate(data, {
+      onSuccess: () => {
+        reset();
+        setDay("");
+        setMonth("");
+        setYear("");
+        setItem([{ id: 0 }]);
+        setNextId(1);
+        localStorage.removeItem("item_key");
+        toast.success("Repair created");
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
+  };
+
   return (
     <div className="w-full">
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <FieldSet>
             <FieldSet>
@@ -85,26 +124,26 @@ export default function RepairField() {
                   <UploadCard />
                 </Field>
                 <Field>
-                  <CustomerDropdown />
+                  <Controller
+                    name="customer_id"
+                    control={control}
+                    render={({ field }) => (
+                      <CustomerDropdown onChange={field.onChange} />
+                    )}
+                  />
                 </Field>
               </FieldGroup>
             </FieldSet>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="checkout-7j9-card-name-43j">
-                  Model Car
-                </FieldLabel>
-                <Input
-                  id="checkout-7j9-card-name-43j"
-                  placeholder="ex. civic"
-                  required
-                />
+                <FieldLabel>Model Car</FieldLabel>
+                <Input placeholder="ex. civic" {...register("model_car")} />
               </Field>
               <div className="grid grid-cols-3 gap-2">
                 <Field>
                   <FieldLabel htmlFor="day">Day</FieldLabel>
-                  <Select defaultValue="">
-                    <SelectTrigger id="checkout-7j9-exp-year-f59">
+                  <Select onValueChange={setDay} value={day}>
+                    <SelectTrigger>
                       <SelectValue placeholder="DD" />
                     </SelectTrigger>
                     <SelectContent>
@@ -118,8 +157,8 @@ export default function RepairField() {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="month">Month</FieldLabel>
-                  <Select defaultValue="">
-                    <SelectTrigger id="checkout-exp-month-ts6">
+                  <Select onValueChange={setMonth} value={month}>
+                    <SelectTrigger>
                       <SelectValue placeholder="MM" />
                     </SelectTrigger>
                     <SelectContent>
@@ -133,8 +172,8 @@ export default function RepairField() {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="year">Year</FieldLabel>
-                  <Select defaultValue="">
-                    <SelectTrigger id="checkout-7j9-exp-year-f59">
+                  <Select onValueChange={setYear} value={year}>
+                    <SelectTrigger>
                       <SelectValue placeholder="YYYY" />
                     </SelectTrigger>
                     <SelectContent>
@@ -160,11 +199,21 @@ export default function RepairField() {
                     </Button>
                   </div>
                 </FieldLabel>
-                {item.map((t) => (
+                {item.map((t, index) => (
                   <div key={t.id} className="flex md:gap-3 gap-2 items-center">
-                    <Input className="grow" placeholder="Detail" required />
+                    <Input
+                      className="grow"
+                      placeholder="Detail"
+                      {...register(`service.${index}.detail`)}
+                    />
                     <div>:</div>
-                    <Input className="w-35" placeholder="Price" required />
+                    <Input
+                      className="w-35"
+                      placeholder="Price"
+                      {...register(`service.${index}.price`, {
+                        valueAsNumber: true,
+                      })}
+                    />
                     <Button
                       variant="destructive"
                       type="button"
@@ -191,16 +240,28 @@ export default function RepairField() {
               <Field>
                 <FieldLabel htmlFor="comment">Comments</FieldLabel>
                 <Textarea
-                  id="checkout-7j9-optional-comments"
                   placeholder="Add any additional comments"
                   className="resize-none"
+                  {...register("comment")}
                 />
               </Field>
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
             <Button type="submit">Submit</Button>
-            <Button variant="outline" type="button">
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => {
+                reset();
+                setDay("");
+                setMonth("");
+                setYear("");
+                setItem([{ id: 0 }]);
+                setNextId(1);
+                localStorage.removeItem("item_key");
+              }}
+            >
               Clear
             </Button>
           </Field>

@@ -19,7 +19,11 @@ import {
 import { useRouter } from "next/navigation";
 import { useGetCustomer } from "@/hooks/api/useCustomer";
 
-export default function CustomerDropdown() {
+type CustomerDropdownProps = {
+  onChange?: (customerId: number) => void;
+};
+
+export default function CustomerDropdown({ onChange }: CustomerDropdownProps) {
   const { data, isLoading, error } = useGetCustomer();
 
   const [open, setOpen] = React.useState(false);
@@ -58,6 +62,7 @@ export default function CustomerDropdown() {
                     value={`${customer.first_name} ${customer.last_name}`}
                     onSelect={() => {
                       setValue(customer.id);
+                      onChange?.(customer.id);
                       setOpen(false);
                     }}
                   >
