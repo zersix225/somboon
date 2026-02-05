@@ -3,6 +3,7 @@
 import { Button } from "@repo/shadcn/components/button";
 import {
   Field,
+  FieldError,
   FieldGroup,
   FieldLabel,
   FieldSeparator,
@@ -25,6 +26,7 @@ import { usePostRepair } from "@/hooks/api/useRepair";
 import { RepairType } from "@/types";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type Item = {
   id: number;
@@ -83,8 +85,16 @@ export default function RepairField() {
     }
   }, []);
 
-  const { register, handleSubmit, reset, setValue, control } =
-    useForm<RepairType.CreateRepair>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    control,
+    formState: { errors },
+  } = useForm<RepairType.CreateRepair>({
+    resolver: zodResolver(RepairType.CreateRepairSchema),
+  });
 
   useEffect(() => {
     if (day && month && year) {
@@ -138,6 +148,9 @@ export default function RepairField() {
               <Field>
                 <FieldLabel>Model Car</FieldLabel>
                 <Input placeholder="ex. civic" {...register("model_car")} />
+                {errors?.model_car && (
+                  <FieldError>{errors?.model_car.message}</FieldError>
+                )}
               </Field>
               <div className="grid grid-cols-3 gap-2">
                 <Field>
@@ -210,9 +223,7 @@ export default function RepairField() {
                     <Input
                       className="w-35"
                       placeholder="Price"
-                      {...register(`service.${index}.price`, {
-                        valueAsNumber: true,
-                      })}
+                      {...register(`service.${index}.price`)}
                     />
                     <Button
                       variant="destructive"

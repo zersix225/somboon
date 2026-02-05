@@ -1,11 +1,12 @@
 import { z } from "zod";
 import { ServiceType } from "@/types";
+import { error } from "next/dist/build/output/log";
 
 const Schema = z.object({
   id: z.number(),
   customer_id: z.number(),
   comment: z.string(),
-  model_car: z.string(),
+  model_car: z.string().nonempty({ message: "Car model must be provided" }),
   date_repair: z.string(),
   created_at: z.string(),
   updated_at: z.string(),
