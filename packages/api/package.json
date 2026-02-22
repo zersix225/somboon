@@ -19,8 +19,7 @@
     "effect": "^3.19.14",
     "hono": "^4.11.3",
     "hono-openapi": "^1.1.2",
-    "install": "^0.13.0",
-    "npm": "^11.7.0",
+    "minio": "^8.0.6",
     "pg": "^8.17.2"
   },
   "devDependencies": {

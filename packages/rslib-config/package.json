@@ -11,7 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@rslib/core": "^0.19.1"
+    "@rslib/core": "0.19.3"
   },
   "exports": {
     "./lib": "./lib.config.ts",

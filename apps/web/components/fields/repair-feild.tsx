@@ -223,7 +223,10 @@ export default function RepairField() {
                     <Input
                       className="w-35"
                       placeholder="Price"
-                      {...register(`service.${index}.price`)}
+                      defaultValue={""}
+                      {...register(`service.${index}.price`, {
+                        valueAsNumber: true,
+                      })}
                     />
                     <Button
                       variant="destructive"

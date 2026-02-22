@@ -22,13 +22,15 @@ import { Button } from "@repo/shadcn/components/button";
 import { IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
 import { ChangeEvent, useEffect, useRef, useState, DragEvent } from "react";
+import { useUpload } from "@/hooks/api/useUpload";
 
 type UploadImage = {
-  file: File;
+  metaData: File;
   url: string;
 };
 
 export default function UploadCard() {
+  const postUpload = useUpload();
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [image, setImage] = useState<UploadImage[]>([]);
 
@@ -40,6 +42,7 @@ export default function UploadCard() {
     dragRef.current++;
     setIsDragging(true);
   };
+
   const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     dragRef.current--;
@@ -48,21 +51,25 @@ export default function UploadCard() {
     }
   };
 
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
   const addFiles = (files: FileList | null) => {
     if (!files) return;
-    console.log("added files");
-    const multipleFile = Array.from(files).map((file) => ({
-      file,
+
+    const fileArray = Array.from(files);
+    const multipleFile = fileArray.map((file) => ({
+      metaData: file,
       url: URL.createObjectURL(file),
     }));
+
+    postUpload.mutate(fileArray);
     setImage((prev) => [...prev, ...multipleFile]);
   };
 
   const onButtonClick = () => {
     inputFileRef.current?.click();
-  };
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
   };
 
   const handleDelete = (indexInput: number) => {
@@ -84,7 +91,6 @@ export default function UploadCard() {
   };
 
   useEffect(() => {
-    console.log("image", image);
     return () => {
       if (image) {
         image.forEach((img) => {
@@ -148,9 +154,9 @@ export default function UploadCard() {
                     </ItemMedia>
                     <ItemContent className="w-full">
                       <ItemTitle className="line-clamp-1">
-                        {img.file?.name}
+                        {img.metaData.name}
                       </ItemTitle>
-                      <ItemDescription>{img.file?.size}</ItemDescription>
+                      <ItemDescription>{img.metaData.size}</ItemDescription>
                     </ItemContent>
                     <ItemActions>
                       <Button

@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { prisma } from "@/config/prisma";
 import { setupOpenApi } from "@/config/setup-openapi";
 import { setupScalarDocs } from "@/config/setup-scalar";
+import { setupUploadRoutes } from "@/controllers/upload";
 import healthzApp from "@/controllers/healthz";
 import { Error } from "@/middlewares";
 import initCustomerRepository from "@/repositories/customers";
@@ -39,6 +40,7 @@ export const routes = app
 
   .route("/docs", setupScalarDocs())
   .route("/healthz", healthzApp)
+  .route("/uploads", setupUploadRoutes())
   .route("/customers", CustomerControllers.setupCustomerRoutes(customerService))
   .route("/repairs", RepairControllers.setupRepairRoutes(repairService));
 

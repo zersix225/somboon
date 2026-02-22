@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { ServiceType } from "@/types";
-import { error } from "next/dist/build/output/log";
 
 const Schema = z.object({
   id: z.number(),
