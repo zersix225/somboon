@@ -17,7 +17,7 @@ const docs = describeRoute({
           schema: resolver(standardRepairSchema),
         },
       },
-      description: "Created repair",
+      description: "Created repairs",
     },
   },
   tags: ["Repair"],
@@ -36,7 +36,7 @@ export function setupRepairPostRoutes(repairService: RepairService) {
       c,
       result,
       200,
-      "Created repair successfully",
+      "Created repairs successfully",
     ) as ApiResponse<typeof result>;
   });
   return app;

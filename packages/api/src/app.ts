@@ -3,16 +3,18 @@ import { Hono } from "hono";
 import { prisma } from "@/config/prisma";
 import { setupOpenApi } from "@/config/setup-openapi";
 import { setupScalarDocs } from "@/config/setup-scalar";
-import { setupUploadRoutes } from "@/controllers/upload";
+import { setupUploadImageRoutes } from "@/controllers/uploadImages";
 import healthzApp from "@/controllers/healthz";
 import { Error } from "@/middlewares";
 import initCustomerRepository from "@/repositories/customers";
 import initCustomerService from "@/services/customers";
 import * as CustomerControllers from "@/controllers/customers";
-import * as RepairControllers from "@/controllers/repair";
+import * as RepairControllers from "@/controllers/repairs";
+import * as UploadImageControllers from "@/controllers/uploadImages";
 import { cors } from "hono/cors";
 import initRepairRepository from "@/repositories/repair";
-import initRepairService from "@/services/repair";
+import initRepairService from "@/services/repairs";
+import initUploadImageService from "@/services/uploadImage";
 
 const app = new Hono();
 setupOpenApi(app);
@@ -22,6 +24,8 @@ const repairRepository = initRepairRepository(prisma);
 
 const customerService = initCustomerService(customerRepository);
 const repairService = initRepairService(repairRepository, customerRepository);
+
+const uploadImageService = initUploadImageService();
 
 export const routes = app
 
@@ -40,7 +44,10 @@ export const routes = app
 
   .route("/docs", setupScalarDocs())
   .route("/healthz", healthzApp)
-  .route("/uploads", setupUploadRoutes())
+  .route(
+    "/uploads",
+    UploadImageControllers.setupUploadImageRoutes(uploadImageService),
+  )
   .route("/customers", CustomerControllers.setupCustomerRoutes(customerService))
   .route("/repairs", RepairControllers.setupRepairRoutes(repairService));
 

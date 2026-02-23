@@ -16,7 +16,7 @@ export function usePostRepair() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["repair"],
+        queryKey: ["repairs"],
       });
     },
     onError: (error) => {
