@@ -1,6 +1,6 @@
 "use client";
 
-import RepairField from "@/components/fields/repair-feild";
+import RepairField from "@/components/fields/repair/repair-field";
 
 export default function RepairForm() {
   return (

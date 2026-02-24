@@ -1,5 +1,5 @@
 "use client";
-import CustomerField from "@/components/fields/customer-feild";
+import CustomerField from "@/components/fields/customer/customer-field";
 
 export default function CustomerForm() {
   return (

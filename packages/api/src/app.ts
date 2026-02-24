@@ -3,7 +3,6 @@ import { Hono } from "hono";
 import { prisma } from "@/config/prisma";
 import { setupOpenApi } from "@/config/setup-openapi";
 import { setupScalarDocs } from "@/config/setup-scalar";
-import { setupUploadImageRoutes } from "@/controllers/uploadImages";
 import healthzApp from "@/controllers/healthz";
 import { Error } from "@/middlewares";
 import initCustomerRepository from "@/repositories/customers";

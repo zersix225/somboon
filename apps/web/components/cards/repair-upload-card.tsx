@@ -1,3 +1,4 @@
+import { useDragUpload } from "@/hooks/repairs/use-drag-upload";
 import { Card, CardContent } from "@repo/shadcn/components/card";
 import {
   Empty,
@@ -7,6 +8,9 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@repo/shadcn/components/empty";
+import { IconPhoto, IconTrash } from "@tabler/icons-react";
+import { Input } from "@repo/shadcn/components/input";
+import { Button } from "@repo/shadcn/components/button";
 import {
   Item,
   ItemActions,
@@ -16,89 +20,27 @@ import {
   ItemMedia,
   ItemTitle,
 } from "@repo/shadcn/components/item";
-import { IconPhoto } from "@tabler/icons-react";
-import { Input } from "@repo/shadcn/components/input";
-import { Button } from "@repo/shadcn/components/button";
-import { IconTrash } from "@tabler/icons-react";
 import Image from "next/image";
-import { ChangeEvent, useEffect, useRef, useState, DragEvent } from "react";
-import { useUpload } from "@/hooks/api/useUpload";
 
-type UploadImage = {
-  metaData: File;
-  url: string;
+type RepairUploadCardProps = {
+  dragUpload: ReturnType<typeof useDragUpload>;
 };
 
-export default function UploadCard() {
-  const postUpload = useUpload();
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const [image, setImage] = useState<UploadImage[]>([]);
-
-  const dragRef = useRef(0);
-  const inputFileRef = useRef<HTMLInputElement>(null);
-
-  const handleDragEnter = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragRef.current++;
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragRef.current--;
-    if (dragRef.current === 0) {
-      setIsDragging(false);
-    }
-  };
-
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const addFiles = (files: FileList | null) => {
-    if (!files) return;
-
-    const fileArray = Array.from(files);
-    const multipleFile = fileArray.map((file) => ({
-      metaData: file,
-      url: URL.createObjectURL(file),
-    }));
-
-    postUpload.mutate(fileArray);
-    setImage((prev) => [...prev, ...multipleFile]);
-  };
-
-  const onButtonClick = () => {
-    inputFileRef.current?.click();
-  };
-
-  const handleDelete = (indexInput: number) => {
-    const remaining = image.filter((_, index) => index !== indexInput);
-    setImage(remaining);
-
-    if (inputFileRef.current) inputFileRef.current.value = "";
-  };
-
-  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    dragRef.current = 0;
-    setIsDragging(false);
-    addFiles(e.dataTransfer.files);
-  };
-
-  const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    addFiles(e.target.files);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (image) {
-        image.forEach((img) => {
-          URL.revokeObjectURL(img.url);
-        });
-      }
-    };
-  }, [image]);
+export default function RepairUploadCard({
+  dragUpload,
+}: RepairUploadCardProps) {
+  const {
+    image,
+    isDragging,
+    handleDrop,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDelete,
+    onChangeInput,
+    inputFileRef,
+    onButtonClick,
+  } = dragUpload;
 
   return (
     <Card className="py-6">
