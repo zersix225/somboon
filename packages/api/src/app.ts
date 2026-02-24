@@ -11,7 +11,7 @@ import * as CustomerControllers from "@/controllers/customers";
 import * as RepairControllers from "@/controllers/repairs";
 import * as UploadImageControllers from "@/controllers/uploadImages";
 import { cors } from "hono/cors";
-import initRepairRepository from "@/repositories/repair";
+import initRepairRepository from "@/repositories/repairs";
 import initRepairService from "@/services/repairs";
 import initUploadImageService from "@/services/uploadImage";
 
