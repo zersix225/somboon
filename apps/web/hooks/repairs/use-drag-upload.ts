@@ -61,6 +61,7 @@ export const useDragUpload = () => {
 
   return {
     image,
+    setImage,
     file,
     setFile,
     isDragging,

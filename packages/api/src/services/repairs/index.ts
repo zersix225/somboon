@@ -1,6 +1,7 @@
 import type { RepairRepository } from "@/types/repositories/repair";
 import type { RepairService } from "@/types/services/repair";
 import * as Creates from "@/services/repairs/creates";
+import * as Finds from "@/services/repairs/finds";
 import type { CustomerRepository } from "@/types/repositories/customer";
 
 export default function initRepairService(
@@ -9,5 +10,6 @@ export default function initRepairService(
 ): RepairService {
   return {
     create: Creates.create(repairRepository, customerRepository),
+    findAllWithLimit: Finds.findAllWithLimit(repairRepository),
   };
 }

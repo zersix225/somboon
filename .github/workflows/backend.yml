@@ -26,7 +26,7 @@ jobs:
         run: pnpm install --no-lockfile
 
       - name: Check (Lint + Format)
-        run: pnpm check
+        run: pnpm check-types
 
       - name: Generate Prisma client
         run: pnpm prisma generate
@@ -49,7 +49,7 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install --no-lockfile
+        run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma client
         run: pnpm prisma generate

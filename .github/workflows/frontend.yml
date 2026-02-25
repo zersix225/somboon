@@ -23,7 +23,10 @@ jobs:
           node-version: 22
 
       - name: Install dependencies
-        run: pnpm install --no-lockfile
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: pnpm --filter @repo/api prisma generate
 
       - name: Build Project
         run: pnpm run build

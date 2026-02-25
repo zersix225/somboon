@@ -23,7 +23,7 @@ export default defineConfig({
     },
     {
       bundle: true,
-      dts: true,
+      dts: false,
       format: "cjs",
       output: {
         distPath: {

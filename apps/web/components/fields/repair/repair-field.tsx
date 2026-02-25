@@ -51,27 +51,11 @@ export default function RepairField() {
   }, [day, month, year, setValue]);
 
   const onSubmit: SubmitHandler<RepairType.CreateRepair> = async (data) => {
-    // postRepair.mutate(data, {
-    //   onSuccess: () => {
-    //     reset();
-    //     setDay("");
-    //     setMonth("");
-    //     setYear("");
-    //     setItem([{ id: 0 }]);
-    //     setNextId(1);
-    //     localStorage.removeItem("item_key");
-    //     toast.success("Repair created");
-    //   },
-    //   onError: (error) => {
-    //     toast.error(error.message);
-    //   },
-    // });
-    // postUpload.mutate(file, {
-    //   onSuccess: () => {
-    //     setImage([]);
-    //   },
-    // });
     await submit(data, dragUpload.file);
+    dragUpload.setImage([]);
+    setDay("");
+    setMonth("");
+    setYear("");
     reset();
   };
 

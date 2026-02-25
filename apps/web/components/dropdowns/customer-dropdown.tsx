@@ -24,7 +24,7 @@ type CustomerDropdownProps = {
 };
 
 export default function CustomerDropdown({ onChange }: CustomerDropdownProps) {
-  const { data, isLoading, error } = useGetCustomer();
+  const { data } = useGetCustomer();
 
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<number | null>(null);
@@ -42,7 +42,9 @@ export default function CustomerDropdown({ onChange }: CustomerDropdownProps) {
             className="grow justify-between"
           >
             {value
-              ? data?.find((customer) => customer.id === value)?.first_name
+              ? data?.find((customer) => customer.id === value)
+                ? `${data.find((customer) => customer.id === value)?.first_name} ${data.find((customer) => customer.id === value)?.last_name}`
+                : "Select Customer"
               : "Select Customer"}
             <ChevronsUpDown className="opacity-50" />
           </Button>
@@ -66,7 +68,7 @@ export default function CustomerDropdown({ onChange }: CustomerDropdownProps) {
                       setOpen(false);
                     }}
                   >
-                    {customer.first_name}
+                    {`${customer.first_name} ${customer.last_name}`}
                     <Check
                       className={cn(
                         "ml-auto",
