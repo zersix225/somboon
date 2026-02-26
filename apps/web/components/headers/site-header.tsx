@@ -12,8 +12,9 @@ import {
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const pathSplit = pathname.split("/")[2] || pathname;
+  const pathSplit = pathname.split("/")[1] || pathname;
   const pathFormat = pathSplit?.charAt(0).toUpperCase() + pathSplit?.slice(1);
+  console.log(pathSplit);
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">

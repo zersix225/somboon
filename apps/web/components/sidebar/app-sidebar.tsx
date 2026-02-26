@@ -1,23 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react";
+import { IconInnerShadowTop } from "@tabler/icons-react";
 
 import NavDocuments from "@/components/nav/nav-documents";
 import NavMain from "@/components/nav/nav-main";
@@ -57,7 +41,7 @@ export default function AppSidebar({
       <SidebarContent>
         <NavMain items={nav.navMain} />
         <NavDocuments items={nav.documents} />
-        {/*<NavSecondary items={data.navSecondary} className="mt-auto" />*/}
+        <NavSecondary items={nav.navSecondary} />
       </SidebarContent>
       {/*<SidebarFooter>*/}
       {/*  <NavUser user={data.user} />*/}

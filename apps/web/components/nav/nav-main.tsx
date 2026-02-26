@@ -4,12 +4,10 @@ import { type Icon } from "@tabler/icons-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
 } from "@repo/shadcn/components/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -29,6 +27,7 @@ export default function NavMain({ items }: { items: NavItem[] }) {
 
   return (
     <SidebarGroup>
+      <SidebarGroupLabel>Main</SidebarGroupLabel>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
           {items.map((item) => {

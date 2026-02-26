@@ -6,7 +6,7 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-
+import { IconArrowNarrowRight } from "@tabler/icons-react";
 import {
   Table,
   TableBody,
@@ -34,8 +34,12 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="mb-4">
-        <h1 className="font-medium">Recent report</h1>
+      <div className="mb-4 flex justify-between items-center">
+        <h1 className="font-medium">Recent reports</h1>
+        <span className="text-sm flex items-center gap-2 hover:underline">
+          View All
+          <IconArrowNarrowRight className="size-5" />
+        </span>
       </div>
       <div className="overflow-hidden rounded-lg border">
         <Table>

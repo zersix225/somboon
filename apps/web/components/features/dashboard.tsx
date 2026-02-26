@@ -28,10 +28,6 @@ export default function Dashboard() {
         header: "Phone",
       },
       {
-        accessorKey: "comment",
-        header: "Comment",
-      },
-      {
         accessorKey: "date_repair",
         header: "Repair Date",
       },
@@ -40,13 +36,11 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="flex flex-1 flex-col">
-      <div className="@container/main flex flex-1 flex-col gap-2">
-        <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6 px-4 lg:px-6">
-          <AnalysisCard />
-          <ChartArea />
-          <DataTable columns={columns} data={data ?? []} />
-        </div>
+    <div className="@container/main">
+      <div className="flex flex-col gap-6 py-4 md:py-6 px-4 lg:px-6">
+        <AnalysisCard />
+        <ChartArea />
+        <DataTable columns={columns} data={data ?? []} />
       </div>
     </div>
   );

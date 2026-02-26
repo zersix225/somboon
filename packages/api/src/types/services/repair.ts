@@ -3,8 +3,9 @@ import type { RepairWithRelationsSchema, RepairSchema } from "@/schemas";
 export type RepairService = {
   create: (
     data: RepairWithRelationsSchema.CreateRepairWithRelations,
-  ) => Promise<RepairWithRelationsSchema.repairWithRelations>;
+  ) => Promise<RepairWithRelationsSchema.RepairWithRelations>;
   findAllWithLimit: (
     limit: number,
-  ) => Promise<RepairWithRelationsSchema.repairWithRelationsArray>;
+  ) => Promise<RepairWithRelationsSchema.RepairWithRelationsArray>;
+  findRecentActivity: () => Promise<RepairSchema.RepairRecentActivity>;
 };

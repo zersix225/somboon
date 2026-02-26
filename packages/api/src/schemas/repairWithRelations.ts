@@ -8,8 +8,8 @@ export const Schema = S.Struct({
   service: S.Array(ServiceSchema.Schema),
 });
 
-export type repairWithRelations = S.Schema.Type<typeof Schema>;
-export type repairWithRelationsEncoded = S.Schema.Encoded<typeof Schema>;
+export type RepairWithRelations = S.Schema.Type<typeof Schema>;
+export type RepairWithRelationsEncoded = S.Schema.Encoded<typeof Schema>;
 
 export const CreateServiceSchema = ServiceSchema.Schema.omit(
   "_tag",
@@ -31,8 +31,8 @@ export const SchemaArray = S.Array(
     customer: CustomerSchema.Schema,
   }),
 );
-export type repairWithRelationsArray = S.Schema.Type<typeof SchemaArray>;
+export type RepairWithRelationsArray = S.Schema.Type<typeof SchemaArray>;
 
-export type repairWithRelationsArrayEncoded = S.Schema.Encoded<
+export type RepairWithRelationsArrayEncoded = S.Schema.Encoded<
   typeof SchemaArray
 >;

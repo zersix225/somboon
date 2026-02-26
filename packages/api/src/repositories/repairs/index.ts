@@ -9,5 +9,6 @@ export default function initRepairRepository(
   return {
     create: Creates.create(prismaClient),
     findAllWithLimit: Finds.findAllWithLimit(prismaClient),
+    findRecentActivity: Finds.findRecentActivity(prismaClient),
   };
 }

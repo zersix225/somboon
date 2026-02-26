@@ -54,7 +54,7 @@ export const nav = {
   ],
   documents: [
     {
-      name: "Customer Table",
+      name: "Export",
       url: "#",
       icon: IconDatabase,
     },

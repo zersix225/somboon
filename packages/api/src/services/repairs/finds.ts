@@ -8,3 +8,11 @@ export function findAllWithLimit(
     return await repairRepository.findAllWithLimit(limit);
   };
 }
+
+export function findRecentActivity(
+  repairRepository: RepairRepository,
+): RepairService["findRecentActivity"] {
+  return async () => {
+    return await repairRepository.findRecentActivity();
+  };
+}

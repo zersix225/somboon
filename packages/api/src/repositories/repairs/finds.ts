@@ -21,3 +21,26 @@ export function findAllWithLimit(
     );
   };
 }
+
+export function findRecentActivity(
+  prismaClient: PrismaType,
+): RepairRepository["findRecentActivity"] {
+  return async () => {
+    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+    const [total, recent] = await Promise.all([
+      prismaClient.repair.count(),
+      prismaClient.repair.count({
+        where: {
+          created_at: { gte: oneDayAgo },
+        },
+      }),
+    ]);
+
+    return {
+      total,
+      recent,
+      growthRate: total > 0 ? (recent / total) * 100 : 0,
+    };
+  };
+}

@@ -1,12 +1,15 @@
 import { Hono } from "hono";
 import { describeRoute, resolver, validator } from "hono-openapi";
 import * as S from "effect/Schema";
-import { RepairWithRelationsSchema } from "@/schemas";
+import { RepairWithRelationsSchema, RepairSchema } from "@/schemas";
 import type { RepairService } from "@/types/services/repair";
 import { type ApiResponse, successResponse } from "@/utils/response";
 
 const getByLimitRepairSchema = S.standardSchemaV1(
   RepairWithRelationsSchema.SchemaArray,
+);
+const getRecentActivitySchema = S.standardSchemaV1(
+  RepairSchema.RepairRecentActivitySchema,
 );
 
 const getByLimitDocs = describeRoute({
@@ -36,6 +39,21 @@ const getByLimitDocs = describeRoute({
   },
   tags: ["Repair"],
 });
+
+const getRecentActivityDocs = describeRoute({
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: resolver(getRecentActivitySchema),
+        },
+      },
+      description: "Get Repair recent activity",
+    },
+  },
+  tags: ["Repair"],
+});
+
 const validateRequestByParam = validator(
   "param",
   S.standardSchemaV1(
@@ -46,11 +64,17 @@ const validateRequestByParam = validator(
 );
 
 export function setupRepairGetRoutes(repairService: RepairService) {
-  const app = new Hono().get(
-    "/:limit",
-    getByLimitDocs,
-    validateRequestByParam,
-    async (c) => {
+  const app = new Hono()
+    .get("/activities", getRecentActivityDocs, async (c) => {
+      const result = await repairService.findRecentActivity();
+      return successResponse(
+        c,
+        result,
+        200,
+        "Get repair activity successfully",
+      ) as ApiResponse<typeof result>;
+    })
+    .get("/:limit", getByLimitDocs, validateRequestByParam, async (c) => {
       const { limit } = c.req.valid("param");
       const result = await repairService.findAllWithLimit(Number(limit));
       return successResponse(
@@ -59,8 +83,7 @@ export function setupRepairGetRoutes(repairService: RepairService) {
         200,
         "Get repair all successfully",
       ) as ApiResponse<typeof result>;
-    },
-  );
+    });
 
   return app;
 }
