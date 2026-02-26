@@ -5,6 +5,7 @@ export function useUpload() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (file: File[]) => {
+      if (!file) return;
       const res = await apiClient.uploads.$post({
         form: {
           files: file,

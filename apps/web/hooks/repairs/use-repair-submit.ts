@@ -15,8 +15,9 @@ export const useRepairSubmit = () => {
         toast.error(error.message);
       },
     });
-
-    await postUpload.mutateAsync(files);
+    if (files.length !== 0) {
+      await postUpload.mutateAsync(files);
+    }
   };
 
   return { submit };

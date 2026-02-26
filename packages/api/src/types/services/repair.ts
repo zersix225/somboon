@@ -4,5 +4,7 @@ export type RepairService = {
   create: (
     data: RepairWithRelationsSchema.CreateRepairWithRelations,
   ) => Promise<RepairWithRelationsSchema.repairWithRelations>;
-  findAllWithLimit: (limit: number) => Promise<RepairSchema.RepairArray>;
+  findAllWithLimit: (
+    limit: number,
+  ) => Promise<RepairWithRelationsSchema.repairWithRelationsArray>;
 };

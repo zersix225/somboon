@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+"use client";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/utils/base-api";
 import { RepairType } from "@/types";
 
@@ -21,6 +22,26 @@ export function usePostRepair() {
     },
     onError: (error) => {
       console.error(error.message);
+    },
+  });
+}
+
+export function useGetRepair(limit: string) {
+  return useQuery({
+    queryKey: ["repairs"],
+    queryFn: async () => {
+      const res = await apiClient.repairs[":limit"].$get({
+        param: {
+          limit: limit,
+        },
+      });
+      const body = await res.json();
+      console.log(body);
+
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
     },
   });
 }

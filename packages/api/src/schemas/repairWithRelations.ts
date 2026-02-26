@@ -20,13 +20,19 @@ export const CreateServiceSchema = ServiceSchema.Schema.omit(
 );
 export const CreateSchema = S.Struct({
   ...RepairSchema.Schema.omit("_tag", "id", "created_at", "updated_at").fields,
-
   service: S.Array(CreateServiceSchema),
 });
 export type CreateRepairWithRelations = S.Schema.Type<typeof CreateSchema>;
 
-export const SchemaArray = S.Array(Schema);
+export const SchemaArray = S.Array(
+  S.Struct({
+    ...RepairSchema.Schema.fields,
+    service: S.Array(ServiceSchema.Schema),
+    customer: CustomerSchema.Schema,
+  }),
+);
 export type repairWithRelationsArray = S.Schema.Type<typeof SchemaArray>;
+
 export type repairWithRelationsArrayEncoded = S.Schema.Encoded<
   typeof SchemaArray
 >;

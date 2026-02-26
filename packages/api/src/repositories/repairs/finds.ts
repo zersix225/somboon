@@ -1,6 +1,6 @@
 import type { PrismaType } from "@/config/prisma";
 import type { RepairRepository } from "@/types/repositories/repair";
-import { RepairSchema, Helpers } from "@/schemas";
+import { RepairWithRelationsSchema, Helpers } from "@/schemas";
 
 export function findAllWithLimit(
   prismaClient: PrismaType,
@@ -8,7 +8,16 @@ export function findAllWithLimit(
   return async (limit: number) => {
     const result = await prismaClient.repair.findMany({
       take: limit,
+      orderBy: {
+        created_at: "desc",
+      },
+      include: {
+        service: true,
+        customer: true,
+      },
     });
-    return Helpers.fromObjectToSchema(RepairSchema.SchemaArray)(result);
+    return Helpers.fromObjectToSchema(RepairWithRelationsSchema.SchemaArray)(
+      result,
+    );
   };
 }

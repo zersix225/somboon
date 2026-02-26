@@ -5,7 +5,7 @@ import type {
 } from "@/schemas";
 
 type Repair = RepairWithRelationsSchema.repairWithRelations;
-type RepairArray = RepairSchema.RepairArray;
+type RepairArray = RepairWithRelationsSchema.repairWithRelationsArray;
 
 export type CreateRepairDto =
   RepairWithRelationsSchema.CreateRepairWithRelations;

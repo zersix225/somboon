@@ -1,11 +1,13 @@
 import { Hono } from "hono";
 import { describeRoute, resolver, validator } from "hono-openapi";
 import * as S from "effect/Schema";
-import { RepairSchema } from "@/schemas";
+import { RepairWithRelationsSchema } from "@/schemas";
 import type { RepairService } from "@/types/services/repair";
 import { type ApiResponse, successResponse } from "@/utils/response";
 
-const getByLimitRepairSchema = S.standardSchemaV1(RepairSchema.Schema);
+const getByLimitRepairSchema = S.standardSchemaV1(
+  RepairWithRelationsSchema.SchemaArray,
+);
 
 const getByLimitDocs = describeRoute({
   responses: {
