@@ -1,9 +1,16 @@
 import { useState, useRef, DragEvent, ChangeEvent } from "react";
+import { toast } from "sonner";
 
 type UploadImage = {
   metaData: File;
   url: string;
 };
+
+const ALLOWED_TYPES = ["image/jpeg", "image/jpg", "image/png"];
+const toUploadImage = (file: File): UploadImage => ({
+  metaData: file,
+  url: URL.createObjectURL(file),
+});
 
 export const useDragUpload = () => {
   const [image, setImage] = useState<UploadImage[]>([]);
@@ -14,17 +21,16 @@ export const useDragUpload = () => {
 
   const addFiles = (files: FileList | null) => {
     if (!files) return;
-
     const fileArray = Array.from(files);
-    const mapped = fileArray.map((file) => ({
-      metaData: file,
-      url: URL.createObjectURL(file),
-    }));
+    const invalidFiles = fileArray.filter(
+      (f) => !ALLOWED_TYPES.includes(f.type),
+    );
 
-    console.log(files);
+    if (invalidFiles.length > 0) {
+      return toast.error("Can not uploaded files");
+    }
     setFile(fileArray);
-    console.log(file);
-    setImage((prev) => [...prev, ...mapped]);
+    setImage((prev) => [...prev, ...fileArray.map(toUploadImage)]);
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
@@ -53,6 +59,9 @@ export const useDragUpload = () => {
 
   const handleDelete = (index: number) => {
     setImage((prev) => prev.filter((_, i) => i !== index));
+    if (inputFileRef.current) {
+      inputFileRef.current.value = "";
+    }
   };
 
   const onButtonClick = () => {

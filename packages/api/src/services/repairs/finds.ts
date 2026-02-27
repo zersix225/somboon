@@ -13,6 +13,14 @@ export function findRecentActivity(
   repairRepository: RepairRepository,
 ): RepairService["findRecentActivity"] {
   return async () => {
-    return await repairRepository.findRecentActivity();
+    const repair = await repairRepository.findRecentActivity();
+    const growthRate =
+      repair.past > 0 ? ((repair.recent - repair.past) / repair.past) * 100 : 0;
+
+    return {
+      total: repair.total,
+      recent: repair.recent,
+      growthRate: growthRate.toFixed(3),
+    };
   };
 }

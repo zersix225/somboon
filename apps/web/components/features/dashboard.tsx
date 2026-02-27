@@ -17,11 +17,11 @@ export default function Dashboard() {
       },
       {
         accessorKey: "customer.first_name",
-        header: "First Name",
+        header: "Firstname",
       },
       {
         accessorKey: "customer.last_name",
-        header: "Lastname Name",
+        header: "Lastname",
       },
       {
         accessorKey: "customer.phone",
@@ -30,6 +30,17 @@ export default function Dashboard() {
       {
         accessorKey: "date_repair",
         header: "Repair Date",
+        cell: ({ getValue }: any) => {
+          const date = getValue();
+          const newFormat = date
+            ? new Date(date).toLocaleDateString("en-En", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })
+            : "-";
+          return newFormat;
+        },
       },
     ],
     [],
@@ -38,7 +49,9 @@ export default function Dashboard() {
   return (
     <div className="@container/main">
       <div className="flex flex-col gap-6 py-4 md:py-6 px-4 lg:px-6">
-        <AnalysisCard />
+        <div className="">
+          <AnalysisCard />
+        </div>
         <ChartArea />
         <DataTable columns={columns} data={data ?? []} />
       </div>

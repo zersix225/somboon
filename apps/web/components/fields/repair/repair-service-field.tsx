@@ -21,18 +21,16 @@ export function RepairServiceField({
 
   return (
     <Field>
-      <FieldLabel>
-        <div className="flex justify-between w-full items-center">
-          <span>Services</span>
-          <Button
-            variant="ghost"
-            type="button"
-            onClick={() => append({ detail: "", price: 0 })}
-          >
-            <IconCircleDashedPlus stroke={2} className="size-5" />
-          </Button>
-        </div>
-      </FieldLabel>
+      <div className="flex justify-between w-full items-center">
+        <FieldLabel>Services</FieldLabel>
+        <Button
+          variant="ghost"
+          type="button"
+          onClick={() => append({ detail: "", price: 0 })}
+        >
+          <IconCircleDashedPlus stroke={2} className="size-5" />
+        </Button>
+      </div>
 
       <div className="space-y-3">
         {fields.map((field, index) => (
@@ -47,7 +45,7 @@ export function RepairServiceField({
 
             <Input
               className="w-32"
-              type="number"
+              type="text"
               placeholder="Price"
               {...register(`service.${index}.price`, {
                 valueAsNumber: true,

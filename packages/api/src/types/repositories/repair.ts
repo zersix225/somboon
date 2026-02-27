@@ -6,7 +6,10 @@ import type {
 
 type Repair = RepairWithRelationsSchema.RepairWithRelations;
 type RepairArray = RepairWithRelationsSchema.RepairWithRelationsArray;
-type RepairRecentActivity = RepairSchema.RepairRecentActivity;
+type RepairRecentActivity = Omit<
+  RepairSchema.RepairRecentActivity,
+  "growthRate"
+>;
 
 export type CreateRepairDto =
   RepairWithRelationsSchema.CreateRepairWithRelations;

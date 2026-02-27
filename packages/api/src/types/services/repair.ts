@@ -1,5 +1,7 @@
 import type { RepairWithRelationsSchema, RepairSchema } from "@/schemas";
 
+type RepairWithoutPast = Omit<RepairSchema.RepairRecentActivity, "past">;
+
 export type RepairService = {
   create: (
     data: RepairWithRelationsSchema.CreateRepairWithRelations,
@@ -7,5 +9,5 @@ export type RepairService = {
   findAllWithLimit: (
     limit: number,
   ) => Promise<RepairWithRelationsSchema.RepairWithRelationsArray>;
-  findRecentActivity: () => Promise<RepairSchema.RepairRecentActivity>;
+  findRecentActivity: () => Promise<RepairWithoutPast>;
 };

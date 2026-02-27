@@ -29,6 +29,7 @@ export default function RepairField() {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const [resetKey, setResetKey] = useState(0);
 
   const {
     register,
@@ -50,13 +51,18 @@ export default function RepairField() {
     }
   }, [day, month, year, setValue]);
 
-  const onSubmit: SubmitHandler<RepairType.CreateRepair> = async (data) => {
-    await submit(data, dragUpload.file);
-    dragUpload.setImage([]);
+  const resetAll = () => {
+    reset();
     setDay("");
     setMonth("");
     setYear("");
-    reset();
+    setResetKey((prev) => prev + 1);
+  };
+
+  const onSubmit: SubmitHandler<RepairType.CreateRepair> = async (data) => {
+    await submit(data, dragUpload.file);
+    dragUpload.setImage([]);
+    resetAll();
   };
 
   return (
@@ -74,7 +80,10 @@ export default function RepairField() {
                     name="customer_id"
                     control={control}
                     render={({ field }) => (
-                      <CustomerDropdown onChange={field.onChange} />
+                      <CustomerDropdown
+                        onChange={field.onChange}
+                        resetKey={resetKey}
+                      />
                     )}
                   />
                 </Field>
@@ -114,16 +123,7 @@ export default function RepairField() {
           </FieldSet>
           <Field orientation="horizontal">
             <Button type="submit">Submit</Button>
-            <Button
-              variant="outline"
-              type="button"
-              onClick={() => {
-                reset();
-                setDay("");
-                setMonth("");
-                setYear("");
-              }}
-            >
+            <Button variant="outline" type="button" onClick={resetAll}>
               Clear
             </Button>
           </Field>

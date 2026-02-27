@@ -17,18 +17,29 @@ import {
 } from "@repo/shadcn/components/popover";
 import { useRouter } from "next/navigation";
 import { useGetCustomer } from "@/hooks/api/useCustomer";
+import { useEffect } from "react";
 
 type CustomerDropdownProps = {
   onChange?: (customerId: number) => void;
+  resetKey?: number | string;
 };
 
-export default function CustomerDropdown({ onChange }: CustomerDropdownProps) {
+export default function CustomerDropdown({
+  onChange,
+  resetKey,
+}: CustomerDropdownProps) {
   const { data } = useGetCustomer();
 
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState<number | null>(null);
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (resetKey !== undefined) {
+      setValue(null);
+    }
+  }, [resetKey]);
 
   return (
     <div className="flex items-center gap-2">

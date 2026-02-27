@@ -1,5 +1,4 @@
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
-
 import { Badge } from "@repo/shadcn/components/badge";
 import {
   Card,
@@ -8,14 +7,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@repo/shadcn/components/card";
+import { useGetRecentActivityRepair } from "@/hooks/api/useRepair";
 
 export default function AnalysisCard() {
+  const { data } = useGetRecentActivityRepair();
   return (
     <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
       <Card className="w-full">
         <CardHeader>
-          <CardDescription>Total Revenue</CardDescription>
-          <CardTitle>$1,250.00</CardTitle>
+          <CardDescription>Total Repairs</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {data?.total}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconTrendingUp />
@@ -26,8 +29,10 @@ export default function AnalysisCard() {
       </Card>
       <Card className="w-full">
         <CardHeader>
-          <CardDescription>New Customers</CardDescription>
-          <CardTitle>1,234</CardTitle>
+          <CardDescription>Recent Repairs</CardDescription>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {data?.recent}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconTrendingDown />
@@ -39,7 +44,9 @@ export default function AnalysisCard() {
       <Card className="w-full">
         <CardHeader>
           <CardDescription>Active Accounts</CardDescription>
-          <CardTitle>45,678</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            45,678
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconTrendingUp />
@@ -51,7 +58,9 @@ export default function AnalysisCard() {
       <Card className="w-full">
         <CardHeader>
           <CardDescription>Growth Rate</CardDescription>
-          <CardTitle>4.5%</CardTitle>
+          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
+            {data?.growthRate}
+          </CardTitle>
           <CardAction>
             <Badge variant="outline">
               <IconTrendingUp />

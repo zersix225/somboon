@@ -1,4 +1,3 @@
-"use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import apiClient from "@/utils/base-api";
 import { RepairType } from "@/types";
@@ -36,7 +35,21 @@ export function useGetRepair(limit: string) {
         },
       });
       const body = await res.json();
-      console.log(body);
+
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
+    },
+  });
+}
+
+export function useGetRecentActivityRepair() {
+  return useQuery({
+    queryKey: ["recentActivityRepair"],
+    queryFn: async () => {
+      const res = await apiClient.repairs["activities"].$get();
+      const body = await res.json();
 
       if (!body.success) {
         throw new Error(body.error.message);

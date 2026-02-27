@@ -1,6 +1,7 @@
 import type { PrismaType } from "@/config/prisma";
 import type { RepairRepository } from "@/types/repositories/repair";
 import { RepairWithRelationsSchema, Helpers } from "@/schemas";
+import { now } from "effect/DateTime";
 
 export function findAllWithLimit(
   prismaClient: PrismaType,
@@ -26,13 +27,27 @@ export function findRecentActivity(
   prismaClient: PrismaType,
 ): RepairRepository["findRecentActivity"] {
   return async () => {
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
-    const [total, recent] = await Promise.all([
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const [total, recent, past] = await Promise.all([
       prismaClient.repair.count(),
       prismaClient.repair.count({
         where: {
-          created_at: { gte: oneDayAgo },
+          created_at: {
+            gte: today,
+          },
+        },
+      }),
+      prismaClient.repair.count({
+        where: {
+          created_at: {
+            gte: yesterday,
+            lt: today,
+          },
         },
       }),
     ]);
@@ -40,7 +55,7 @@ export function findRecentActivity(
     return {
       total,
       recent,
-      growthRate: total > 0 ? (recent / total) * 100 : 0,
+      past,
     };
   };
 }

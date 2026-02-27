@@ -9,7 +9,7 @@ const getByLimitRepairSchema = S.standardSchemaV1(
   RepairWithRelationsSchema.SchemaArray,
 );
 const getRecentActivitySchema = S.standardSchemaV1(
-  RepairSchema.RepairRecentActivitySchema,
+  RepairSchema.RepairRecentActivitySchema.omit("past"),
 );
 
 const getByLimitDocs = describeRoute({

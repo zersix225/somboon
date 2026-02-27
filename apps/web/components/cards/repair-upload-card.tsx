@@ -64,7 +64,7 @@ export default function RepairUploadCard({
               ref={inputFileRef}
               id="file-upload"
               type="file"
-              accept="image/*, .jpg, .jpeg, .png"
+              accept=".jpg,.jpeg,.png"
               className="hidden"
               multiple
               onChange={onChangeInput}
