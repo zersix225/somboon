@@ -31,15 +31,16 @@ export const routes = app
   .use(
     "*",
     cors({
-      origin: "http://localhost:5173",
+      origin: [
+        "https://somboonautoair.xyz",
+        "https://www.somboonautoair.xyz",
+        "http://localhost:5173",
+      ],
       allowMethods: ["GET", "POST", "PUT", "DELETE"],
       allowHeaders: ["Content-Type", "Authorization"],
       credentials: true,
     }),
   )
-  .onError((err, c) => {
-    return Error.errorHandler(err, c);
-  })
 
   .route("/docs", setupScalarDocs())
   .route("/healthz", healthzApp)
