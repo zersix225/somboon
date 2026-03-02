@@ -102,17 +102,17 @@ export default function RepairUploadCard({
                     </ItemContent>
                     <ItemActions>
                       <Button
-                        size="sm"
+                        size="icon"
                         type="button"
                         variant="destructive"
-                        className="flex-grow"
+                        className="size-7"
                         onClick={() => {
                           handleDelete(index);
                         }}
                       >
                         <IconTrash
                           stroke={2}
-                          className="text-destructive-foreground size-5"
+                          className="text-destructive-foreground size-4"
                         />
                       </Button>
                     </ItemActions>

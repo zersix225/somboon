@@ -25,10 +25,11 @@ export function RepairServiceField({
         <FieldLabel>Services</FieldLabel>
         <Button
           variant="ghost"
+          size="icon"
           type="button"
           onClick={() => append({ detail: "", price: 0 })}
         >
-          <IconCircleDashedPlus stroke={2} className="size-5" />
+          <IconCircleDashedPlus stroke={2} className="size-4" />
         </Button>
       </div>
 
@@ -44,7 +45,7 @@ export function RepairServiceField({
             <div>:</div>
 
             <Input
-              className="w-32"
+              className="w-20"
               type="text"
               placeholder="Price"
               {...register(`service.${index}.price`, {
@@ -52,8 +53,19 @@ export function RepairServiceField({
               })}
             />
 
-            <Button size="icon" type="button" onClick={() => remove(index)}>
-              <IconTrash stroke={2} className="size-5" />
+            <Button
+              size="icon"
+              type="button"
+              variant="destructive"
+              className="size-7"
+              onClick={() => {
+                remove(index);
+              }}
+            >
+              <IconTrash
+                stroke={2}
+                className="text-destructive-foreground size-4"
+              />
             </Button>
           </div>
         ))}

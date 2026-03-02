@@ -40,7 +40,7 @@ export default function AppSidebar({
       <SidebarContent>
         <NavMain items={nav.navMain} />
         <NavDocuments items={nav.documents} />
-        <NavSecondary items={nav.navSecondary} />
+        {/*<NavSecondary items={nav.navSecondary} />*/}
       </SidebarContent>
       {/*<SidebarFooter>*/}
       {/*  <NavUser user={data.user} />*/}
