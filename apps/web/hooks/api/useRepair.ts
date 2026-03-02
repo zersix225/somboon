@@ -18,6 +18,7 @@ export function usePostRepair() {
       queryClient.invalidateQueries({
         queryKey: ["repairs"],
       });
+      queryClient.invalidateQueries({ queryKey: ["repairsPagination"] });
     },
     onError: (error) => {
       console.error(error.message);
@@ -32,6 +33,26 @@ export function useGetRepair(limit: string) {
       const res = await apiClient.repairs[":limit"].$get({
         param: {
           limit: limit,
+        },
+      });
+      const body = await res.json();
+
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
+    },
+  });
+}
+
+export function useGetRepairPagination(page: string, pageSize: string) {
+  return useQuery({
+    queryKey: ["repairsPagination", page, pageSize],
+    queryFn: async () => {
+      const res = await apiClient.repairs["paginates"].$get({
+        query: {
+          page: page,
+          pageSize: pageSize,
         },
       });
       const body = await res.json();
