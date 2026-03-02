@@ -54,14 +54,14 @@ export const nav = {
   ],
   documents: [
     {
+      name: "Reports",
+      url: "/repair",
+      icon: IconReport,
+    },
+    {
       name: "Export",
       url: "#",
       icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
     },
     {
       name: "Word Assistant",

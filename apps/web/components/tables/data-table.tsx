@@ -16,6 +16,7 @@ import {
   TableRow,
 } from "@repo/shadcn/components/table";
 import { useMemo } from "react";
+import Link from "next/link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -36,10 +37,13 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="mb-4 flex justify-between items-center">
         <h1 className="font-medium">Recent reports</h1>
-        <span className="text-sm flex items-center gap-2 hover:underline">
+        <Link
+          href={"/repair"}
+          className="text-sm flex items-center gap-2 hover:underline"
+        >
           View All
           <IconArrowNarrowRight className="size-5" />
-        </span>
+        </Link>
       </div>
       <div className="overflow-hidden rounded-lg border">
         <Table>

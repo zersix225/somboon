@@ -11,6 +11,7 @@ import {
 } from "@repo/shadcn/components/sidebar";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSidebar } from "@repo/shadcn/components/sidebar";
 
 type NavItem = {
   title: string;
@@ -24,6 +25,13 @@ type NavItem = {
 
 export default function NavMain({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
+  const { setOpenMobile, isMobile } = useSidebar();
+
+  const handdleOpenCloseSidebar = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
 
   return (
     <SidebarGroup>
@@ -36,7 +44,7 @@ export default function NavMain({ items }: { items: NavItem[] }) {
             return (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton asChild data-active={isActive}>
-                  <Link href={item.url}>
+                  <Link href={item.url} onClick={handdleOpenCloseSidebar}>
                     {item.icon && <item.icon />}
                     <span>{item.title}</span>
                   </Link>

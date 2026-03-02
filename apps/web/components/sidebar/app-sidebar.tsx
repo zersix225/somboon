@@ -6,17 +6,16 @@ import { IconInnerShadowTop } from "@tabler/icons-react";
 import NavDocuments from "@/components/nav/nav-documents";
 import NavMain from "@/components/nav/nav-main";
 import NavSecondary from "@/components/nav/nav-secondary";
-import NavUser from "@/components/nav/nav-user";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@repo/shadcn/components/sidebar";
 import { nav } from "@/constants/nav";
+import Link from "next/link";
 
 export default function AppSidebar({
   ...props
@@ -30,10 +29,10 @@ export default function AppSidebar({
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
+              <Link href="/dashboard">
                 <IconInnerShadowTop className="!size-5" />
                 <span className="text-base font-semibold">Somboon Inc.</span>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

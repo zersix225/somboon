@@ -4,6 +4,7 @@ import { cn } from "@repo/shadcn/lib/utils";
 import "./globals.css";
 import { Toaster } from "@repo/shadcn/components/sonner";
 import Provider from "@/provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,8 +30,17 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <Provider>{children}</Provider>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Provider>
+            {children}
+            <Toaster />
+          </Provider>
+        </ThemeProvider>
       </body>
     </html>
   );
