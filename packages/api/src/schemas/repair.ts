@@ -52,11 +52,11 @@ export type UpdateRepair = S.Schema.Type<typeof UpdateSchema>;
 
 export const RepairRecentActivitySchema = S.Struct({
   total: S.Number,
-  recent: S.Number,
-  past: S.Number,
+  currentRepair: S.Number,
+  current: S.Number,
+  last: S.Number,
   growthRate: S.String,
 });
-
 export type RepairRecentActivity = S.Schema.Type<
   typeof RepairRecentActivitySchema
 >;

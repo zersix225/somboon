@@ -31,7 +31,7 @@ export default function AnalysisCard() {
         <CardHeader>
           <CardDescription>Recent Repairs</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            {data?.recent}
+            {data?.currentRepair}
           </CardTitle>
           <CardAction>
             <Badge variant="outline">

@@ -10,4 +10,8 @@ export type RepairService = {
     limit: number,
   ) => Promise<RepairWithRelationsSchema.RepairWithRelationsArray>;
   findRecentActivity: () => Promise<RepairWithoutPast>;
+  findPagination: (
+    page: number,
+    pageSize: number,
+  ) => Promise<RepairWithRelationsSchema.PaginationRepair>;
 };

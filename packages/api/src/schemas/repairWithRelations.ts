@@ -36,3 +36,15 @@ export type RepairWithRelationsArray = S.Schema.Type<typeof SchemaArray>;
 export type RepairWithRelationsArrayEncoded = S.Schema.Encoded<
   typeof SchemaArray
 >;
+
+export const PaginationSchema = S.Struct({
+  items: S.Array(Schema),
+  totalCount: S.Number,
+  totalPages: S.Number,
+  _links: S.Struct({
+    self: S.String,
+    next: S.Union(S.String, S.Null),
+    prev: S.Union(S.String, S.Null),
+  }),
+});
+export type PaginationRepair = S.Schema.Type<typeof PaginationSchema>;

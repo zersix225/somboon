@@ -2,6 +2,8 @@ import type { PrismaType } from "@/config/prisma";
 import type { RepairRepository } from "@/types/repositories/repair";
 import { RepairWithRelationsSchema, Helpers } from "@/schemas";
 import { now } from "effect/DateTime";
+import type { PrismaClient } from "@prisma/client/extension";
+import { async } from "effect/Micro";
 
 export function findAllWithLimit(
   prismaClient: PrismaType,
@@ -30,10 +32,13 @@ export function findRecentActivity(
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
+    const currentWeek = new Date(today);
+    currentWeek.setDate(currentWeek.getDate() - 7);
 
-    const [total, recent, past] = await Promise.all([
+    const lastWeek = new Date(today);
+    lastWeek.setDate(lastWeek.getDate() - 14);
+
+    const [total, currentRepair, current, last] = await Promise.all([
       prismaClient.repair.count(),
       prismaClient.repair.count({
         where: {
@@ -45,8 +50,15 @@ export function findRecentActivity(
       prismaClient.repair.count({
         where: {
           created_at: {
-            gte: yesterday,
-            lt: today,
+            gte: currentWeek,
+          },
+        },
+      }),
+      prismaClient.repair.count({
+        where: {
+          created_at: {
+            gte: lastWeek,
+            lt: currentWeek,
           },
         },
       }),
@@ -54,8 +66,49 @@ export function findRecentActivity(
 
     return {
       total,
-      recent,
-      past,
+      currentRepair,
+      current,
+      last,
+    };
+  };
+}
+
+export function findPagination(
+  prismaClient: PrismaType,
+): RepairRepository["findPagination"] {
+  return async (page, pageSize) => {
+    const skip = (page - 1) * pageSize;
+
+    const [totalCount, result] = await prismaClient.$transaction([
+      prismaClient.repair.count(),
+      prismaClient.repair.findMany({
+        orderBy: {
+          created_at: "desc",
+        },
+        skip,
+        take: pageSize,
+        include: {
+          service: true,
+          customer: true,
+        },
+      }),
+    ]);
+
+    const totalPages = Math.ceil(totalCount / pageSize);
+    const baseUrl = "/repairs/pagination";
+    const items = Helpers.fromObjectToSchema(
+      RepairWithRelationsSchema.SchemaArray,
+    )(result);
+
+    return {
+      items,
+      totalCount,
+      totalPages,
+      _links: {
+        self: `${baseUrl}?page=${page}`,
+        next: page < totalPages ? `${baseUrl}?page=${page + 1}` : null,
+        prev: page > 1 ? `${baseUrl}?page=${page - 1}` : null,
+      },
     };
   };
 }

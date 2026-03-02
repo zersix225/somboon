@@ -19,4 +19,8 @@ export type RepairRepository = {
   create: (data: CreateRepairDto) => Promise<Repair>;
   findAllWithLimit: (limit: number) => Promise<RepairArray>;
   findRecentActivity: () => Promise<RepairRecentActivity>;
+  findPagination: (
+    page: number,
+    pageSize: number,
+  ) => Promise<RepairWithRelationsSchema.PaginationRepair>;
 };

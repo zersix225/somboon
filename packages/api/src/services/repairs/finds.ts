@@ -15,12 +15,24 @@ export function findRecentActivity(
   return async () => {
     const repair = await repairRepository.findRecentActivity();
     const growthRate =
-      repair.past > 0 ? ((repair.recent - repair.past) / repair.past) * 100 : 0;
+      repair.last > 0
+        ? ((repair.current - repair.last) * 100) / repair.last
+        : 0;
 
     return {
       total: repair.total,
-      recent: repair.recent,
+      currentRepair: repair.currentRepair,
+      current: repair.current,
+      last: repair.last,
       growthRate: growthRate.toFixed(3),
     };
+  };
+}
+
+export function findPagination(
+  repairRepository: RepairRepository,
+): RepairService["findPagination"] {
+  return async (page, pageSize) => {
+    return repairRepository.findPagination(page, pageSize);
   };
 }

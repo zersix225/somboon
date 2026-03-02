@@ -12,5 +12,6 @@ export default function initRepairService(
     create: Creates.create(repairRepository, customerRepository),
     findAllWithLimit: Finds.findAllWithLimit(repairRepository),
     findRecentActivity: Finds.findRecentActivity(repairRepository),
+    findPagination: Finds.findPagination(repairRepository),
   };
 }

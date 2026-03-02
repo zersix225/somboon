@@ -9,7 +9,10 @@ const getByLimitRepairSchema = S.standardSchemaV1(
   RepairWithRelationsSchema.SchemaArray,
 );
 const getRecentActivitySchema = S.standardSchemaV1(
-  RepairSchema.RepairRecentActivitySchema.omit("past"),
+  RepairSchema.RepairRecentActivitySchema.omit("last"),
+);
+const getPaginationRepairSchema = S.standardSchemaV1(
+  RepairWithRelationsSchema.PaginationSchema,
 );
 
 const getByLimitDocs = describeRoute({
@@ -54,11 +57,34 @@ const getRecentActivityDocs = describeRoute({
   tags: ["Repair"],
 });
 
+const getPaginationDocs = describeRoute({
+  responses: {
+    200: {
+      content: {
+        "application/json": {
+          schema: resolver(getPaginationRepairSchema),
+        },
+      },
+      description: "Get Repair with pagination",
+    },
+  },
+  tags: ["Repair"],
+});
+
 const validateRequestByParam = validator(
   "param",
   S.standardSchemaV1(
     S.Struct({
       limit: S.String,
+    }),
+  ),
+);
+const validatePaginationByQuery = validator(
+  "query",
+  S.standardSchemaV1(
+    S.Struct({
+      page: S.String,
+      pageSize: S.String,
     }),
   ),
 );
@@ -74,6 +100,25 @@ export function setupRepairGetRoutes(repairService: RepairService) {
         "Get repair activity successfully",
       ) as ApiResponse<typeof result>;
     })
+    .get(
+      "/paginates",
+      getPaginationDocs,
+      validatePaginationByQuery,
+      async (c) => {
+        const { page, pageSize } = c.req.valid("query");
+
+        const result = await repairService.findPagination(
+          Number(page),
+          Number(pageSize),
+        );
+        return successResponse(
+          c,
+          result,
+          200,
+          "Get repair pagination successfully",
+        ) as ApiResponse<typeof result>;
+      },
+    )
     .get("/:limit", getByLimitDocs, validateRequestByParam, async (c) => {
       const { limit } = c.req.valid("param");
       const result = await repairService.findAllWithLimit(Number(limit));
