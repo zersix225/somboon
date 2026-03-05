@@ -20,7 +20,6 @@ import {
   AvatarImage,
 } from "@repo/shadcn/components/avatar";
 import { toast } from "sonner";
-import { Spinner } from "@repo/shadcn/components/spinner";
 import { CustomerType } from "@/types";
 import { usePostCustomer } from "@/hooks/api/useCustomer";
 
@@ -125,16 +124,7 @@ export default function CustomerField() {
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit" disabled={postCustomer.isPending}>
-              {postCustomer.isSuccess ? (
-                <div className="flex gap-2 items-center">
-                  <Spinner />
-                  Submit
-                </div>
-              ) : (
-                "Submit"
-              )}
-            </Button>
+            <Button type="submit">Submit</Button>
             <Button variant="outline" type="button" onClick={() => reset()}>
               Clear
             </Button>

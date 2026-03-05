@@ -19,9 +19,35 @@ export function findAllWithLimit(
         customer: true,
       },
     });
+    console.log(result);
     return Helpers.fromObjectToSchema(RepairWithRelationsSchema.SchemaArray)(
       result,
     );
+  };
+}
+
+export function findById(
+  prismaClient: PrismaType,
+): RepairRepository["findById"] {
+  return async (id) => {
+    const repair = await prismaClient.repair.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        service: true,
+      },
+    });
+    const customer = await prismaClient.customer.findUnique({
+      where: { id: repair?.customer_id },
+    });
+
+    const result = {
+      ...repair,
+      customer: customer,
+    };
+    console.log(result);
+    return Helpers.fromObjectToSchema(RepairWithRelationsSchema.Schema)(result);
   };
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import AnalysisCard from "@/components/cards/anlysis-card";
 import { ChartArea } from "@/components/chart/chart-area";
 import { DataTable } from "@/components/tables/data-table";
@@ -8,20 +8,33 @@ import { useGetRepair } from "@/hooks/api/useRepair";
 
 export default function Dashboard() {
   const { data } = useGetRepair("10");
+  // console.log(data)
+  //   const dataArray = data ? [data] : [];
 
   const columns = useMemo(
     () => [
       {
+        id: "full_name",
+        header: "Name",
+        cell: ({ row }: any) => {
+          const first = row.original?.customer?.first_name ?? "";
+          const last = row.original?.customer?.last_name ?? "";
+          const email = row.original?.customer?.email ?? "";
+          return (
+            <div>
+              <div className="font-bold">
+                {first}&nbsp;&nbsp;{last}
+              </div>
+              <div>
+                <span className="text-sm text-muted-foreground">{email}</span>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
         accessorKey: "model_car",
         header: "Model",
-      },
-      {
-        accessorKey: "customer.first_name",
-        header: "Firstname",
-      },
-      {
-        accessorKey: "customer.last_name",
-        header: "Lastname",
       },
       {
         accessorKey: "customer.phone",
@@ -42,6 +55,16 @@ export default function Dashboard() {
           return newFormat;
         },
       },
+      {
+        accessorKey: "created_at",
+        header: "Created At",
+        cell: ({ getValue }: any) => {
+          const time = getValue();
+          const date = new Date(time);
+
+          return date.toLocaleTimeString("th-TH", { timeZone: "Asia/Bangkok" });
+        },
+      },
     ],
     [],
   );
@@ -53,7 +76,9 @@ export default function Dashboard() {
           <AnalysisCard />
         </div>
         <ChartArea />
-        <DataTable columns={columns} data={data ?? []} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <DataTable columns={columns} data={data ?? []} />
+        </Suspense>
       </div>
     </div>
   );

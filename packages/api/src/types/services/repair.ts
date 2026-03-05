@@ -14,4 +14,7 @@ export type RepairService = {
     page: number,
     pageSize: number,
   ) => Promise<RepairWithRelationsSchema.PaginationRepair>;
+  findById: (
+    id: number,
+  ) => Promise<RepairWithRelationsSchema.RepairWithRelations>;
 };

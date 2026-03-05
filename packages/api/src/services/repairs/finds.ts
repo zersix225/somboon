@@ -9,6 +9,14 @@ export function findAllWithLimit(
   };
 }
 
+export function findById(
+  repairRepository: RepairRepository,
+): RepairService["findById"] {
+  return async (id) => {
+    return await repairRepository.findById(id);
+  };
+}
+
 export function findRecentActivity(
   repairRepository: RepairRepository,
 ): RepairService["findRecentActivity"] {

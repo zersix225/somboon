@@ -6,6 +6,7 @@ import * as RepairSchema from "@/schemas/repair";
 export const Schema = S.Struct({
   ...RepairSchema.Schema.fields,
   service: S.Array(ServiceSchema.Schema),
+  customer: CustomerSchema.Schema,
 });
 
 export type RepairWithRelations = S.Schema.Type<typeof Schema>;

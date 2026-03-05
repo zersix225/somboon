@@ -13,5 +13,6 @@ export default function initRepairService(
     findAllWithLimit: Finds.findAllWithLimit(repairRepository),
     findRecentActivity: Finds.findRecentActivity(repairRepository),
     findPagination: Finds.findPagination(repairRepository),
+    findById: Finds.findById(repairRepository),
   };
 }

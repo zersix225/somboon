@@ -98,20 +98,21 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      {pathname !== "/repair" && (
-        <div className="mb-5 flex justify-between items-center">
-          <div className="flex items-center gap-2">
-            <h1 className="font-medium">Repair Detail</h1>
+      {pathname === "/repair" ||
+        (pathname === "/dashboard" && (
+          <div className="mb-5 flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <h1 className="font-medium">Repair Detail</h1>
+            </div>
+            <Link
+              href={"/repair"}
+              className="group text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              View All
+              <IconArrowNarrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+            </Link>
           </div>
-          <Link
-            href={"/repair"}
-            className="group text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200"
-          >
-            View All
-            <IconArrowNarrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      )}
+        ))}
 
       <div className="overflow-hidden rounded-xl border border-border/60 shadow-sm">
         <Table>
@@ -140,16 +141,20 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row, i) => (
+              table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                   className="group border-b border-border/40 last:border-0 transition-colors duration-100 hover:bg-muted/30 data-[state=selected]:bg-primary/5"
-                  style={{ animationDelay: `${i * 30}ms` }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
+                      onClick={() => {
+                        if (pathname === "/repair") {
+                          router.push(`/repair/detail/${row.original.id}`);
+                        }
+                      }}
                       className="px-4 py-3 text-sm text-foreground/80"
                     >
                       {flexRender(
@@ -175,7 +180,17 @@ export function DataTable<TData, TValue>({
                           align="end"
                           className="w-40 text-sm"
                         >
-                          <DropdownMenuItem>View</DropdownMenuItem>
+                          <DropdownMenuItem
+                            onClick={() => {
+                              if (pathname === "/repair") {
+                                router.push(
+                                  `/repair/detail/${row.original.id}`,
+                                );
+                              }
+                            }}
+                          >
+                            View
+                          </DropdownMenuItem>
                           <DropdownMenuItem>Edit</DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem className="text-destructive focus:text-destructive">
@@ -194,7 +209,6 @@ export function DataTable<TData, TValue>({
                   className="h-32 text-center"
                 >
                   <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                    <div className="text-3xl opacity-20">—</div>
                     <span className="text-sm">No results found</span>
                   </div>
                 </TableCell>

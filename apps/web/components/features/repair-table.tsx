@@ -2,10 +2,10 @@
 
 import { useGetRepairPagination } from "@/hooks/api/useRepair";
 import { DataTable } from "@/components/tables/data-table";
-import { useMemo } from "react";
+import { useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function RepairForm() {
+function RepairTableContent() {
   const searchParams = useSearchParams();
   const page = searchParams.get("page") ?? "1";
   const pageSize = searchParams.get("pageSize") ?? "10";
@@ -69,6 +69,18 @@ export default function RepairForm() {
     ],
     [],
   );
+
+  return (
+    <DataTable
+      columns={columns}
+      data={data?.items ?? []}
+      totalPages={data?.totalPages}
+      totalCount={data?.totalCount}
+    />
+  );
+}
+
+export default function RepairTable() {
   return (
     <div className="flex flex-1 flex-col">
       <div className="@container/main flex flex-1 flex-col px-4 lg:px-6 py-4 md:py-6">
@@ -78,12 +90,9 @@ export default function RepairForm() {
             Enter the required data below this form
           </span>
         </div>
-        <DataTable
-          columns={columns}
-          data={data?.items ?? []}
-          totalPages={data?.totalPages}
-          totalCount={data?.totalCount}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <RepairTableContent />
+        </Suspense>
       </div>
     </div>
   );

@@ -11,5 +11,6 @@ export default function initRepairRepository(
     findAllWithLimit: Finds.findAllWithLimit(prismaClient),
     findRecentActivity: Finds.findRecentActivity(prismaClient),
     findPagination: Finds.findPagination(prismaClient),
+    findById: Finds.findById(prismaClient),
   };
 }

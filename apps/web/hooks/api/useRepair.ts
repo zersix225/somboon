@@ -28,11 +28,31 @@ export function usePostRepair() {
 
 export function useGetRepair(limit: string) {
   return useQuery({
-    queryKey: ["repairs"],
+    queryKey: ["repairsByLimit"],
     queryFn: async () => {
-      const res = await apiClient.repairs[":limit"].$get({
+      const res = await apiClient.repairs["repairLimit"][":limit"].$get({
         param: {
           limit: limit,
+        },
+      });
+      const body = await res.json();
+
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
+    },
+  });
+}
+
+export function useGetRepairById(id: string | undefined) {
+  return useQuery({
+    queryKey: ["repairsById"],
+    queryFn: async () => {
+      if (!id) return;
+      const res = await apiClient.repairs["repairId"][":id"].$get({
+        param: {
+          id: id,
         },
       });
       const body = await res.json();
