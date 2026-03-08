@@ -24,13 +24,14 @@ export const SchemaArray = S.Array(Schema);
 export type ServiceArray = S.Schema.Type<typeof SchemaArray>;
 export type ServiceArrayEncoded = S.Schema.Encoded<typeof SchemaArray>;
 
-export const CreateSchema = Schema.omit(
+export const CreateServiceSchema = Schema.omit(
   "_tag",
   "id",
   "created_at",
   "updated_at",
+  "repair_id",
 );
-export type ServiceRepair = S.Schema.Type<typeof CreateSchema>;
+export type CreateService = S.Schema.Type<typeof CreateServiceSchema>;
 
 export const UpdateSchema = Schema.omit("_tag", "created_at", "updated_at");
 export type UpdateService = S.Schema.Type<typeof UpdateSchema>;

@@ -31,9 +31,9 @@ const getByIdDocs = describeRoute({
           schema: resolver(getByIdCustomerSchema),
         },
       },
-      description: "Get Employee by EmployeeId",
+      description: "Get Customer by CustomerId",
     },
-    404: {
+    400: {
       content: {
         "application/json": {
           schema: resolver(

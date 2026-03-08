@@ -13,6 +13,7 @@ export function create(prismaClient: PrismaType): RepairRepository["create"] {
       },
       include: {
         service: true,
+        customer: true,
       },
     });
     return Helpers.fromObjectToSchema(RepairWithRelationsSchema.Schema)(result);

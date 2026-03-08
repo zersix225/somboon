@@ -1,9 +1,6 @@
 import type { PrismaType } from "@/config/prisma";
 import type { RepairRepository } from "@/types/repositories/repair";
 import { RepairWithRelationsSchema, Helpers } from "@/schemas";
-import { now } from "effect/DateTime";
-import type { PrismaClient } from "@prisma/client/extension";
-import { async } from "effect/Micro";
 
 export function findAllWithLimit(
   prismaClient: PrismaType,
@@ -19,10 +16,9 @@ export function findAllWithLimit(
         customer: true,
       },
     });
-    console.log(result);
-    return Helpers.fromObjectToSchema(RepairWithRelationsSchema.SchemaArray)(
-      result,
-    );
+    return Helpers.fromObjectToSchema(
+      RepairWithRelationsSchema.RepairWithRelationsSchemaArray,
+    )(result);
   };
 }
 
@@ -46,7 +42,6 @@ export function findById(
       ...repair,
       customer: customer,
     };
-    console.log(result);
     return Helpers.fromObjectToSchema(RepairWithRelationsSchema.Schema)(result);
   };
 }
@@ -123,7 +118,7 @@ export function findPagination(
     const totalPages = Math.ceil(totalCount / pageSize);
     const baseUrl = "/repairs/pagination";
     const items = Helpers.fromObjectToSchema(
-      RepairWithRelationsSchema.SchemaArray,
+      RepairWithRelationsSchema.RepairWithRelationsSchemaArray,
     )(result);
 
     return {

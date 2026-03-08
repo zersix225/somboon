@@ -6,7 +6,7 @@ import type { RepairService } from "@/types/services/repair";
 import { type ApiResponse, successResponse } from "@/utils/response";
 
 const standardRepairSchema = S.standardSchemaV1(
-  RepairWithRelationsSchema.Schema,
+  RepairWithRelationsSchema.Schema.omit("customer"),
 );
 
 const docs = describeRoute({
@@ -25,7 +25,7 @@ const docs = describeRoute({
 
 const validateRequestBody = validator(
   "json",
-  S.standardSchemaV1(RepairWithRelationsSchema.CreateSchema),
+  S.standardSchemaV1(RepairWithRelationsSchema.CreateRepairWithRelationsSchema),
 );
 
 export function setupRepairPostRoutes(repairService: RepairService) {

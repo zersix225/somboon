@@ -1,10 +1,9 @@
 import "@/config/env";
-import { Hono } from "hono";
+import { type Context, Hono } from "hono";
 import { prisma } from "@/config/prisma";
 import { setupOpenApi } from "@/config/setup-openapi";
 import { setupScalarDocs } from "@/config/setup-scalar";
 import healthzApp from "@/controllers/healthz";
-import { Error } from "@/middlewares";
 import initCustomerRepository from "@/repositories/customers";
 import initCustomerService from "@/services/customers";
 import * as CustomerControllers from "@/controllers/customers";
@@ -14,6 +13,8 @@ import { cors } from "hono/cors";
 import initRepairRepository from "@/repositories/repairs";
 import initRepairService from "@/services/repairs";
 import initUploadImageService from "@/services/uploadImage";
+import { AppError } from "@/errors";
+import { errorHandler } from "@/middlewares/error";
 
 const app = new Hono();
 setupOpenApi(app);
@@ -25,6 +26,8 @@ const customerService = initCustomerService(customerRepository);
 const repairService = initRepairService(repairRepository, customerRepository);
 
 const uploadImageService = initUploadImageService();
+
+app.onError(errorHandler);
 
 export const routes = app
 

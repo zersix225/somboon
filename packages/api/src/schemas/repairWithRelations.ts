@@ -2,6 +2,7 @@ import * as S from "effect/Schema";
 import * as CustomerSchema from "@/schemas/customer";
 import * as ServiceSchema from "@/schemas/service";
 import * as RepairSchema from "@/schemas/repair";
+import { CreateServiceSchema } from "@/schemas/service";
 
 export const Schema = S.Struct({
   ...RepairSchema.Schema.fields,
@@ -12,30 +13,26 @@ export const Schema = S.Struct({
 export type RepairWithRelations = S.Schema.Type<typeof Schema>;
 export type RepairWithRelationsEncoded = S.Schema.Encoded<typeof Schema>;
 
-export const CreateServiceSchema = ServiceSchema.Schema.omit(
-  "_tag",
-  "id",
-  "created_at",
-  "updated_at",
-  "repair_id",
-);
-export const CreateSchema = S.Struct({
+export const CreateRepairWithRelationsSchema = S.Struct({
   ...RepairSchema.Schema.omit("_tag", "id", "created_at", "updated_at").fields,
   service: S.Array(CreateServiceSchema),
 });
-export type CreateRepairWithRelations = S.Schema.Type<typeof CreateSchema>;
+export type CreateRepairWithRelations = S.Schema.Type<
+  typeof CreateRepairWithRelationsSchema
+>;
 
-export const SchemaArray = S.Array(
+export const RepairWithRelationsSchemaArray = S.Array(
   S.Struct({
     ...RepairSchema.Schema.fields,
     service: S.Array(ServiceSchema.Schema),
     customer: CustomerSchema.Schema,
   }),
 );
-export type RepairWithRelationsArray = S.Schema.Type<typeof SchemaArray>;
-
+export type RepairWithRelationsArray = S.Schema.Type<
+  typeof RepairWithRelationsSchemaArray
+>;
 export type RepairWithRelationsArrayEncoded = S.Schema.Encoded<
-  typeof SchemaArray
+  typeof RepairWithRelationsSchemaArray
 >;
 
 export const PaginationSchema = S.Struct({

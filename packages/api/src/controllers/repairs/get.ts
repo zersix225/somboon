@@ -1,12 +1,12 @@
 import { Hono } from "hono";
 import { describeRoute, resolver, validator } from "hono-openapi";
 import * as S from "effect/Schema";
-import { RepairWithRelationsSchema, RepairSchema } from "@/schemas";
+import { RepairWithRelationsSchema, RepairSchema, Branded } from "@/schemas";
 import type { RepairService } from "@/types/services/repair";
 import { type ApiResponse, successResponse } from "@/utils/response";
 
 const getByLimitRepairSchema = S.standardSchemaV1(
-  RepairWithRelationsSchema.SchemaArray,
+  RepairWithRelationsSchema.Schema,
 );
 const getRecentActivitySchema = S.standardSchemaV1(
   RepairSchema.RepairRecentActivitySchema.omit("last"),
@@ -25,20 +25,6 @@ const getByLimitDocs = describeRoute({
       },
       description: "Get Repair by Limit",
     },
-    404: {
-      content: {
-        "application/json": {
-          schema: resolver(
-            S.standardSchemaV1(
-              S.Struct({
-                message: S.String,
-              }),
-            ),
-          ),
-        },
-      },
-      description: "Can not find Repair",
-    },
   },
   tags: ["Repair"],
 });
@@ -52,20 +38,6 @@ const getByIdDocs = describeRoute({
         },
       },
       description: "Get Repair by Id",
-    },
-    404: {
-      content: {
-        "application/json": {
-          schema: resolver(
-            S.standardSchemaV1(
-              S.Struct({
-                message: S.String,
-              }),
-            ),
-          ),
-        },
-      },
-      description: "Can not find Repair",
     },
   },
   tags: ["Repair"],
@@ -111,7 +83,7 @@ const validateRequestById = validator(
   "param",
   S.standardSchemaV1(
     S.Struct({
-      id: S.String,
+      id: Branded.RepairIdFromString,
     }),
   ),
 );
@@ -172,8 +144,7 @@ export function setupRepairGetRoutes(repairService: RepairService) {
     )
     .get("repairId/:id", getByIdDocs, validateRequestById, async (c) => {
       const { id } = c.req.valid("param");
-      const result = await repairService.findById(Number(id));
-      console.log(result);
+      const result = await repairService.findById(id);
       return successResponse(
         c,
         result,

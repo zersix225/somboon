@@ -11,17 +11,19 @@ type RepairRecentActivity = Omit<
   "growthRate"
 >;
 
-export type CreateRepairDto =
-  RepairWithRelationsSchema.CreateRepairWithRelations;
-export type UpdateRepairDto = CreateRepairDto & { id?: Repair["id"] };
+type CreateRepair = RepairWithRelationsSchema.CreateRepairWithRelations;
+type UpdateRepair = RepairSchema.UpdateRepair;
+type PaginationRepair = RepairWithRelationsSchema.PaginationRepair;
 
 export type RepairRepository = {
-  create: (data: CreateRepairDto) => Promise<Repair>;
+  create: (data: CreateRepair) => Promise<Repair>;
   findAllWithLimit: (limit: number) => Promise<RepairArray>;
   findRecentActivity: () => Promise<RepairRecentActivity>;
-  findPagination: (
-    page: number,
-    pageSize: number,
-  ) => Promise<RepairWithRelationsSchema.PaginationRepair>;
+  findPagination: (page: number, pageSize: number) => Promise<PaginationRepair>;
   findById: (id: number) => Promise<Repair>;
+  remove: (id: Branded.RepairId) => Promise<Repair | null>;
+  updatePartial: (
+    id: Branded.RepairId,
+    data: UpdateRepair,
+  ) => Promise<RepairSchema.Repair>;
 };

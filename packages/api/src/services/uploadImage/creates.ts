@@ -12,7 +12,6 @@ export function create(): UploadImageService["create"] {
 
     try {
       const exists = await minioClient.bucketExists(bucket);
-
       if (!exists) {
         await minioClient.makeBucket(bucket, "us-east-1");
       }
@@ -24,7 +23,7 @@ export function create(): UploadImageService["create"] {
       }[] = [];
 
       for (const file of files) {
-        const objectName = file.name;
+        const objectName = `img/${file.name}`;
 
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);

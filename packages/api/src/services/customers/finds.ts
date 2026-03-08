@@ -1,6 +1,6 @@
 import type { CustomerRepository } from "@/types/repositories/customer";
 import type { CustomerService } from "@/types/services/customer";
-import { ValidationError } from "@/errors";
+import { NotFoundError } from "@/errors";
 
 export function findAll(
   customerRepository: CustomerRepository,
@@ -16,7 +16,7 @@ export function findById(
   return async (id) => {
     const customer = await customerRepository.findById(id);
     if (!customer) {
-      throw new ValidationError(`Customer not found of id ${id}`);
+      throw new NotFoundError(`Customer not found of id ${id}`);
     }
 
     return customer;

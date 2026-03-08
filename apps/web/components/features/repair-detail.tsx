@@ -18,6 +18,7 @@ import { FieldDescription, FieldLabel } from "@repo/shadcn/components/field";
 import * as React from "react";
 import { DataTable } from "@/components/tables/data-table";
 import { useMemo } from "react";
+import { Separator } from "@repo/shadcn/components/separator";
 
 export default function RepairDetail() {
   const pathname = usePathname().split("/");
@@ -67,7 +68,7 @@ export default function RepairDetail() {
                 #{data?.id}
               </h1>
             </div>
-            <div className="grid grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-3 lg:grid-cols-4 gap-3">
               <div className="mt-6">
                 <CardDescription>Created</CardDescription>
                 <p>{formatDate(data?.date_repair)}</p>
@@ -85,23 +86,41 @@ export default function RepairDetail() {
         </Card>
         <Card>
           <CardContent>
-            <div className="flex items-center gap-3">
-              <Avatar className="h-12 w-12 rounded-full">
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
+            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-y-3 gap-x-6">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-12 w-12 rounded-full">
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="@shadcn"
+                  />
+                  <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+                <div>
+                  <FieldLabel>
+                    {data?.customer.first_name} {data?.customer.last_name}
+                  </FieldLabel>
+                  <FieldDescription>ID {data?.customer.id}</FieldDescription>
+                </div>
+              </div>
+              <Separator orientation="horizontal" className="sm:hidden" />
+              <Separator
+                orientation="vertical"
+                className="hidden sm:block mx-2 data-[orientation=vertical]:h-8"
+              />
               <div>
-                <FieldLabel>
-                  {data?.customer.first_name} {data?.customer.last_name}
-                </FieldLabel>
-                <FieldDescription>ID {data?.customer.id}</FieldDescription>
+                <FieldLabel>Phone</FieldLabel>
+                <FieldDescription>{data?.customer.phone}</FieldDescription>
+              </div>
+              <Separator orientation="horizontal" className="sm:hidden" />
+              <Separator
+                orientation="vertical"
+                className="hidden sm:block mx-2 data-[orientation=vertical]:h-8"
+              />
+              <div>
+                <FieldLabel>Email</FieldLabel>
+                <FieldDescription>{data?.customer.email}</FieldDescription>
               </div>
             </div>
-            {/*<div className="grid grid-rows-1 gap-3 mt-3">*/}
-            {/*</div>*/}
           </CardContent>
         </Card>
         <DataTable columns={columns} data={data?.service ?? []} />

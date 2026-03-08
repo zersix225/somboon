@@ -1,7 +1,6 @@
 import * as S from "effect/Schema";
 import * as Branded from "@/schemas/branded";
 import * as GeneralSchema from "@/schemas/general";
-import { findRecentActivity } from "@/repositories/repairs/finds";
 
 export const Schema = S.Struct({
   id: Branded.RepairId,
@@ -47,7 +46,12 @@ export const CreateSchema = Schema.omit(
 );
 export type CreateRepair = S.Schema.Type<typeof CreateSchema>;
 
-export const UpdateSchema = Schema.omit("_tag", "created_at", "updated_at");
+export const UpdateSchema = Schema.omit(
+  "_tag",
+  "created_at",
+  "updated_at",
+  "customer_id",
+);
 export type UpdateRepair = S.Schema.Type<typeof UpdateSchema>;
 
 export const RepairRecentActivitySchema = S.Struct({
