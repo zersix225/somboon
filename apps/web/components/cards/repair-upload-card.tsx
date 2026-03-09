@@ -98,7 +98,11 @@ export default function RepairUploadCard({
                       <ItemTitle className="line-clamp-1">
                         {img.metaData.name}
                       </ItemTitle>
-                      <ItemDescription>{img.metaData.size}</ItemDescription>
+                      <ItemDescription>
+                        {img.metaData.size < 1024 * 1024
+                          ? `${(img.metaData.size / 1024).toFixed(2)} KB`
+                          : `${(img.metaData.size / (1024 * 1024)).toFixed(2)} MB`}
+                      </ItemDescription>
                     </ItemContent>
                     <ItemActions>
                       <Button

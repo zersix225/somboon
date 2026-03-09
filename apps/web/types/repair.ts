@@ -21,3 +21,11 @@ export const CreateRepairSchema = Schema.omit({
   service: z.array(ServiceType.CreateServiceSchema),
 });
 export type CreateRepair = z.infer<typeof CreateRepairSchema>;
+
+export const UpdateRepairSchema = Schema.omit({
+  customer_id: true,
+  created_at: true,
+  updated_at: true,
+  _tag: true,
+});
+export type UpdateRepair = z.infer<typeof UpdateRepairSchema>;

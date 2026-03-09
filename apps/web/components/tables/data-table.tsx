@@ -43,6 +43,17 @@ import {
 import { IconDotsVertical } from "@tabler/icons-react";
 import * as React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useDeleteRepair } from "@/hooks/api/useRepair";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@repo/shadcn/components/alert-dialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -63,6 +74,9 @@ export function DataTable<TData, TValue>({
 
   const page = Number(searchParams.get("page") ?? "1") - 1;
   const pageSize = Number(searchParams.get("pageSize") ?? "10");
+
+  const { mutate: deleteRepair } = useDeleteRepair();
+  const [deleteId, setDeleteId] = React.useState<string | null>(null);
 
   const updateParams = (updates: Record<string, string>) => {
     const params = new URLSearchParams({
@@ -98,21 +112,23 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      {pathname === "/repair" ||
-        (pathname === "/dashboard" && (
-          <div className="mb-5 flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <h1 className="font-medium">Repair Detail</h1>
-            </div>
-            <Link
-              href={"/repair"}
-              className="group text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              View All
-              <IconArrowNarrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </Link>
+      {pathname === "/dashboard" && (
+        <div className="mb-5 flex justify-between items-center">
+          <div className="items-center gap-2">
+            <h1 className="font-medium">Repair Overview</h1>
+            <span className="text-muted-foreground text-sm leading-normal font-normal">
+              A quick overview of the latest 10 repair jobs in the system
+            </span>
           </div>
-        ))}
+          <Link
+            href={"/repair"}
+            className="group text-sm flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors duration-200"
+          >
+            View All
+            <IconArrowNarrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+          </Link>
+        </div>
+      )}
 
       <div className="overflow-hidden rounded-xl border border-border/60 shadow-sm">
         <Table>
@@ -190,9 +206,10 @@ export function DataTable<TData, TValue>({
                           >
                             View
                           </DropdownMenuItem>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem className="text-destructive focus:text-destructive">
+                          <DropdownMenuItem
+                            className="text-destructive focus:text-destructive"
+                            onClick={() => setDeleteId(row.original.id)}
+                          >
                             Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -315,6 +332,31 @@ export function DataTable<TData, TValue>({
           </div>
         </div>
       )}
+      <AlertDialog
+        open={!!deleteId}
+        onOpenChange={(open) => !open && setDeleteId(null)}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Repair Record?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This repair record will be
+              permanently deleted.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (deleteId) deleteRepair(deleteId);
+                setDeleteId(null);
+              }}
+            >
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

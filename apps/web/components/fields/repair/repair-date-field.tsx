@@ -9,11 +9,11 @@ import { Field, FieldLabel } from "@repo/shadcn/components/field";
 import { useMemo } from "react";
 
 type DateProps = {
-  day: string;
+  day: string | undefined;
   setDay: (v: string) => void;
-  month: string;
+  month: string | undefined;
   setMonth: (v: string) => void;
-  year: string;
+  year: string | undefined;
   setYear: (v: string) => void;
 };
 

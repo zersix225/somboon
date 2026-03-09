@@ -11,6 +11,17 @@ import {
   FieldLabel,
   FieldSet,
 } from "@repo/shadcn/components/field";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@repo/shadcn/components/alert-dialog";
 import { Input } from "@repo/shadcn/components/input";
 import * as React from "react";
 import { Card, CardContent } from "@repo/shadcn/components/card";
@@ -51,7 +62,7 @@ export default function CustomerField() {
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form id="customer-form" onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <FieldSet>
             <Field>
@@ -124,7 +135,26 @@ export default function CustomerField() {
             </FieldGroup>
           </FieldSet>
           <Field orientation="horizontal">
-            <Button type="submit">Submit</Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button>Submit</Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction type="submit" form="customer-form">
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             <Button variant="outline" type="button" onClick={() => reset()}>
               Clear
             </Button>

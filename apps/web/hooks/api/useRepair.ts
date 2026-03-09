@@ -99,3 +99,50 @@ export function useGetRecentActivityRepair() {
     },
   });
 }
+
+export function useDeleteRepair() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      const res = await apiClient.repairs[":id"].$delete({
+        param: { id },
+      });
+      const body = await res.json();
+
+      // if (!body.success) {
+      //   throw new Error(body.error.message);
+      // }
+
+      return body.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["repairs"],
+      });
+      queryClient.invalidateQueries({ queryKey: ["repairsPagination"] });
+    },
+  });
+}
+
+export function useUpdateRepair() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: RepairType.UpdateRepair) => {
+      const res = await apiClient.repairs.$patch({
+        json: data,
+      });
+      const body = await res.json();
+
+      // if (!body.success) {
+      //   throw new Error(body.error.message);
+      // }
+
+      return body.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["repairsById"],
+      });
+    },
+  });
+}

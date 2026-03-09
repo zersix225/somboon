@@ -43,7 +43,7 @@ export default function AnalysisCard() {
       </Card>
       <Card className="w-full">
         <CardHeader>
-          <CardDescription>Active Accounts</CardDescription>
+          <CardDescription>Total Customers</CardDescription>
           <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
             45,678
           </CardTitle>

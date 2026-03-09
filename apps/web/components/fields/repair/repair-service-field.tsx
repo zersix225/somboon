@@ -29,7 +29,7 @@ export function RepairServiceField({
           type="button"
           onClick={() => append({ detail: "", price: 0 })}
         >
-          <IconCircleDashedPlus stroke={2} className="size-4" />
+          <IconCircleDashedPlus stroke={2} className="size-5" />
         </Button>
       </div>
 
@@ -54,7 +54,6 @@ export function RepairServiceField({
             />
 
             <Button
-              size="icon"
               type="button"
               variant="destructive"
               className="size-7"

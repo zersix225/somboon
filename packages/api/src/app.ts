@@ -39,7 +39,7 @@ export const routes = app
         "https://www.somboonautoair.xyz",
         "http://localhost:5173",
       ],
-      allowMethods: ["GET", "POST", "PUT", "DELETE"],
+      allowMethods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
       allowHeaders: ["Content-Type", "Authorization"],
       credentials: true,
     }),
