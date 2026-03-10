@@ -167,7 +167,9 @@ export function DataTable<TData, TValue>({
                       key={cell.id}
                       onClick={() => {
                         if (pathname === "/repair") {
-                          router.push(`/repair/detail/${row.original.id}`);
+                          router.push(
+                            `/repair/detail/${(row.original as { id: string | number }).id}`,
+                          );
                         }
                       }}
                       className="px-4 py-3 text-sm text-foreground/80"
@@ -199,7 +201,7 @@ export function DataTable<TData, TValue>({
                             onClick={() => {
                               if (pathname === "/repair") {
                                 router.push(
-                                  `/repair/detail/${row.original.id}`,
+                                  `/repair/detail/${(row.original as { id: string | number }).id}`,
                                 );
                               }
                             }}
@@ -208,7 +210,9 @@ export function DataTable<TData, TValue>({
                           </DropdownMenuItem>
                           <DropdownMenuItem
                             className="text-destructive focus:text-destructive"
-                            onClick={() => setDeleteId(row.original.id)}
+                            onClick={() =>
+                              setDeleteId((row.original as { id: string }).id)
+                            }
                           >
                             Delete
                           </DropdownMenuItem>
