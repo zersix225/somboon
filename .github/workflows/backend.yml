@@ -29,7 +29,8 @@ jobs:
         run: pnpm check-types
 
       - name: Generate Prisma client
-        run: pnpm prisma generate
+        run: pnpm --filter @repo/api exec prisma generate
+        working-directory: packages/api
 
   build:
     runs-on: ubuntu-latest

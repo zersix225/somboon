@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "dev": "rslib build --watch",
-    "build": "rslib build",
+    "build": "prisma generate && rslib build",
     "start": "node ./dist/esm/index.js",
     "prisma:pull": "dotenv -e ../../.env.development -- prisma db pull",
     "prisma:push": "dotenv -e ../../.env.development -- prisma db push",
