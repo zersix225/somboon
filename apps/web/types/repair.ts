@@ -11,6 +11,10 @@ const Schema = z.object({
   updated_at: z.string(),
   _tag: z.string(),
 });
+export type Repair = z.infer<typeof Schema>;
+
+export const RepairArraySchema = z.array(Schema);
+export type RepairArray = z.infer<typeof RepairArraySchema>;
 
 export const CreateRepairSchema = Schema.omit({
   id: true,

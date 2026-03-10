@@ -1,13 +1,16 @@
 "use client";
 
 import { Suspense, useMemo } from "react";
+import { RepairType } from "@/types";
 import AnalysisCard from "@/components/cards/anlysis-card";
 import { ChartArea } from "@/components/chart/chart-area";
 import { DataTable } from "@/components/tables/data-table";
-import { useGetRepair } from "@/hooks/api/useRepair";
+import { useGetRepairByLimit } from "@/hooks/api/useRepair";
+import { Button } from "@repo/shadcn/components/button";
+import { exportCSV } from "@/utils/csv-helper";
 
 export default function Dashboard() {
-  const { data } = useGetRepair("10");
+  const { data } = useGetRepairByLimit("10");
   // console.log(data)
   //   const dataArray = data ? [data] : [];
 
@@ -75,7 +78,7 @@ export default function Dashboard() {
         <div className="">
           <AnalysisCard />
         </div>
-        <ChartArea />
+        {/*<ChartArea />*/}
         <Suspense fallback={<div>Loading...</div>}>
           <DataTable columns={columns} data={data ?? []} />
         </Suspense>

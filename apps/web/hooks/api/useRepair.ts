@@ -26,7 +26,7 @@ export function usePostRepair() {
   });
 }
 
-export function useGetRepair(limit: string) {
+export function useGetRepairByLimit(limit: string) {
   return useQuery({
     queryKey: ["repairsByLimit"],
     queryFn: async () => {
@@ -35,6 +35,21 @@ export function useGetRepair(limit: string) {
           limit: limit,
         },
       });
+      const body = await res.json();
+
+      if (!body.success) {
+        throw new Error(body.error.message);
+      }
+      return body.data;
+    },
+  });
+}
+
+export function useGetRepairAll() {
+  return useQuery({
+    queryKey: ["repairsByLimit"],
+    queryFn: async () => {
+      const res = await apiClient.repairs.$get();
       const body = await res.json();
 
       if (!body.success) {

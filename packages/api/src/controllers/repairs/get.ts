@@ -142,6 +142,15 @@ export function setupRepairGetRoutes(repairService: RepairService) {
         ) as ApiResponse<typeof result>;
       },
     )
+    .get("/", getByLimitDocs, async (c) => {
+      const result = await repairService.findAll();
+      return successResponse(
+        c,
+        result,
+        200,
+        "Get repair all successfully",
+      ) as ApiResponse<typeof result>;
+    })
     .get("repairId/:id", getByIdDocs, validateRequestById, async (c) => {
       const { id } = c.req.valid("param");
       const result = await repairService.findById(id);

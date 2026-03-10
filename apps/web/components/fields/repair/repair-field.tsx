@@ -9,17 +9,6 @@ import {
   FieldSeparator,
   FieldSet,
 } from "@repo/shadcn/components/field";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@repo/shadcn/components/alert-dialog";
 import { Input } from "@repo/shadcn/components/input";
 import { Textarea } from "@repo/shadcn/components/textarea";
 import CustomerDropdown from "@/components/dropdowns/customer-dropdown";
@@ -77,15 +66,15 @@ export default function RepairField() {
   };
 
   return (
-    <div className="w-full">
+    <div>
       <form id="repair-form" onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
           <FieldSet>
             <FieldSet>
               <FieldGroup>
-                <Field>
-                  <RepairUploadCard dragUpload={dragUpload} />
-                </Field>
+                {/*<Field>*/}
+                {/*  /!*<RepairUploadCard dragUpload={dragUpload} />*!/*/}
+                {/*</Field>*/}
                 <Field>
                   <Controller
                     name="customer_id"

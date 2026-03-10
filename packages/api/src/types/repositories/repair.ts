@@ -18,6 +18,7 @@ type PaginationRepair = RepairWithRelationsSchema.PaginationRepair;
 export type RepairRepository = {
   create: (data: CreateRepair) => Promise<Repair>;
   findAllWithLimit: (limit: number) => Promise<RepairArray>;
+  findAll: () => Promise<RepairArray>;
   findRecentActivity: () => Promise<RepairRecentActivity>;
   findPagination: (page: number, pageSize: number) => Promise<PaginationRepair>;
   findById: (id: number) => Promise<Repair>;

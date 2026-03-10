@@ -13,6 +13,7 @@ export default function initRepairService(
   return {
     create: Creates.create(repairRepository, customerRepository),
     findAllWithLimit: Finds.findAllWithLimit(repairRepository),
+    findAll: Finds.findAll(repairRepository),
     findRecentActivity: Finds.findRecentActivity(repairRepository),
     findPagination: Finds.findPagination(repairRepository),
     findById: Finds.findById(repairRepository),

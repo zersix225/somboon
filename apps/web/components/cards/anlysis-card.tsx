@@ -12,7 +12,7 @@ import { useGetRecentActivityRepair } from "@/hooks/api/useRepair";
 export default function AnalysisCard() {
   const { data } = useGetRecentActivityRepair();
   return (
-    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 @xl/main:grid-cols-1 @5xl/main:grid-cols-3">
       <Card className="w-full">
         <CardHeader>
           <CardDescription>Total Repairs</CardDescription>
@@ -20,10 +20,10 @@ export default function AnalysisCard() {
             {data?.total}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +12.5%
-            </Badge>
+            {/*<Badge variant="outline">*/}
+            {/*  <IconTrendingUp />*/}
+            {/*  +12.5%*/}
+            {/*</Badge>*/}
           </CardAction>
         </CardHeader>
       </Card>
@@ -34,27 +34,27 @@ export default function AnalysisCard() {
             {data?.currentRepair}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <IconTrendingDown />
-              -20%
-            </Badge>
+            {/*<Badge variant="outline">*/}
+            {/*  <IconTrendingDown />*/}
+            {/*  -20%*/}
+            {/*</Badge>*/}
           </CardAction>
         </CardHeader>
       </Card>
-      <Card className="w-full">
-        <CardHeader>
-          <CardDescription>Total Customers</CardDescription>
-          <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-            45,678
-          </CardTitle>
-          <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +12.5%
-            </Badge>
-          </CardAction>
-        </CardHeader>
-      </Card>
+      {/*<Card className="w-full">*/}
+      {/*  <CardHeader>*/}
+      {/*    <CardDescription>Total Customers</CardDescription>*/}
+      {/*    <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">*/}
+      {/*      45,678*/}
+      {/*    </CardTitle>*/}
+      {/*    <CardAction>*/}
+      {/*      /!*<Badge variant="outline">*!/*/}
+      {/*      /!*  <IconTrendingUp />*!/*/}
+      {/*      /!*  +12.5%*!/*/}
+      {/*      /!*</Badge>*!/*/}
+      {/*    </CardAction>*/}
+      {/*  </CardHeader>*/}
+      {/*</Card>*/}
       <Card className="w-full">
         <CardHeader>
           <CardDescription>Growth Rate</CardDescription>
@@ -62,10 +62,10 @@ export default function AnalysisCard() {
             {data?.growthRate}
           </CardTitle>
           <CardAction>
-            <Badge variant="outline">
-              <IconTrendingUp />
-              +4.5%
-            </Badge>
+            {/*<Badge variant="outline">*/}
+            {/*  <IconTrendingUp />*/}
+            {/*  +4.5%*/}
+            {/*</Badge>*/}
           </CardAction>
         </CardHeader>
       </Card>

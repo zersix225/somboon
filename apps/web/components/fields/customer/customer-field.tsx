@@ -64,28 +64,28 @@ export default function CustomerField() {
     <div className="w-full">
       <form id="customer-form" onSubmit={handleSubmit(onSubmit)}>
         <FieldGroup>
-          <FieldSet>
-            <Field>
-              <Card className="w-full">
-                <CardContent>
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-8 w-8 rounded-full">
-                      <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="@shadcn"
-                      />
-                      <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                    <FieldDescription>
-                      {firstName || lastName
-                        ? `${firstName ?? ""} ${lastName ?? ""}`
-                        : "John Doe"}
-                    </FieldDescription>
-                  </div>
-                </CardContent>
-              </Card>
-            </Field>
-          </FieldSet>
+          {/*<FieldSet>*/}
+          {/*  <Field>*/}
+          {/*    <Card className="w-full">*/}
+          {/*      <CardContent>*/}
+          {/*        <div className="flex items-center gap-2">*/}
+          {/*          <Avatar className="h-8 w-8 rounded-full">*/}
+          {/*            <AvatarImage*/}
+          {/*              src="https://github.com/shadcn.png"*/}
+          {/*              alt="@shadcn"*/}
+          {/*            />*/}
+          {/*            <AvatarFallback>CN</AvatarFallback>*/}
+          {/*          </Avatar>*/}
+          {/*          <FieldDescription>*/}
+          {/*            {firstName || lastName*/}
+          {/*              ? `${firstName ?? ""} ${lastName ?? ""}`*/}
+          {/*              : "John Doe"}*/}
+          {/*          </FieldDescription>*/}
+          {/*        </div>*/}
+          {/*      </CardContent>*/}
+          {/*    </Card>*/}
+          {/*  </Field>*/}
+          {/*</FieldSet>*/}
           <FieldSet>
             <FieldGroup>
               <Field>

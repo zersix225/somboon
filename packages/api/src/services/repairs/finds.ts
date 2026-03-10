@@ -9,6 +9,14 @@ export function findAllWithLimit(
   };
 }
 
+export function findAll(
+  repairRepository: RepairRepository,
+): RepairService["findAll"] {
+  return async () => {
+    return await repairRepository.findAll();
+  };
+}
+
 export function findById(
   repairRepository: RepairRepository,
 ): RepairService["findById"] {

@@ -60,13 +60,8 @@ export const nav = {
     },
     {
       name: "Export",
-      url: "#",
+      url: "/export",
       icon: IconDatabase,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
     },
   ],
 };

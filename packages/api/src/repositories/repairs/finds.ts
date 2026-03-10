@@ -22,6 +22,23 @@ export function findAllWithLimit(
   };
 }
 
+export function findAll(prismaClient: PrismaType): RepairRepository["findAll"] {
+  return async () => {
+    const result = await prismaClient.repair.findMany({
+      orderBy: {
+        created_at: "desc",
+      },
+      include: {
+        service: true,
+        customer: true,
+      },
+    });
+    return Helpers.fromObjectToSchema(
+      RepairWithRelationsSchema.RepairWithRelationsSchemaArray,
+    )(result);
+  };
+}
+
 export function findById(
   prismaClient: PrismaType,
 ): RepairRepository["findById"] {
