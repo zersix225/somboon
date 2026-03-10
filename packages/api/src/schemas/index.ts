@@ -1,0 +1,10 @@
+export * as Branded from "@/schemas/branded";
+export * as CustomerSchema from "@/schemas/customer";
+export * as ServiceSchema from "@/schemas/service";
+export * as RepairSchema from "@/schemas/repair";
+export * as UploadImageSchema from "@/schemas/uploadImage";
+export * as CustomerWithRelationsSchema from "@/schemas/customerWithRelations";
+export * as ServiceWithRelationsSchema from "@/schemas/serviceWithRelatios";
+export * as RepairWithRelationsSchema from "@/schemas/repairWithRelations";
+export * as GeneralSchema from "@/schemas/general";
+export * as Helpers from "@/schemas/helpers";

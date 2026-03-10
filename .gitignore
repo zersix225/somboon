@@ -36,3 +36,10 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+.env.production
+packages/prisma/.env.dev.
+.env.development
+
+pgadmin
+db-data

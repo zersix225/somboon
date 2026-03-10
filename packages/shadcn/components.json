@@ -10,6 +10,9 @@
     "cssVariables": true,
     "prefix": ""
   },
+  "registries": {
+    "@shadcn-glass-ui": "https://raw.githubusercontent.com/Yhooi2/shadcn-glass-ui-library/main/public/r"
+  },
   "aliases": {
     "components": "@repo/shadcn/components",
     "ui": "@repo/shadcn/components",

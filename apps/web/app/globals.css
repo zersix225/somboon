@@ -5,14 +5,13 @@
 @source "../../../packages/shadcn/src/**/*.{ts,tsx}";
 
 @layer base {
-  body {
-    font-family: "Poppins", system-ui, sans-serif;
-    font-size: 14px;
-  }
+  html {
+    font-size: 16px;
 
-  @media (min-width: 1024px) {
-    body {
-      font-family: "Poppins", system-ui, sans-serif;
+    @media (min-width: 1024px) {
+      font-size: 14px;
+    }
+    @media (min-width: 1280px) {
       font-size: 16px;
     }
   }

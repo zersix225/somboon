@@ -1,10 +1,11 @@
 {
   "name": "api",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "dist/esm/index.js",
   "scripts": {
-    "dev": "tsx watch --include '../../packages/*/dist/**/*.js' src/index.ts",
+    "dev": "tsx watch  --include '../../packages/*/dist/**/*.js' src/index.ts",
     "build": "rslib build",
     "start": "node ./dist/esm/index.js",
     "check": "tsc --noEmit"
@@ -14,11 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "@hono/node-server": "^1.19.6",
+    "@hono/standard-validator": "^0.2.2",
     "@repo/api": "workspace:*"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
-    "@repo/prisma": "workspace:*",
     "@repo/rslib-config": "workspace:*",
     "@rslib/core": "^0.19.1",
     "@total-typescript/tsconfig": "^1.0.4",

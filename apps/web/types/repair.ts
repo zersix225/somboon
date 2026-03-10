@@ -1,0 +1,35 @@
+import { z } from "zod";
+import { ServiceType } from "@/types";
+
+const Schema = z.object({
+  id: z.number(),
+  customer_id: z.number(),
+  comment: z.string(),
+  model_car: z.string().nonempty({ message: "Car model must be provided" }),
+  date_repair: z.string(),
+  created_at: z.string(),
+  updated_at: z.string(),
+  _tag: z.string(),
+});
+export type Repair = z.infer<typeof Schema>;
+
+export const RepairArraySchema = z.array(Schema);
+export type RepairArray = z.infer<typeof RepairArraySchema>;
+
+export const CreateRepairSchema = Schema.omit({
+  id: true,
+  created_at: true,
+  updated_at: true,
+  _tag: true,
+}).extend({
+  service: z.array(ServiceType.CreateServiceSchema),
+});
+export type CreateRepair = z.infer<typeof CreateRepairSchema>;
+
+export const UpdateRepairSchema = Schema.omit({
+  customer_id: true,
+  created_at: true,
+  updated_at: true,
+  _tag: true,
+});
+export type UpdateRepair = z.infer<typeof UpdateRepairSchema>;
