@@ -72,9 +72,9 @@ export default function RepairField() {
           <FieldSet>
             <FieldSet>
               <FieldGroup>
-                {/*<Field>*/}
-                {/*  /!*<RepairUploadCard dragUpload={dragUpload} />*!/*/}
-                {/*</Field>*/}
+                <Field>
+                  <RepairUploadCard dragUpload={dragUpload} />
+                </Field>
                 <Field>
                   <Controller
                     name="customer_id"
